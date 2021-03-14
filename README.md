@@ -1,2 +1,2 @@
-# insights
- 
+
+# insights.onclick.gg

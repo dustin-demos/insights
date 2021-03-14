@@ -1,0 +1,37 @@
+
+$white: #fff;
+$black: #000;
+
+// $dark: rgb(23, 23, 27);
+// $light: rgb(223, 223, 223);
+
+$blue: rgb(127, 191, 255);
+$purple: rgb(191, 127, 255);
+$blurple: mix($blue, $purple);
+$gradient: linear-gradient(45deg, $white -30%, $blue, $purple);
+
+// New Lavender
+$lavender: rgb(137, 154, 239);
+$blue: rgb(15, 119, 239);
+$orange: rgb(255, 119, 63);
+
+// Pastel Colors (Lab to sRGB)
+$pastel-red: rgb(252, 121, 134);    // 65  55  15
+$pastel-orange: rgb(255, 161, 99);  // 75  31  47
+$pastel-yellow: rgb(255, 200, 123); // 85  15  47
+$pastel-green: rgb(145, 199, 126);  // 75 -31  31
+$pastel-blue: rgb(0, 189, 226);     // 70 -31 -31
+$pastel-purple: rgb(185, 159, 227); // 70  23 -31
+
+// Desaturated Dark (Lab to sRGB)
+$dark-600: rgb(16, 17, 18); //  5 0 -1
+$dark-500: rgb(26, 28, 30); // 10 0 -2
+$dark-400: rgb(36, 38, 42); // 15 0 -3
+$dark-300: rgb(45, 49, 54); // 20 0 -4
+$dark-200: rgb(55, 60, 67); // 25 0 -5
+$dark-100: rgb(66, 71, 80); // 30 0 -6
+
+$dark-450: mix($dark-400, $dark-500);
+
+// Third Party
+$facebook-blue: #1877f2;

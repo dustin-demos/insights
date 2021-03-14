@@ -1,0 +1,49 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'>
+  <style type='text/css'>
+    #circle {
+      fill: url(#gradient);
+    }
+
+    #grid path {
+      stroke-width: 0.25;
+      stroke: #24262a;
+    }
+
+    #line {
+      stroke-width: 0.25;
+      stroke: #0f77ef;
+      fill: none;
+    }
+
+    #dots circle {
+      fill: #0f77ef;
+    }
+  </style>
+  <defs>
+    <linearGradient id='gradient' gradientTransform='rotate(90)'>
+      <stop stop-color='#1f2124' offset='0%'/>
+      <stop stop-color='#24262a' offset='83.333%'/>
+    </linearGradient>
+    <clipPath id='clip'>
+      <circle cx='6' cy='6' r='5'/>
+    </clipPath>
+  </defs>
+  <circle id='circle' cx='6' cy='6' r='5'/>
+  <g id='grid' clip-path='url(#clip)'>
+    <path d='M 0 2 L 12 2'/>
+    <path d='M 0 3.25 L 12 3.25'/>
+    <path d='M 0 4.5 L 12 4.5'/>
+    <path d='M 0 5.75 L 12 5.75'/>
+    <path d='M 0 7 L 12 7'/>
+    <path d='M 0 8.25 L 12 8.25'/>
+  </g>
+  <path id='line' d='M 1 7.5 L 3 4.5 L 5 6.5 L 7 3 L 9 8 L 11 5.5'/>
+  <g id='dots'>
+    <circle cx='1' cy='7.5' r='0.5'/>
+    <circle cx='3' cy='4.5' r='0.6'/>
+    <circle cx='5' cy='6.5' r='0.7'/>
+    <circle cx='7' cy='3' r='0.6'/>
+    <circle cx='9' cy='8' r='0.5'/>
+    <circle cx='11' cy='5.5' r='0.4'/>
+  </g>
+</svg>

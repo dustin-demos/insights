@@ -1,0 +1,129 @@
+{
+  "data": [
+    {
+      "title": "Experience",
+      "column": [
+        {
+          "heading": "Frontend Developer",
+          "subheading": [
+            "SevenVerbs - Urbandale, Iowa",
+            "April - August 2014"
+          ],
+          "list": [
+            "Converted existing static web designs into WordPress, Drupal, Sitefinity, and Joomla.",
+            "Designed and developed original websites, business cards, logos, infographics, and other printed and digital documents.",
+            "Added features, tweaked designs, and updated content on existing apps."
+          ]
+        },
+        {
+          "heading": "Frontend Developer and Designer",
+          "subheading": [
+            "Self-employed - Indianola, Iowa",
+            "August 2014 - February 2016"
+          ],
+          "list": [
+            "Various freelance design."
+          ]
+        },
+        {
+          "heading": "Senior Software Developer",
+          "subheading": [
+            "Access Publishing Inc. - Johnston, Iowa",
+            "February 2016 - November 2019"
+          ],
+          "list": [
+            "Designed unique aesthetic mobile-first web apps.",
+            "Implemented a variety of responsive web apps from the ground up for aggregating and leasing/financing semi-trucks, semi-trailers, and heavy machinery.",
+            "Worked on Node.js microservices to automate data uploads of hundreds of thousands of site listings and images daily from each client's unique data structures.",
+            "Heavily optimized web apps for SEO, mobile devices, and slow 3g connections, using micro-frameworks and a custom static rendering solution.",
+            "Designed and implemented inventory management and leasing/financing dashboards for large semi-truck and heavy machinery dealerships and lessors.",
+            "Worked with many frameworks and platforms like Vue.js, Hyperapp, Angular, Node.js, Express, Koa, Micro, Netlify, Heroku, AWS, and MongoDB.",
+            "Managed targeted social media marketing campaigns across popular platforms.",
+            "Implemented fine-grained conversion tracking with Google Analytics' event system.",
+            "Implemented an email notification system using Sparkpost."
+          ]
+        },
+        {
+          "heading": "Frontend Developer",
+          "subheading": [
+            "Self-employed - Des Moines, Iowa",
+            "November 2019 - Current"
+          ],
+          "list": [
+            "Learning and creating new apps, libraries, and frameworks.",
+            "Various freelance design."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Design",
+      "column": [
+        {
+          "heading": "Web Design",
+          "list": [
+            "Deep understanding of how to design responsive and adaptive mobile-first web apps.",
+            "Knowledge of how to create and organize UI kits and implement style guidelines.",
+            "Love for minimal CSS."
+          ]
+        },
+        {
+          "heading": "Graphic Design",
+          "list": [
+            "Great sense of design and acute attention to detail.",
+            "Lots of experience designing for both print and digital."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technical",
+      "column": [
+        {
+          "heading": "Software",
+          "list": [
+            "Experienced with all kinds of creative software like Blender, Autodesk 3ds Max, Photoshop, Illustrator, After Effects, Procreate, ArtStudio Pro, Medibang, and more."
+          ]
+        },
+        {
+          "heading": "Languages",
+          "list": [
+            "Extensive knowledge of JavaScript and JS frameworks.",
+            "Some experience using TypeScript.",
+            "Hello world's completed in Ruby, Python, Elm, and Rust.",
+            "Tons of experience with CSS preprocessors like Sass, Less, Stylus, and PostCSS."
+          ]
+        },
+        {
+          "heading": "Content Management Systems",
+          "list": [
+            "Extensive experience with WordPress, Drupal, Sitefinity, and Joomla.",
+            "Some experience with Netlify CMS, Grav CMS, Pico, Kirby, and Craft."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Education",
+      "column": [
+        {
+          "heading": "Associate of Arts and Sciences",
+          "subheading": [
+            "2012 - 2014",
+            "DMACC Ankeny Campus"
+          ],
+          "list": [
+            "Graphic Design with Web Emphasis"
+          ]
+        },
+        {
+          "heading": "High School Diploma",
+          "subheading": [
+            "2008 - 2012",
+            "Southeast Warren Jr. / Sr. High School"
+          ]
+        }
+      ]
+    }
+  ]
+}

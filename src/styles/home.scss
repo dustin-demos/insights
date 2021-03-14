@@ -1,0 +1,155 @@
+
+$icon-check-circle-outline: ic-check-circle-outline-24px($white);
+$icon-check-circle: ic-check-circle-24px($white);
+$icon-facebook: ic-facebook-24px($white);
+
+$card-avatar-size: 288px - 72px - 36px;
+
+.home {
+  display: grid;
+  grid: 1fr / auto;
+  min-height: 100vh;
+}
+
+.card {
+  width: 375px;
+  margin: auto;
+  padding: 24px;
+  user-select: none;
+}
+
+.card-graphic {
+  height: 288px - 60px - 18px;
+  background: url('/cache/graphic-svgo.svg') top -18px center/288px no-repeat;
+}
+
+.card-avatar {
+  width: $card-avatar-size;
+  height: $card-avatar-size;
+  margin: 12px auto 24px;
+  border-radius: $card-avatar-size / 2;
+  background-color: $dark-500;
+  background-size: cover;
+}
+
+.card-main {
+  padding: 0 12px;
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  h2,
+  p {
+    font: 400 16px/28px sans-serif;
+  }
+
+  h1 {
+    font: 600 36px/1 sans-serif;
+  }
+
+  h2 {
+    color: mix($dark-100, $white, 75%);
+  }
+
+  p {
+    margin: 12px 0 0;
+  }
+}
+
+.card-body {
+  padding: 0 12px;
+
+  h1 {
+    font: 600 30px/42px sans-serif;
+    text-align: center;
+  }
+
+  p {
+    margin: 12px 0 0;
+    font: 400 16px/28px sans-serif;
+  }
+}
+
+.card-button {
+  display: flex;
+  padding: 18px 0 6px;
+
+  a {
+    margin: auto;
+    padding: 0 18px;
+    border-radius: 6px;
+    font: 600 16px/42px sans-serif;
+    background: $blue;
+    cursor: pointer;
+
+    &.-facebook {
+      padding: 0 18px 0 48px;
+      background: $blue url($icon-facebook) 12px/30px no-repeat;
+    }
+
+    &.-disable {
+      color: mix($dark-100, $white);
+      background: $dark-100;
+      pointer-events: none;
+    }
+  }
+}
+
+.account-list {
+  padding: 12px 0 6px;
+}
+
+.account-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 27px;
+  background-size: cover;
+}
+
+.account-item {
+  display: flex;
+  padding: 12px (18px + 24px) 12px 18px;
+  border-radius: 6px;
+  background: $dark-500 url($icon-check-circle-outline) right 18px center no-repeat;
+  cursor: pointer;
+
+  &.-active {
+    background: $facebook-blue url($icon-check-circle) right 18px center no-repeat;
+  }
+}
+
+.account-details {
+  padding: 6px 0 0 18px;
+
+  h1 {
+    margin: auto 0 0;
+    font: 600 18px/24px sans-serif;
+  }
+
+  div {
+    margin: 0 0 auto;
+    font: 400 13px/18px sans-serif;
+    opacity: 0.625;
+  }
+}
+
+@media (min-width: 375px + 1px) {
+  .home {
+    min-height: calc(100vh - 72px);
+    margin: 72px auto 0;
+  }
+
+  .card {
+    border-radius: 12px;
+    background: $dark-400;
+  }
+}
+
+// @media (min-width: 425px + 1px) {
+//   .home {
+//     min-height: calc(100vh - 144px);
+//     margin: 144px auto 0;
+//   }
+// }
