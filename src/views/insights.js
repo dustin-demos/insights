@@ -34,28 +34,63 @@ const Tabs = data => {
   return div({ class: 'tabs' }, children)
 }
 
-const Stats = () => {
-  return div([
-    div({ class: 'list' }, [
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...')
+const Stats = data => {
+  const stats = data.stats
+  const children = []
+
+  for (let i = stats.length; i--;) {
+    const stat = stats[i]
+
+    const item = div({ class: 'stats-row' }, [
+      div([
+        text(stat.id)
+      ]),
+      div([
+        text(stat.likes)
+      ]),
+      div([
+        text(stat.engagement)
+      ]),
+      div([
+        text(stat.reach)
+      ])
     ])
+
+    children.push(item)
+  }
+
+  return div({ class: 'stats' }, [
+    div({ class: 'stats-head' }, [
+      div([text('ID')]),
+      div([text('Likes')]),
+      div([text('Engagement')]),
+      div([text('Reach')])
+    ]),
+    div({ class: 'stats-grid' }, children)
   ])
 }
 
-const Hashtags = () => {
-  return div([
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, ')
-  ])
+const Hashtags = data => {
+  const { hashtags } = data
+
+  if (hashtags.processed == null) {
+    return div({
+      class: 'hashtags',
+      onclick: data.onCalculate
+    }, [
+      a({ class: 'button' }, [
+        text('Calculate Hashtag Ranks')
+      ])
+    ])
+  }
+
+  const target = []
+
+  for (let i = data.length; i--;) {
+    const tag = data[i]
+  }
+
+  return div({ class: 'hashtags' }, target)
 }
 
 const Combinations = () => {
@@ -72,9 +107,20 @@ const changeTab = (state, data) => {
 }
 
 const Insights = (state, dispatch) => {
+  console.log(state)
+
   const routes = {
-    'stats': () => Stats(),
-    'hashtags': () => Hashtags(),
+    'stats': () => Stats({
+      stats: state.facebook.insights.data
+    }),
+    'hashtags': () => Hashtags({
+      hashtags: state.hashtags,
+      onCalculate: () => {
+        dispatch(() => {
+          console.log('not yet')
+        })
+      }
+    }),
     'combinations': () => Combinations()
   }
 

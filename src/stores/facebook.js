@@ -22,8 +22,9 @@ const loading = freeze(newState(null, null, true, null))
  */
 
 const setLoading = (state, key) => {
-  state.facebook[key] = loading
-  return state.facebook
+  const { facebook } = state
+  facebook[key] = loading
+  return { facebook }
 }
 
 // TODO: Fix the state param here
@@ -62,12 +63,19 @@ const getMedia = async data => {
   return data.media
 }
 
+const postParams = {
+  fields: 'caption,like_count,timestamp'
+}
+
 const insightParams = {
   fields: 'name,values',
   metric: 'engagement,impressions,reach,saved'
 }
 
+const hashtagRegexp = /#\w+/g
+
 // TODO: Error handling? At least keep them in state?
+// TODO: Clean this up a bit more
 const getInsights = async data => {
   const media = await getMedia({
     id: data.id,
@@ -81,26 +89,49 @@ const getInsights = async data => {
   // make requests
   for (let i = media.length; i--;) {
     const id = media[i].id
-    promises[id] = fb.api(`${id}/insights`, insightParams)
+
+    promises[id] = {
+      post: fb.api(`${id}`, postParams),
+      insights: fb.api(`${id}/insights`, insightParams)
+    }
   }
 
   // format data
   for (const key in promises) {
-    const res = await promises[key]
+    const postRes = await promises[key].post
+    const insightsRes = await promises[key].insights
 
-    // skip errors
-    if (res.error) continue
-
+    // put all data here
     const post = {}
 
-    // simplify stats
-    for (let i = res.data.length; i--;) {
-      const stat = res.data[i]
-
-      post.id = key
-      post[stat.name] = stat.values[0].value
+    // skip errors
+    if (postRes.error) {
+      // do nothing
+    } else {
+      // simplify stats from post
+      Object.assign(post, {
+        id: postRes.id,
+        caption: postRes.caption,
+        likes: postRes.like_count,
+        tags: postRes.caption.match(hashtagRegexp)
+      })
     }
 
+    // skip errors
+    if (insightsRes.error) {
+      // do nothing
+    } else {
+      // simplify stats from insights
+      for (let i = insightsRes.data.length; i--;) {
+        const stat = insightsRes.data[i]
+        // post.id = key
+        post[stat.name] = stat.values[0].value
+      }
+    }
+
+    // console.log(post)
+
+    // push
     insights.push(post)
   }
 

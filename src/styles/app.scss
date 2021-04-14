@@ -28,22 +28,25 @@ $spinner: '%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cst
   background: $dark-400 url($scheme + $spinner) center/48px no-repeat;
 }
 
-// .policy,
-// .missing {
-//   display: flex;
-//   height: 62.5vh;
 //
-//   div {
-//     margin: auto;
-//     font: 800 48px/1 $font-goldbill;
-//   }
-// }
+// Missing
 //
-// @media (min-width: 768px + 1px) {
-//   .policy,
-//   .missing {
-//     div {
-//       font: 800 96px/1 $font-goldbill;
-//     }
-//   }
-// }
+
+.missing {
+  display: flex;
+  height: 62.5vh;
+  padding: 48px 0;
+
+  div {
+    margin: auto;
+    font: 800 48px/1 $font-goldbill;
+  }
+}
+
+@media (min-width: 768px + 1px) {
+  .missing {
+    div {
+      font: 800 96px/1 $font-goldbill;
+    }
+  }
+}

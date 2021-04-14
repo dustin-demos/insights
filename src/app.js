@@ -6,8 +6,7 @@ import * as prompt from './stores/prompt'
 
 import Home from './views/home'
 import Insights from './views/insights'
-// import Missing from './views/missing'
-// import Policy from './views/policy'
+import Missing from './views/missing'
 
 import * as subs from './subs'
 
@@ -15,6 +14,10 @@ app({
   state: {
     facebook: facebook.state,
     prompt: prompt.state,
+    hashtags: {
+      processed: null,
+      data: null
+    },
     footer: {
       year: new Date().getFullYear()
     },
@@ -27,14 +30,13 @@ app({
   },
   pages: {
     '/': Home,
-    '/insights': Insights
-    // '/missing': Missing,
-    // '/policy': Policy
+    '/insights': Insights,
+    '/missing': Missing
   },
   mount: (state, dispatch) => {
     subs.gtm({ id: '' })
     subs.fbsdk()
-    subs.persist(state, dispatch)
+    // subs.persist(state, dispatch)
 
     window.fbAsyncInit = async () => {
       FB.init({

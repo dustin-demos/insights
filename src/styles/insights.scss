@@ -1,6 +1,42 @@
 
 $icon-facebook: ic-facebook-24px($white);
 
+//
+
+.stats-head {
+  display: flex;
+  margin: 0 0 6px;
+  border-radius: 6px;
+  font: 400 14px/36px sans-serif;
+  text-align: center;
+  background: $dark-500;
+
+  div {
+    flex: 1;
+  }
+}
+
+.stats-row {
+  display: flex;
+  padding: 6px 0;
+
+  div {
+    flex: 1;
+    padding: 0 48px;
+
+    &:first-of-type {
+      text-align: left;
+    }
+  }
+}
+
+.stats {
+  padding: 24px;
+  text-align: right;
+}
+
+//
+
 .interface {
   .titlebar {
     max-width: 1024px;
