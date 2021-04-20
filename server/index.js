@@ -40,5 +40,7 @@ server.listen(port, function () {
     })
   }
 
-  log('Server running at ' + host)
+  log.info({
+    message: 'Server running at ' + host
+  })
 })

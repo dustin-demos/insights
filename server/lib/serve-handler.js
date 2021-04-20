@@ -1,6 +1,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const log = require('./log')
 
 const directory = path.join(process.cwd(), 'public')
 const reload = path.join(__dirname, '../reload.js')
@@ -20,19 +21,35 @@ const mime = {
   '.woff2': 'font/woff2'
 }
 
-function writeHandler (res) {
-  return function (url) {
-    const file = url.file
-    const ext = url.ext
+function writeHandler (req, res) {
+  const bytesBefore = req.socket.bytesWritten
+  const start = Date.now()
 
-    fs.readFile(file, (err, data) => {
+  res.on('finish', function () {
+    log.request({
+      ms: Date.now() - start,
+      bytes: req.socket.bytesWritten - bytesBefore,
+      method: req.method,
+      status: res.statusCode,
+      path: req.url
+    })
+  })
+
+  return function (url) {
+    fs.readFile(url.file, (err, data) => {
       if (err) {
-        console.log('\n', err.message)
-        return res.end() // stop execution
+        res.writeHead(404)
+        res.end()
+
+        return // exit
       }
 
+      const body = url.ext === '.html'
+        ? data.toString().slice(0, -14) + inject
+        : data
+
       res.writeHead(200)
-      res.end(ext === '.html' ? data.toString().slice(0, -14) + inject : data)
+      res.end(body)
     })
   }
 }
@@ -54,7 +71,7 @@ function urlHandler (url) {
 }
 
 function handler (req, res) {
-  const write = writeHandler(res)
+  const write = writeHandler(req, res)
   const url = urlHandler(req.url)
 
   res.setHeader('access-control-allow-origin', '*')
@@ -63,6 +80,4 @@ function handler (req, res) {
   write(url)
 }
 
-module.exports = {
-  handler: handler
-}
+module.exports = { handler }

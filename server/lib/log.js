@@ -7,45 +7,54 @@ const map = {
   blue: '\x1b[34m',
   magenta: '\x1b[35m',
   cyan: '\x1b[36m',
-  white: '\x1b[37m',
-  brightBlack: '\x1b[90m',
-  brightRed: '\x1b[91m',
-  brightGreen: '\x1b[92m',
-  brightYellow: '\x1b[93m',
-  brightBlue: '\x1b[94m',
-  brightMagenta: '\x1b[95m',
-  brightCyan: '\x1b[96m',
-  brightWhite: '\x1b[97m'
+  white: '\x1b[37m'
 }
 
 function color (name, string) {
   return map[name] + string + '\x1b[0m'
 }
 
-function dots (len) {
-  let target = ''
+const start = Date.now()
 
-  for (let i = 0; i < len; i++) {
-    target += '.'
-  }
-
-  return target
+function elapsed () {
+  const ms = Date.now() - start
+  const timestamp = new Date(ms).toISOString().slice(11, 19)
+  return '[' + timestamp + ']'
 }
 
-module.exports = function (command, data) {
-  const time = new Date().toLocaleString().split(', ')[1]
-  const gap = process.stdout.columns - 26 - command.length - time.length
+module.exports = {
+  info: function (data) {
+    console.log()
+    console.log(
+      color('blue', elapsed()),
+      color('white', data.message)
+    )
+  },
+  build: function (command, output) {
+    console.log()
+    console.log(
+      color('blue', elapsed()),
+      command
+    )
+    console.log(output.trim())
+    console.log()
+  },
+  request: function (data) {
+    const status = data.status < 400
+      ? color('green', data.status)
+      : color('red', data.status)
 
-  console.log()
-  console.log(
-    color('brightRed', '/// ... ['),
-    color('white', command.toUpperCase()),
-    color('brightRed', '] ' + dots(gap) + ' ['),
-    color('white', time),
-    color('brightRed', '] ... ///')
-  )
+    const size = data.bytes < 1000
+      ? data.bytes + 'B'
+      : Math.round(data.bytes / 1000) + 'kB'
 
-  if (typeof data === 'string') {
-    console.log(data.trim())
+    console.log(
+      color('blue', elapsed()),
+      (data.ms + 'ms').padEnd(4, ' '),
+      size.padStart(5, ' '),
+      (data.method).padEnd(6, ' '),
+      status,
+      color('white', data.path)
+    )
   }
 }
