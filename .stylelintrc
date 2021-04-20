@@ -4,10 +4,19 @@
     "stylelint-order"
   ],
   "rules": {
+    "selector-list-comma-newline-after": "never-multi-line",
+    "selector-list-comma-space-after": "always",
     "at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["extend"]
+        "ignoreAtRules": [
+          "else",
+          "extend",
+          "function",
+          "if",
+          "return",
+          "use"
+        ]
       }
     ],
     "property-disallowed-list": [
@@ -38,6 +47,7 @@
       "order",
 
       "grid-area",
+      "grid-column",
 
       "display",
       "visibility",
@@ -61,7 +71,6 @@
       "grid-auto-flow",
       "grid-auto-rows",
       "grid-before",
-      "grid-column",
       "grid-column-end",
       "grid-column-gap",
       "grid-column-start",
@@ -162,6 +171,9 @@
       "font-emphasize",
       "font-emphasize-position",
       "font-emphasize-style",
+
+      "font-display",
+      "font-named-instance",
 
       "letter-spacing",
       "line-height",
