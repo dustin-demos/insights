@@ -1,28 +1,29 @@
 {
-  "name": "insights.onclick.gg",
+  "name": "onclick-insights",
   "version": "1.0.0",
   "scripts": {
     "start": "make start"
   },
   "dependencies": {
-    "@whaaaley/material-icons-scss": "^2.0.6",
+    "@whaaaley/material-icons-scss": "^3.0.1",
+    "lodash-es": "^4.17.21",
     "superfine": "^8.2.0"
   },
   "devDependencies": {
-    "clean-css-cli": "^5.2.1",
-    "esbuild": "^0.8.55",
-    "sass": "^1.32.8",
-    "typescript": "^4.2.2",
-    "uglify-js": "^3.13.0"
+    "clean-css-cli": "^5.2.2",
+    "esbuild": "^0.11.12",
+    "sass": "^1.32.11",
+    "typescript": "^4.2.4",
+    "uglify-js": "^3.13.4"
   },
   "optionalDependencies": {
-    "eslint": "^7.21.0",
+    "eslint": "^7.24.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
-    "stylelint": "^13.11.0",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint": "^13.12.0",
+    "stylelint-config-standard": "^21.0.0",
     "stylelint-order": "^4.1.0"
   }
 }
