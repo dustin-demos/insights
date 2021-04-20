@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "@whaaaley/material-icons-scss": "^3.0.1",
-    "lodash-es": "^4.17.21",
     "superfine": "^8.2.0"
   },
   "devDependencies": {
