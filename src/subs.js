@@ -41,11 +41,15 @@ export const fbsdk = () => {
  */
 
 export const persist = (state, dispatch) => {
-  console.log(JSON.parse(sessionStorage.getItem('state')))
+  console.log(
+    JSON.parse(sessionStorage.getItem('state'))
+  )
 
   listener('DOMContentLoaded', () => {
     dispatch(state => {
-      Object.assign(state.facebook, JSON.parse(sessionStorage.getItem('state')))
+      const data = sessionStorage.getItem('state')
+      Object.assign(state.facebook, JSON.parse(data))
+
       return state.facebook
     })
   })

@@ -1,0 +1,48 @@
+
+.sources {
+  button, label {
+    margin: 0 0 0 auto;
+    padding: 12px 24px;
+    border-radius: 6px;
+    background: $facebook-blue;
+
+    + button, + label {
+      margin: 0 0 0 12px;
+    }
+  }
+}
+
+.sources-head {
+  h1 {
+    font: 300 36px/96px $font-inter;
+  }
+}
+
+.sources-import {
+  display: flex;
+  padding: 12px;
+  border: 24px;
+  border-radius: 12px;
+  background: $dark-500;
+}
+
+.sources-table {
+  margin: 24px 0 0;
+  border-radius: 12px;
+  background: $dark-500;
+}
+
+.sources-row {
+  display: flex;
+  padding: 12px;
+  border-bottom: 2px solid $dark-400;
+
+  div {
+    margin: 0 0 0 auto;
+  }
+
+  span {
+    padding: 0 24px;
+    font: 16px/40px $font-inter;
+  }
+}

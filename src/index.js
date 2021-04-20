@@ -3,11 +3,11 @@ import { readFileSync } from 'fs'
 import { body, html, link, meta, noscript, script, style, title, div } from './lib/vnodes/html'
 
 const styles = PROD === true
-  ? style(readFileSync('./public/main.min.css', 'utf8'))
+  ? style(readFileSync('./public/main.css', 'utf8'))
   : link({ rel: 'stylesheet', href: '/main.css' })
 
 const scripts = PROD === true
-  ? script(readFileSync('./public/app.min.js', 'utf8'))
+  ? script(readFileSync('./public/app.js', 'utf8'))
   : script({ defer: true, src: '/app.js' })
 
 const render = data => {

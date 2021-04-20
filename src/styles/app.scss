@@ -39,14 +39,14 @@ $spinner: '%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cst
 
   div {
     margin: auto;
-    font: 800 48px/1 $font-goldbill;
+    font: 800 48px/1 $font-inter;
   }
 }
 
 @media (min-width: 768px + 1px) {
   .missing {
     div {
-      font: 800 96px/1 $font-goldbill;
+      font: 800 96px/1 $font-inter;
     }
   }
 }

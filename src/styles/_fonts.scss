@@ -1,46 +1,25 @@
 
 //
-// Goldbill by Wahyu and Sani Co.
-// https://www.myfonts.com/fonts/wahyu-sani-co/goldbill/
+// Inter by rsms
+// https://rsms.me/inter/
 //
 
-$font-goldbill: goldbill, sans-serif;
+$font-inter: 'Inter var', sans-serif;
 
 @font-face {
-  font-family: 'Goldbill';
+  font-family: 'Inter var';
   font-style: normal;
-  font-weight: 100;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/Goldbill-XLLight.woff2') format('woff2');
+  // font-named-instance: 'Regular';
+  src: url('/fonts/Inter-3.18/Inter-roman.var.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Goldbill';
-  font-style: normal;
-  font-weight: 800;
+  font-family: 'Inter var';
+  font-style: italic;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/Goldbill-XSExtraBold.woff2') format('woff2');
-}
-
-//
-// Mont by Fontfabric
-// https://www.myfonts.com/fonts/font-fabric/mont/
-//
-
-$font-mont: mont, sans-serif;
-
-@font-face {
-  font-family: 'Mont';
-  font-style: normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url('/fonts/MontExtraLightDEMO.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Mont';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url('/fonts/MontHeavyDEMO.woff2') format('woff2');
+  // font-named-instance: 'Italic';
+  src: url('/fonts/Inter-3.18/Inter-italic.var.woff2') format('woff2');
 }

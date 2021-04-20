@@ -1,10 +1,10 @@
 
-import link from '../plugins/routerLink'
+import link from '../lib/routerLink'
 import { a, text } from '../lib/vnodes/html'
 
 export default (data, content) => {
   const props = {
-    class: location.pathname === data.to ? '-active' : '',
+    class: data.class + (location.pathname === data.to ? ' -active' : ''),
     href: data.to,
     onclick: event => {
       event.preventDefault()
