@@ -1,20 +1,20 @@
 
-._footer {
-  padding: 12px 0;
-  color: mix($dark-100, $white, 87.5%);
-  font: 14px/24px sans-serif;
-  text-align: center;
-  white-space: pre;
-
-  &.-span {
-    grid-column: 1 / -1;
-  }
-
-  a {
-    padding: 0 6px;
-    text-decoration: underline;
-  }
-}
+// ._footer {
+//   padding: 12px 0;
+//   color: mix($dark-100, $white, 87.5%);
+//   font: 14px/24px sans-serif;
+//   text-align: center;
+//   white-space: pre;
+//
+//   &.-span {
+//     grid-column: 1 / -1;
+//   }
+//
+//   a {
+//     padding: 0 6px;
+//     text-decoration: underline;
+//   }
+// }
 
 ._spinner {
   width: 48px + 12px;

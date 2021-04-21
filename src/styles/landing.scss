@@ -1,11 +1,7 @@
 
 .landing {
-  display: flex;
+  display: grid;
   height: 100vh;
-
-  div {
-    margin: auto;
-  }
 }
 
 .landing-graphic {
@@ -14,6 +10,7 @@
   display: grid;
   width: $size;
   height: $size;
+  margin: auto auto 0;
   padding: 0 0 44px; // (($size - $size * (83.333 / 100)) - 40px / 2)
   background: url('/cache/graphic.svg') top -18px center/$size no-repeat;
 
@@ -24,5 +21,21 @@
     font: 16px/40px $font-inter;
     background: $primary;
     cursor: pointer;
+  }
+}
+
+.landing-footer {
+  color: #{$light-100}7F;
+  font: 14px/24px sans-serif;
+  text-align: center;
+  white-space: pre;
+
+  &.-span {
+    grid-column: 1 / -1;
+  }
+
+  a {
+    padding: 0 6px;
+    text-decoration: underline;
   }
 }
