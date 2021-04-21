@@ -4,7 +4,7 @@ import app from './lib/pocket'
 import * as facebook from './stores/facebook'
 import * as prompt from './stores/prompt'
 
-// import Home from './views/home'
+import Landing from './views/landing'
 import Missing from './views/missing'
 
 import Overview from './views/overview'
@@ -46,7 +46,7 @@ app({
     }
   },
   pages: {
-    // '/': Home,
+    '/': Landing,
     '/missing': Missing,
 
     '/overview': Overview,

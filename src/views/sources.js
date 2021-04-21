@@ -2,7 +2,7 @@
 import { button, div, h1, input, label, span, text } from '../lib/vnodes/html'
 
 import Main from './_main'
-import Home from './home'
+import Home from './prompt'
 
 import * as sources from '../stores/sources'
 
