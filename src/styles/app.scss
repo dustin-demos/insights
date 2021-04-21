@@ -1,7 +1,4 @@
 
-$scheme: 'data:image/svg+xml;utf8,';
-$spinner: '%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cstyle%3E@keyframes spin%7Bto%7Btransform:rotate(360deg)%7D%7D%3C/style%3E%3CclipPath id="circle"%3E%3Ccircle cx="6" cy="6" r="6"/%3E%3C/clipPath%3E%3Cg clip-path="url(%23circle)"%3E%3Cg style="transform-origin:6px 6px;animation:.75s linear infinite spin"%3E%3Cpath fill="%231877f2" d="M6 0v-2h8v16H6v-2l-1-1V1z"/%3E%3Cpath fill="%2317171b" d="M-2-2h8v16h-8z"/%3E%3C/g%3E%3Ccircle cx="6" cy="6" r="5" fill="%2324262a"/%3E%3C/g%3E%3C/svg%3E';
-
 ._footer {
   padding: 12px 0;
   color: mix($dark-100, $white, 87.5%);
@@ -25,25 +22,29 @@ $spinner: '%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cst
   margin: auto;
   padding: ((288px - 48px - 12px) / 2) 0;
   border-radius: 30px;
-  background: $dark-400 url($scheme + $spinner) center/48px no-repeat;
+  // background: $dark-400 url($scheme + $spinner) center/48px no-repeat;
+  background: $dark-400 url('/cache/spinner.svg') center/48px no-repeat;
 }
 
-// .policy,
-// .missing {
-//   display: flex;
-//   height: 62.5vh;
 //
-//   div {
-//     margin: auto;
-//     font: 800 48px/1 $font-goldbill;
-//   }
-// }
+// Missing
 //
-// @media (min-width: 768px + 1px) {
-//   .policy,
-//   .missing {
-//     div {
-//       font: 800 96px/1 $font-goldbill;
-//     }
-//   }
-// }
+
+.missing {
+  display: flex;
+  height: 62.5vh;
+  padding: 48px 0;
+
+  div {
+    margin: auto;
+    font: 800 48px/1 $font-inter;
+  }
+}
+
+@media (min-width: 768px + 1px) {
+  .missing {
+    div {
+      font: 800 96px/1 $font-inter;
+    }
+  }
+}

@@ -21,7 +21,7 @@ module.exports = function (command) {
   proc.stderr.on('data', handler)
 
   proc.on('close', function () {
-    log(command, output)
+    log.build(command, output)
     reload.reload()
   })
 }

@@ -1,0 +1,97 @@
+
+$icon-overview: ic-dashboard-24px($light-500);
+$icon-insights: ic-insights-24px($light-500);
+$icon-sources: ic-source-24px($light-500);
+
+$icon-hashtags: ic-tag-24px($light-500);
+$icon-suggested: ic-lightbulb-24px($light-500);
+$icon-discover: ic-explore-24px($light-500);
+
+$icon-settings: ic-settings-24px($light-500);
+
+.main {
+  display: grid;
+  grid: 1fr / #{288px + 24px} 1fr;
+  gap: 36px;
+  height: 100vh;
+  padding: 0 36px 0 0;
+}
+
+.main-sidebar {
+  display: grid;
+  grid: auto 1fr / auto;
+  background: $dark-500;
+
+  > h1 {
+    padding: 0 24px 0 (36px + 36px + 24px + 12px);
+    font: 300 24px/96px $font-inter;
+    background: url('/cache/logo.svg') #{36px + 24px}/36px no-repeat;
+  }
+}
+
+.main-nav {
+  padding: 0 24px;
+
+  a {
+    display: block;
+    padding: 0 24px 0 (36px + 24px + 18px);
+    border-radius: 12px;
+    font: 600 16px/48px $font-inter;
+    background: 36px/24px no-repeat;
+
+    &.-active {
+      background-color: $dark-300;
+    }
+
+    &.-disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    &.-icon-overview {
+      background-image: url($icon-overview);
+    }
+
+    &.-icon-insights {
+      background-image: url($icon-insights);
+    }
+
+    &.-icon-sources {
+      background-image: url($icon-sources);
+    }
+
+    &.-icon-hashtags {
+      background-image: url($icon-hashtags);
+    }
+
+    &.-icon-suggested {
+      background-image: url($icon-suggested);
+    }
+
+    &.-icon-discover {
+      background-image: url($icon-discover);
+    }
+
+    &.-icon-settings {
+      background-image: url($icon-settings);
+    }
+  }
+}
+
+// .main-slot {}
+
+.main-footer {
+  padding: 24px;
+  white-space: pre;
+  background: mix($dark-500, $dark-600);
+
+  h1 {
+    color: mix($light-100, $dark-400, 75%);
+    font: 600 14px/24px $font-inter;
+  }
+
+  p {
+    color: mix($light-100, $dark-400);
+    font: 12px/18px $font-inter;
+  }
+}

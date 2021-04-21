@@ -1,0 +1,107 @@
+
+$icon-arrow: ic-expand-more-24px($light-600);
+
+// .overview {}
+
+.overview-head {
+  h1 {
+    font: 300 36px/96px $font-inter;
+  }
+}
+
+.overview-grid {
+  display: grid;
+  grid: auto-flow auto auto / 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.overview-chart, .overview-card {
+  border-radius: 16px;
+  background: $dark-500;
+
+  h1 {
+    font: 600 24px/1 $font-inter;
+  }
+}
+
+.overview-chart {
+  grid-column: span 3;
+
+  h1 {
+    padding: 24px 24px 0;
+  }
+}
+
+.overview-card {
+  padding: 24px 36px;
+
+  h1 {
+    padding: 0 0 12px;
+  }
+
+  p {
+    font: 400 18px/1 $font-inter;
+  }
+}
+
+//
+// Menu
+//
+
+.overview-menu-container {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font: 14px/16px 'Source Code Pro', monospace;
+
+  > button {
+    padding: 12px 24px 12px (24px + 24px);
+    border-radius: 6px;
+    background: $dark-300 url($icon-arrow) 12px no-repeat;
+
+    // &:focus::after {
+    //   display: block;
+    //   position: absolute;
+    //   top: -4px;
+    //   left: -4px;
+    //   width: calc(100% + 8px);
+    //   height: calc(100% + 8px);
+    //   border: 2px solid $facebook-blue;
+    //   border-radius: 10px;
+    //   content: '';
+    // }
+  }
+}
+
+.overview-menu {
+  position: absolute;
+  top: 40px + 12px;
+  // right: 0;
+  // min-width: 240px;
+  padding: 12px 0;
+  border-radius: 6px;
+  background: $dark-300;
+  box-shadow: 0 12px 24px rgba($dark-600, 0.5);
+
+  &.-hidden {
+    display: none;
+  }
+
+  > button {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+  }
+}
+
+.overview-menu-container, .overview-menu {
+  > button {
+    outline: none;
+    background-color: $dark-300;
+    cursor: pointer;
+
+    &:focus, &:hover {
+      background-color: $facebook-blue;
+    }
+  }
+}

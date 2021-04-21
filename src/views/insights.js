@@ -1,125 +1,52 @@
 
-import routerLink from '../lib/routerLink'
-import { a, div, h1, text } from '../lib/vnodes/html'
-import * as Chart from './chart'
+import { div, h1, table, tbody, td, text, textarea, th, thead, tr } from '../lib/vnodes/html'
+import Main from './_main'
 
-const Text = (h, data) => h([text(data)])
+const Row = (foo, bar, data) =>
+  foo(data.map(item => bar([text(item)])))
 
-const tabs = {
-  stats: 'Stats',
-  hashtags: 'Hashtags',
-  combinations: 'Combinations'
-  // suggested: 'Suggested Tags',
-  // discover: 'Discover Tags'
-}
+const Table = ({ head, data }) => {
+  const target = data.map(item => {
+    const values = Object.values(item)
+    return Row(tr, td, values)
+  })
 
-const Tabs = data => {
-  const children = []
+  let gridColumns = ''
 
-  for (const key in tabs) {
-    const tab = tabs[key]
-    const classList = data.activeTab === key ? '-active' : ''
-
-    const onclick = () => {
-      data.changeTab(key)
-    }
-
-    children.push(
-      div({ classList, onclick }, [
-        text(tab)
-      ])
-    )
+  for (let i = head.length; i--;) {
+    gridColumns += ' 1fr'
   }
 
-  return div({ class: 'tabs' }, children)
-}
-
-const Stats = () => {
-  return div([
-    div({ class: 'list' }, [
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...'),
-      Text(div, 'reach, engagment, etc...')
-    ])
+  return table({ style: `--table-columns: ${gridColumns}` }, [
+    Row(thead, th, head),
+    tbody(target)
   ])
-}
-
-const Hashtags = () => {
-  return div([
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, '),
-    Text(div, '#art, smart rank, ')
-  ])
-}
-
-const Combinations = () => {
-  return div([
-    text('combinations')
-  ])
-}
-
-const TabView = data => data.view()
-
-const changeTab = (state, data) => {
-  state.interface.activeTab = data
-  return state.interface
 }
 
 const Insights = (state, dispatch) => {
-  const routes = {
-    'stats': () => Stats(),
-    'hashtags': () => Hashtags(),
-    'combinations': () => Combinations()
-  }
-
-  return div({ class: 'interface' }, [
-    div({ class: 'titlebar' }, [
-      Text(a, 'Onclick Insights')
+  return div({ class: 'insights' }, [
+    div({ class: 'insights-head' }, [
+      h1([
+        text('Insights')
+      ])
     ]),
-    div({ class: 'page' }, [
-      div({ class: 'bar' }, [
-        div({ class: 'avatar' }, [
-          div(),
-          div()
-        ]),
-        Text(h1, 'Hello, ' + 'whaley!'),
-        a({ class: 'button' }, [text('Logout')])
+    div({ class: 'insights-body' }, [
+      textarea([
+        text('#art #dominatrix')
       ]),
-      div({ class: 'chart' }, [
-        // Chart.randomChart()
-        Chart.chart({
-          insights: state.facebook.insights.data
-        })
-      ]),
-      Tabs({
-        activeTab: state.interface.activeTab,
-        changeTab: name => {
-          dispatch(changeTab, name)
-        }
+      Table({
+        head: ['Tag', 'Combinations', 'Total Averages', 'Average Combination'],
+        data: state.sources.combinations
       }),
-      TabView({
-        view: routes[state.interface.activeTab]
+      Table({
+        head: ['Tag', 'Count', 'Reach', 'Average'],
+        data: state.sources.tags
       })
     ])
   ])
 }
 
 export default {
-  view: Insights,
-  onroute: state => {
-    console.log('onroute >>>>', state.facebook)
-    // const { login, insights } = state.facebook
-    //
-    // if (login.success === true && insights.success) {
-    //   // do nothing
-    // } else {
-    //   routerLink({ to: '/' })
-    // }
-  }
+  view: Main(Insights),
+  onroute: state => {}
 }

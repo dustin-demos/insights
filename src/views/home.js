@@ -1,6 +1,7 @@
 
 import { a, div, h1, h2, p, text } from '../lib/vnodes/html'
 import * as prompt from '../stores/prompt'
+import * as sources from '../stores/sources'
 
 const h = (tag, data) => tag([text(data)])
 
@@ -128,7 +129,14 @@ const steps = (state, dispatch) => {
     }),
     () => Finish({
       onNext: () => {
-        dispatch(prompt.letsGo)
+        dispatch(prompt.letsGo, {
+          callback: data => {
+            dispatch(sources.importJSON, {
+              name: '<insert account name here>',
+              data: JSON.stringify(data)
+            })
+          }
+        })
       }
     })
   ]
@@ -136,20 +144,20 @@ const steps = (state, dispatch) => {
 
 const frame = (state, dispatch) => slot => {
   return div({ class: 'home' }, [
-    div({ class: 'card' }, slot),
-    div({ class: '_footer' }, [
-      text('© ' + state.footer.year + ' Dustin Dowell\n'),
-      a({ href: '/leagl' }, [
-        text('Terms of Service')
-      ]),
-      a({ href: '/leagl' }, [
-        text('Privacy Policy')
-      ])
-    ])
+    div({ class: 'card' }, slot)
+    // div({ class: '_footer' }, [
+    //   text('© ' + state.footer.year + ' Dustin Dowell\n'),
+    //   a({ href: '/leagl' }, [
+    //     text('Terms of Service')
+    //   ]),
+    //   a({ href: '/leagl' }, [
+    //     text('Privacy Policy')
+    //   ])
+    // ])
   ])
 }
 
-const Home = (state, dispatch) => {
+export default (state, dispatch) => {
   const Frame = frame(state, dispatch)
   const Steps = steps(state, dispatch)
 
@@ -172,7 +180,7 @@ const Home = (state, dispatch) => {
   return Frame(Steps[state.prompt.step]())
 }
 
-export default {
-  view: Home,
-  onroute: (state, dispatch) => {}
-}
+// export default {
+//   view: Home,
+//   onroute: (state, dispatch) => {}
+// }

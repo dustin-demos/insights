@@ -64,7 +64,7 @@ export const confirmAccount = state => async dispatch => {
   })
 }
 
-export const letsGo = state => async dispatch => {
+export const letsGo = (state, data) => async dispatch => {
   await dispatch(fb.insights, {
     id: state.facebook.instagram.data.instagram_business_account.id
   })
@@ -73,7 +73,11 @@ export const letsGo = state => async dispatch => {
     const { insights } = state.facebook
 
     if (insights.success === true) {
-      link({ to: '/insights' })
+      // this might be janky
+      // lots of refactoring should happen
+      console.log('>>>', insights)
+      data.callback(insights.data)
+      // link({ to: '/insights' })
     } else {
       dispatch(error)
     }
