@@ -3,26 +3,23 @@
     #circle {
       fill: url(#gradient);
     }
-
     #grid path {
       stroke-width: 0.25;
-      stroke: #24262a;
+      stroke: #20262f;
     }
-
     #line {
       stroke-width: 0.25;
       stroke: #0f77ef;
       fill: none;
     }
-
     #dots circle {
       fill: #0f77ef;
     }
   </style>
   <defs>
     <linearGradient id='gradient' gradientTransform='rotate(90)'>
-      <stop stop-color='#1f2124' offset='0%'/>
-      <stop stop-color='#24262a' offset='83.333%'/>
+      <stop stop-color='#171c23' offset='0%'/>
+      <stop stop-color='#20262f' offset='83.333%'/>
     </linearGradient>
     <clipPath id='clip'>
       <circle cx='6' cy='6' r='5'/>
