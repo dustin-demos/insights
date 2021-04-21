@@ -11,10 +11,11 @@ $icon-settings: ic-settings-24px($light-500);
 
 .main {
   display: grid;
-  grid: 1fr / #{288px + 24px} 1fr;
+  grid: 1fr / 288px 1fr;
   gap: 36px;
   height: 100vh;
   padding: 0 36px 0 0;
+  animation: 0.5s ease-in-out fadein;
 }
 
 .main-sidebar {
@@ -22,10 +23,10 @@ $icon-settings: ic-settings-24px($light-500);
   grid: auto 1fr / auto;
   background: $dark-500;
 
-  > h1 {
-    padding: 0 24px 0 (36px + 36px + 24px + 12px);
+  > a {
+    padding: 0 24px 0 96px;
     font: 300 24px/96px $font-inter;
-    background: url('/cache/logo.svg') #{36px + 24px}/36px no-repeat;
+    background: url('/cache/logo.svg') 48px/36px no-repeat;
   }
 }
 
@@ -34,10 +35,10 @@ $icon-settings: ic-settings-24px($light-500);
 
   a {
     display: block;
-    padding: 0 24px 0 (36px + 24px + 18px);
+    padding: 0 24px 0 72px;
     border-radius: 12px;
     font: 600 16px/48px $font-inter;
-    background: 36px/24px no-repeat;
+    background: 30px/24px no-repeat;
 
     &.-active {
       background-color: $dark-300;
@@ -93,5 +94,11 @@ $icon-settings: ic-settings-24px($light-500);
   p {
     color: mix($light-100, $dark-400);
     font: 12px/18px $font-inter;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
   }
 }

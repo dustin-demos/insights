@@ -76,7 +76,7 @@ const Overview = (state, dispatch) => {
   return div({ class: 'overview' }, [
     div({ class: 'overview-head' }, [
       h1([
-        text('Hello Dustin')
+        text('Overview')
       ])
     ]),
     div({ class: 'overview-grid' }, [

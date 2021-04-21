@@ -43,14 +43,14 @@ const plotPoints = ({ points, width }) => {
  *
  */
 
-const gradientColor = '#0f77ef'
+const gradientColor = '#0073ff'
 
 const gradient = () => {
   return svg.linearGradient({
     id: 'gradient',
     gradientTransform: 'rotate(90)'
   }, [
-    svg.stop({ 'stop-color': gradientColor + '50' }),
+    svg.stop({ 'stop-color': gradientColor + '3f' }),
     svg.stop({ 'offset': '100%', 'stop-color': gradientColor + '00' })
   ])
 }
@@ -92,7 +92,7 @@ export const gridLines = data => {
 
   const lineGroup = svg.g({ stroke: '#20262f' }, lineTarget)
   const labelGroup = svg.g({
-    'fill': '#e1e2e6',
+    'fill': '#dde3ee',
     'font-family': 'monospace',
     'font-size': '7px',
     'text-anchor': 'end'
@@ -130,7 +130,7 @@ export const dotsFromPoints = points => {
     target.push(dot)
   }
 
-  return svg.g({ fill: '#0f77ef' }, target)
+  return svg.g({ fill: '#0073ff' }, target)
 }
 
 /**
@@ -161,7 +161,7 @@ export const randomChart = data => {
     svg.path({
       'fill': 'none',
       'stroke-width': 1,
-      'stroke': '#0f77ef',
+      'stroke': '#0073ff',
       'd': pathFromPoints(selection)
     })
   ])
