@@ -5,7 +5,7 @@
     "start": "make start"
   },
   "dependencies": {
-    "@whaaaley/material-icons-scss": "^4.0.0",
+    "@whaaaley/material-icons-scss": "^4.0.1",
     "superfine": "^8.2.0"
   },
   "devDependencies": {

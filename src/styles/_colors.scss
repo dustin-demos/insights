@@ -1,27 +1,6 @@
 
-@use 'sass:math';
-@use 'sass:list';
-
+@import 'lib/alpha';
 @import 'lib/lab';
-
-@function alpha($color, $alpha) {
-  $hex: (
-    '0', '1', '2', '3', '4', '5', '6', '7',
-    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-  );
-
-  $int: $alpha * 100;
-  $value: $int - math.round($int / 16) * 16;
-  $result: '';
-
-  @while $value > 0 {
-    $value: $int - math.round($int / 16) * 16;
-  }
-
-  @return $g;
-}
-
-@debug alpha(blue, 0.5);
 
 $white: #fff;
 $black: #000;
@@ -31,21 +10,22 @@ $primary: lab(40, 0, -128);
 $red: lab(35, 127, 0);
 
 // Desaturated Light
-$light-600: lab(95, 0, -1);
-$light-500: lab(90, 0, -2);
-$light-400: lab(85, 0, -3);
-$light-300: lab(80, 0, -4);
-$light-200: lab(75, 0, -5);
-$light-100: lab(70, 0, -6);
+$light-600: lab(95, 0, -5);
+$light-500: lab(90, 0, -6);
+$light-400: lab(85, 0, -7);
+$light-300: lab(80, 0, -8);
+$light-200: lab(75, 0, -9);
+$light-100: lab(70, 0, -10);
 
 // Desaturated Dark
 $dark-600: lab(5, 0, -5);
 $dark-500: lab(10, 0, -6);
-$dark-450: lab(12.5, 0, -6.5);
 $dark-400: lab(15, 0, -7);
 $dark-300: lab(20, 0, -8);
 $dark-200: lab(25, 0, -9);
 $dark-100: lab(30, 0, -10);
+
+// $dark-450: lab(12.5, 0, -6.5);
 
 // Third Party (deprecated)
 $facebook-blue: #1877f2;

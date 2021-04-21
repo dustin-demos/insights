@@ -25,7 +25,7 @@
 }
 
 .landing-footer {
-  color: #{$light-100}7F;
+  color: alpha($light-100, 0.5);
   font: 14px/24px sans-serif;
   text-align: center;
   white-space: pre;
