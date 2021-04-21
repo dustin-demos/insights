@@ -1,8 +1,56 @@
 
-.statistics {
-  white-space: pre;
+// .insights {}
+
+.insights-head {
+  h1 {
+    font: 300 36px/96px $font-inter;
+  }
 }
 
-.statistics-table {
-  width: 100%;
+.insights-body {
+  display: grid;
+  grid: 96px 1fr 1fr / auto;
+  gap: 36px;
+  height: calc(100vh - 96px - 36px);
+
+  textarea {
+    // grid-column: span 2;
+    padding: 24px;
+    border-radius: 12px;
+    font: 14px/16px $font-inter;
+    background: $dark-500;
+    resize: none;
+  }
+
+  table {
+    display: grid;
+    grid: auto / var(--table-columns);
+    border-radius: 12px;
+    font: 14px/24px 'Source Code Pro', monospace;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    background: $dark-500;
+
+    &::before {
+      display: block;
+      content: attr('data-columns');
+    }
+
+    thead, tbody, tr {
+      display: contents;
+    }
+
+    th {
+      padding: 24px 36px;
+      background: $dark-300;
+    }
+
+    td {
+      padding: 0 36px;
+
+      // &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+      //   text-align: right;
+      // }
+    }
+  }
 }

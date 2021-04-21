@@ -1,53 +1,52 @@
 
-import { div, table, tbody, td, text, thead, tr } from '../lib/vnodes/html'
+import { div, h1, table, tbody, td, text, textarea, th, thead, tr } from '../lib/vnodes/html'
 import Main from './_main'
 
-/**
- *
- *
- */
+const Row = (foo, bar, data) =>
+  foo(data.map(item => bar([text(item)])))
 
-const Cell = data => td([text(data)])
+const Table = ({ head, data }) => {
+  const target = data.map(item => {
+    const values = Object.values(item)
+    return Row(tr, td, values)
+  })
 
-const Table = ({ tags }) => {
-  const target = []
+  let gridColumns = ''
 
-  for (let i = 0; i < tags.length; i++) {
-    const item = tags[i]
-
-    const row = tr([
-      Cell(item.tag),
-      Cell(item.count),
-      Cell(item.reach),
-      Cell(item.average)
-    ])
-
-    target.push(row)
+  for (let i = head.length; i--;) {
+    gridColumns += ' 1fr'
   }
 
-  return table({ class: 'statistics-table' }, [
-    thead([
-      Cell('Tag'),
-      Cell('Count'),
-      Cell('Total Reach'),
-      Cell('Average Reach Per Post')
-    ]),
+  return table({ style: `--table-columns: ${gridColumns}` }, [
+    Row(thead, th, head),
     tbody(target)
   ])
 }
 
-const Hashtags = (state, dispatch) => {
-  console.log('>>> state.sources', state.sources)
-  console.log('>>> state.sources.tags', state.sources.tags)
-
-  return div({ class: 'hashtags' }, [
-    Table({
-      tags: state.sources.tags
-    })
+const Insights = (state, dispatch) => {
+  return div({ class: 'insights' }, [
+    div({ class: 'insights-head' }, [
+      h1([
+        text('Insights')
+      ])
+    ]),
+    div({ class: 'insights-body' }, [
+      textarea([
+        text('#art #dominatrix')
+      ]),
+      Table({
+        head: ['Tag', 'Combinations', 'Total Averages', 'Average Combination'],
+        data: state.sources.combinations
+      }),
+      Table({
+        head: ['Tag', 'Count', 'Reach', 'Average'],
+        data: state.sources.tags
+      })
+    ])
   ])
 }
 
 export default {
-  view: Main(Hashtags),
+  view: Main(Insights),
   onroute: state => {}
 }

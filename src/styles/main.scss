@@ -1,9 +1,13 @@
 
-$icon-overview: ic-grid-view-24px($light-500);
-$icon-insights: ic-content-insights-24px($light-500);
-$icon-hashtags: ic-auto-awesome-24px($light-500);
+$icon-overview: ic-dashboard-24px($light-500);
+$icon-insights: ic-insights-24px($light-500);
+$icon-sources: ic-source-24px($light-500);
+
+$icon-hashtags: ic-tag-24px($light-500);
 $icon-suggested: ic-lightbulb-24px($light-500);
 $icon-discover: ic-explore-24px($light-500);
+
+$icon-settings: ic-settings-24px($light-500);
 
 .main {
   display: grid;
@@ -39,12 +43,21 @@ $icon-discover: ic-explore-24px($light-500);
       background-color: $dark-300;
     }
 
+    &.-disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
     &.-icon-overview {
       background-image: url($icon-overview);
     }
 
     &.-icon-insights {
       background-image: url($icon-insights);
+    }
+
+    &.-icon-sources {
+      background-image: url($icon-sources);
     }
 
     &.-icon-hashtags {
@@ -58,6 +71,10 @@ $icon-discover: ic-explore-24px($light-500);
     &.-icon-discover {
       background-image: url($icon-discover);
     }
+
+    &.-icon-settings {
+      background-image: url($icon-settings);
+    }
   }
 }
 
@@ -65,6 +82,7 @@ $icon-discover: ic-explore-24px($light-500);
 
 .main-footer {
   padding: 24px;
+  white-space: pre;
   background: mix($dark-500, $dark-600);
 
   h1 {

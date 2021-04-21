@@ -4,7 +4,7 @@ import app from './lib/pocket'
 import * as facebook from './stores/facebook'
 import * as prompt from './stores/prompt'
 
-import Home from './views/home'
+// import Home from './views/home'
 import Missing from './views/missing'
 
 import Overview from './views/overview'
@@ -26,7 +26,8 @@ app({
       menu: ''
     },
     sources: {
-      combinations: {},
+      overlay: false,
+      combinations: [],
       imports: [],
       tags: []
     },
@@ -45,7 +46,7 @@ app({
     }
   },
   pages: {
-    '/': Home,
+    // '/': Home,
     '/missing': Missing,
 
     '/overview': Overview,

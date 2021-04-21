@@ -1,77 +1,68 @@
 
-function average (data) {
-  let total = 0
-  for (let aa = 0; aa < data.length; aa++) {
-    total += data[aa]
-  }
-  return total / aa
-}
-
-function split (data) {
-  const target = []
-  for (let aa = 0; aa < data.length; aa++) {
-    const row = data[aa]
-    if (row[0] !== '') {
-      target.push([row[0].split(' '), row[1]])
-    }
-  }
-  return target
-}
-
 /**
  *
  * @function averageCombinations
  */
 
 const averageCombinations = data => {
-  const target = []
+  const averages = []
   const collect = {}
-  const final = []
-  const posts = split(data)
+  const result = []
 
-  for (let xx = 0; xx < posts.length; xx++) {
-    const row = posts[xx][0]
-    const reach = posts[xx][1]
+  for (let foo = data.length; foo--;) {
+    const post = data[foo]
+    const tags = post.caption.match(/#\w+/g)
+    const reach = post.reach
 
-    for (let aa = 0; aa < posts.length; aa++) {
-      // ignore same post
-      if (xx === aa) {
-        continue
-      }
+    // Temp: ignore posts without reach
+    if (reach === undefined) continue
 
-      const nextRow = posts[aa][0]; const nextReach = posts[aa][1]
+    for (let bar = data.length - 1; bar--;) {
+      if (foo === bar) continue // ingnore same post
 
-      for (let bb = 0; bb < row.length; bb++) {
-        const tag = row[bb]
+      const nextPost = data[bar]
+      const nextTags = nextPost.caption.match(/#\w+/g)
+      const nextReach = nextPost.reach
 
-        if (nextRow.indexOf(tag) !== -1) {
-          target.push([tag, (reach + nextReach) / 2])
+      // Temp: ignore posts without reach
+      if (nextReach === undefined) continue
+
+      for (let baz = tags.length; baz--;) {
+        const tag = tags[baz]
+
+        if (nextTags.includes(tag)) {
+          averages.push([tag, (reach + nextReach) / 2])
         }
       }
     }
   }
 
-  for (let cc = 0; cc < target.length; cc++) {
-    const row = target[cc]
-    const tag = row[0]
-    const reach = row[1]
+  for (let foo = averages.length; foo--;) {
+    const [tag, average] = averages[foo]
 
-    if (collect[tag] === undefined) {
-      collect[tag] = [reach]
-    } else {
-      collect[tag].push(reach)
-    }
+    collect[tag] === undefined
+      ? collect[tag] = [average]
+      : collect[tag].push(average)
   }
 
   for (const key in collect) {
-    const value = collect[key]
+    const averages = collect[key]
+    const total = averages.reduce((a, b) => a + b)
+    const length = averages.length
 
-    if (value.length > 1) {
-      final.push([key, average(value)])
+    if (length > 1) {
+      result.push({
+        tag: key,
+        count: length,
+        total: total,
+        rank: total / length
+      })
     }
   }
 
-  return final
+  result.sort((a, b) => b.rank - a.rank)
+
+  return result
 }
 
 /**
@@ -147,9 +138,9 @@ export const restoreImports = ({ sources }) => {
     if (imports.length > 0) {
       const posts = collectPosts(imports)
 
+      sources.combinations = averageCombinations(posts)
       sources.imports = imports
       sources.tags = collectTags(posts)
-      sources.processing = false
 
       return { sources }
     }
@@ -160,6 +151,8 @@ export const restoreImports = ({ sources }) => {
  *
  * @function deleteImport
  */
+
+// TODO: when deleting an import tags and combinations need to be re-processed
 
 export const deleteImport = ({ sources }, data) => {
   if (sources.imports.length === 1) {
@@ -185,14 +178,39 @@ export const importJSON = ({ sources }, data) => {
     posts: JSON.parse(data.data)
   })
 
+  const json = JSON.stringify(sources.imports)
   const posts = collectPosts(sources.imports)
+
+  sources.combinations = averageCombinations(posts)
   sources.tags = collectTags(posts)
 
-  const json = JSON.stringify(sources.imports)
   localStorage.setItem('imports', json)
 
   return { sources }
 }
+
+// /**
+//  *
+//  * @function importData
+//  */
+//
+// export const importData = ({ sources }, data) => {
+//   sources.imports.push({
+//     date: Date.now(),
+//     name: data.name,
+//     posts: data.data
+//   })
+//
+//   const json = JSON.stringify(sources.imports)
+//   const posts = collectPosts(sources.imports)
+//
+//   sources.combinations = averageCombinations(posts)
+//   sources.tags = collectTags(posts)
+//
+//   localStorage.setItem('imports', json)
+//
+//   return { sources }
+// }
 
 /**
  *

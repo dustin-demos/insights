@@ -5,6 +5,7 @@
     padding: 12px 24px;
     border-radius: 6px;
     background: $facebook-blue;
+    cursor: pointer;
 
     + button, + label {
       margin: 0 0 0 12px;
@@ -45,4 +46,30 @@
     padding: 0 24px;
     font: 16px/40px $font-inter;
   }
+}
+
+.sources-overlay {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #{$dark-500}80;
+
+  > div {
+    position: relative;
+    margin: auto;
+  }
+}
+
+.sources-close {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: blue;
+  cursor: pointer;
 }

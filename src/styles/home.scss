@@ -5,22 +5,23 @@ $icon-facebook: ic-facebook-24px($white);
 
 $card-avatar-size: 288px - 72px - 36px;
 
-.home {
-  display: grid;
-  grid: 1fr / auto;
-  min-height: 100vh;
-}
+// .home {
+//   display: grid;
+//   grid: 1fr / auto;
+//   min-height: 100vh;
+// }
 
 .card {
   width: 375px;
   margin: auto;
   padding: 24px;
+  box-shadow: 0 12px 24px rgba($dark-600, 0.25); // temp
   user-select: none;
 }
 
 .card-graphic {
   height: 288px - 60px - 18px;
-  background: url('/cache/graphic-svgo.svg') top -18px center/288px no-repeat;
+  background: url('/cache/graphic.svg') top -18px center/288px no-repeat;
 }
 
 .card-avatar {
@@ -35,13 +36,11 @@ $card-avatar-size: 288px - 72px - 36px;
 .card-main {
   padding: 0 12px;
 
-  h1,
-  h2 {
+  h1, h2 {
     text-align: center;
   }
 
-  h2,
-  p {
+  h2, p {
     font: 400 16px/28px sans-serif;
   }
 
@@ -136,10 +135,10 @@ $card-avatar-size: 288px - 72px - 36px;
 }
 
 @media (min-width: 375px + 1px) {
-  .home {
-    min-height: calc(100vh - 72px);
-    margin: 72px auto 0;
-  }
+  // .home {
+  //   min-height: calc(100vh - 72px);
+  //   margin: 72px auto 0;
+  // }
 
   .card {
     border-radius: 12px;

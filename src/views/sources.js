@@ -1,6 +1,9 @@
 
 import { button, div, h1, input, label, span, text } from '../lib/vnodes/html'
+
 import Main from './_main'
+import Home from './home'
+
 import * as sources from '../stores/sources'
 
 /**
@@ -8,18 +11,18 @@ import * as sources from '../stores/sources'
  *
  */
 
-const ImportInstagram = () => {
-  return button([
+const ImportInstagram = data => {
+  return button({
+    onclick: () => {
+      data.onImport()
+    }
+  }, [
     text('Import from Instagram')
   ])
 }
 
 const ImportJSON = data => {
-  return label({
-    onclick: () => {
-      console.log('clicky')
-    }
-  }, [
+  return label([
     input({
       type: 'file',
       hidden: true,
@@ -75,6 +78,17 @@ const ImportsTable = data => {
   return div({ class: 'sources-table' }, target)
 }
 
+const Overlay = (props, children) => {
+  if (props.show) {
+    return div({ class: 'sources-overlay' }, [
+      div([
+        div({ class: 'sources-close', onclick: props.onClose }),
+        ...children
+      ])
+    ])
+  }
+}
+
 const Sources = (state, dispatch) => {
   return div({ class: 'sources' }, [
     div({ class: 'sources-head' }, [
@@ -85,7 +99,10 @@ const Sources = (state, dispatch) => {
     div({ class: 'sources-import' }, [
       ImportInstagram({
         onImport: data => {
-          dispatch(sources.importJSON, data)
+          dispatch(({ sources }) => {
+            sources.overlay = true
+            return { sources }
+          })
         }
       }),
       ImportJSON({
@@ -103,7 +120,18 @@ const Sources = (state, dispatch) => {
       onDelete: index => {
         dispatch(sources.deleteImport, { index })
       }
-    })
+    }),
+    Overlay({
+      show: state.sources.overlay,
+      onClose: () => {
+        dispatch(({ sources }) => {
+          sources.overlay = false
+          return { sources }
+        })
+      }
+    }, [
+      Home(state, dispatch)
+    ])
   ])
 }
 
