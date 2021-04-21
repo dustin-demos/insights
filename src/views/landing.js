@@ -1,9 +1,12 @@
 
-import { div, text } from '../lib/vnodes/html'
+import { div } from '../lib/vnodes/html'
+import Link from './_link'
 
 const Landing = () => {
-  return div([
-    text('landing')
+  return div({ class: 'landing' }, [
+    div({ class: 'landing-graphic' }, [
+      Link({ to: '/overview' }, 'Continue to Insights')
+    ])
   ])
 }
 

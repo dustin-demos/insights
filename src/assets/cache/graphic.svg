@@ -9,17 +9,17 @@
     }
     #line {
       stroke-width: 0.25;
-      stroke: #0f77ef;
+      stroke: #0073ff;
       fill: none;
     }
     #dots circle {
-      fill: #0f77ef;
+      fill: #0073ff;
     }
   </style>
   <defs>
     <linearGradient id='gradient' gradientTransform='rotate(90)'>
-      <stop stop-color='#171c23' offset='0%'/>
-      <stop stop-color='#20262f' offset='83.333%'/>
+      <stop stop-color='#171c23'/>
+      <stop stop-color='#171c2300' offset='83.333%'/>
     </linearGradient>
     <clipPath id='clip'>
       <circle cx='6' cy='6' r='5'/>

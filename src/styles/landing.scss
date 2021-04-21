@@ -1,0 +1,28 @@
+
+.landing {
+  display: flex;
+  height: 100vh;
+
+  div {
+    margin: auto;
+  }
+}
+
+.landing-graphic {
+  $size: 256px * 1.5;
+
+  display: grid;
+  width: $size;
+  height: $size;
+  padding: 0 0 44px; // (($size - $size * (83.333 / 100)) - 40px / 2)
+  background: url('/cache/graphic.svg') top -18px center/$size no-repeat;
+
+  a {
+    margin: auto auto 0;
+    padding: 0 24px;
+    border-radius: 20px;
+    font: 16px/40px $font-inter;
+    background: $primary;
+    cursor: pointer;
+  }
+}

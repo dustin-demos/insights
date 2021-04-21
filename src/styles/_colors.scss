@@ -4,13 +4,9 @@
 $white: #fff;
 $black: #000;
 
-// Pastel Colors (Lab to sRGB)
-$pastel-red: rgb(252, 121, 134);    // 65  55  15
-$pastel-orange: rgb(255, 161, 99);  // 75  31  47
-$pastel-yellow: rgb(255, 200, 123); // 85  15  47
-$pastel-green: rgb(145, 199, 126);  // 75 -31  31
-$pastel-blue: rgb(0, 189, 226);     // 70 -31 -31
-$pastel-purple: rgb(185, 159, 227); // 70  23 -31
+// Colors
+$primary: lab(40, 0, -128);
+$red: lab(35, 127, 0);
 
 // Desaturated Light
 $light-600: lab(95, 0, -1);
@@ -29,5 +25,5 @@ $dark-300: lab(20, 0, -8);
 $dark-200: lab(25, 0, -9);
 $dark-100: lab(30, 0, -10);
 
-// Third Party
+// Third Party (deprecated)
 $facebook-blue: #1877f2;
