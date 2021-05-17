@@ -3,21 +3,31 @@
 // 2. NOTE: (WebKit/Blink) (Non-standard) Scrollbars overlay content
 // 3. NOTE: (Touch devices) Prevent tap delay
 
+::-webkit-scrollbar {
+  width: 24px;
+  height: 24px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 8px solid transparent;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 4px $facebook-blue;
+}
+
 *:not(svg *) {
-  // position: relative;
-  // ---
+  // position: relative; // temp disabled
   margin: 0;
   padding: 0;
   border: 0;
-  // ---
   color: inherit;
   font: inherit;
   text-align: inherit;
   text-decoration: inherit;
-  // ---
   -webkit-overflow-scrolling: touch; // 1
 
-  &, &::after, &::before {
+  &,
+  &::after,
+  &::before {
     box-sizing: inherit;
   }
 }
@@ -34,15 +44,9 @@ body {
   background: $dark-400;
 }
 
-::-webkit-scrollbar {
-  width: 24px;
-  height: 24px;
-}
-
-::-webkit-scrollbar-thumb {
-  border: 8px solid transparent;
-  border-radius: 12px;
-  box-shadow: inset 0 0 0 4px $facebook-blue;
+a,
+button {
+  cursor: pointer;
 }
 
 // NOTE: This sets the maximum page width when using this viewport meta tag.

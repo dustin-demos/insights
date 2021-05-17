@@ -1,5 +1,5 @@
 
-import { a, div, h1, h2, p, text } from '../lib/vnodes/html'
+import { a, div, h1, h2, p, text } from '../pocket/tags/html'
 import * as prompt from '../stores/prompt'
 import * as sources from '../stores/sources'
 
@@ -83,17 +83,17 @@ const SelectAccount = props => {
 }
 
 const Finish = props => {
-  return [
-    div({ class: 'card-body' }, [
-      h(h1, 'All systems go!'),
-      h(p, 'Now let\'s import some data. This could take a moment to process.')
-    ]),
-    div({ class: 'card-button' }, [
-      a({ onclick: props.onNext }, [
-        text('Let\'s go!')
-      ])
-    ])
-  ]
+  return (
+    <div>
+      <div class='card-body'>
+        <h1>All systems go!</h1>
+        <p>Now let's import some data. This could take a moment to process.</p>
+      </div>
+      <div class='card-button'>
+        <a onclick={props.onNext}>Let's Go!</a>
+      </div>
+    </div>
+  )
 }
 
 const Error = () => {
@@ -131,9 +131,10 @@ const steps = (state, dispatch) => {
       onNext: () => {
         dispatch(prompt.letsGo, {
           callback: data => {
-            dispatch(sources.importJSON, {
+            dispatch(sources.importInstagram, {
+              date: Date.now(),
               name: '<insert account name here>',
-              data: JSON.stringify(data)
+              posts: data
             })
           }
         })
@@ -142,25 +143,8 @@ const steps = (state, dispatch) => {
   ]
 }
 
-const frame = (state, dispatch) => slot => {
-  return div({ class: 'home' }, [
-    div({ class: 'card' }, slot)
-    // div({ class: '_footer' }, [
-    //   text('© ' + state.footer.year + ' Dustin Dowell\n'),
-    //   a({ href: '/leagl' }, [
-    //     text('Terms of Service')
-    //   ]),
-    //   a({ href: '/leagl' }, [
-    //     text('Privacy Policy')
-    //   ])
-    // ])
-  ])
-}
-
 export default (state, dispatch) => {
-  const Frame = frame(state, dispatch)
   const Steps = steps(state, dispatch)
-
   const { login, me, accounts, instagram, insights } = state.facebook
 
   const status = [
@@ -171,16 +155,13 @@ export default (state, dispatch) => {
     insights.loading
   ]
 
-  if (status.includes(true)) {
-    return Frame([
-      div({ class: '_spinner' })
-    ])
-  }
+  const slot = status.includes(true)
+    ? <div class='_spinner'></div>
+    : Steps[state.prompt.step]()
 
-  return Frame(Steps[state.prompt.step]())
+  return (
+    <div class='home'>
+      <div class='card'>{slot}</div>
+    </div>
+  )
 }
-
-// export default {
-//   view: Home,
-//   onroute: (state, dispatch) => {}
-// }

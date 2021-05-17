@@ -16,16 +16,24 @@ $icon-settings: ic-settings-24px($light-500);
   height: 100vh;
   padding: 0 36px 0 0;
   animation: 0.5s ease-in-out fadein;
+
+  > main {
+    max-width: 960px - 4px;
+  }
+
+  > main > h1 {
+    font: 300 36px/96px $font-inter;
+  }
 }
 
-.main-sidebar {
+.main-side {
   display: grid;
-  grid: auto 1fr / auto;
+  grid: auto 1fr / 1fr;
   background: $dark-500;
 
   > a {
     padding: 0 24px 0 96px;
-    font: 300 24px/96px $font-inter;
+    font: 24px/96px $font-inter;
     background: url('/cache/logo.svg') 48px/36px no-repeat;
   }
 }
@@ -33,7 +41,7 @@ $icon-settings: ic-settings-24px($light-500);
 .main-nav {
   padding: 0 24px;
 
-  a {
+  > a {
     display: block;
     padding: 0 24px 0 72px;
     border-radius: 12px;
@@ -79,19 +87,16 @@ $icon-settings: ic-settings-24px($light-500);
   }
 }
 
-// .main-slot {}
-
 .main-footer {
   padding: 24px;
-  white-space: pre;
   background: mix($dark-500, $dark-600);
 
-  h1 {
+  > h1 {
     color: mix($light-100, $dark-400, 75%);
     font: 600 14px/24px $font-inter;
   }
 
-  p {
+  > p {
     color: mix($light-100, $dark-400);
     font: 12px/18px $font-inter;
   }

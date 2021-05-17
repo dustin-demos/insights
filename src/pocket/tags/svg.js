@@ -10,7 +10,7 @@
 // Uglify that these function calls do not produce side effects and can safely
 // be removed when unused.
 
-import { h } from './h'
+import { h } from '../shim'
 
 export const a = /* @__PURE__ */ h('a')
 export const animate = /* @__PURE__ */ h('animate')

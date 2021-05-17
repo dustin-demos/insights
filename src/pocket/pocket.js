@@ -1,6 +1,5 @@
 
-import { patch } from 'superfine'
-import { decode } from './routerLib'
+import { decode } from './router/query'
 
 /**
  * Debounce wrapper around `window.requestAnimationFrame`
@@ -79,16 +78,13 @@ const pocket = (state, render) => {
  * @function sync
  */
 
-const sync = state => {
+const sync = ({ router }) => {
   const search = location.search
 
-  if (search.startsWith('?')) {
-    state.router.query = decode(search)
-  }
+  router.query = search.startsWith('?') ? decode(search) : ''
+  router.to = location.pathname
 
-  state.router.to = location.pathname
-
-  return { router: state.router }
+  return { router }
 }
 
 /**
@@ -96,8 +92,7 @@ const sync = state => {
  * @module pocket
  */
 
-export default init => {
-  const node = document.getElementById('app')
+export default (init, patch) => {
   let route
 
   init.state.router = {
@@ -106,7 +101,7 @@ export default init => {
   }
 
   const dispatch = pocket(init.state, state => {
-    patch(node, route.view(state, dispatch))
+    patch(route.view(state, dispatch))
   })
 
   const listener = () => {
@@ -124,5 +119,5 @@ export default init => {
   window.addEventListener('pushstate', listener)
   window.addEventListener('popstate', listener)
 
-  init.onstart(dispatch)
+  return dispatch
 }

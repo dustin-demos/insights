@@ -1,30 +1,39 @@
 
 .sources {
-  button, label {
+  padding: 24px;
+  border-radius: 12px;
+  background: $dark-500;
+
+  a,
+  button,
+  label {
     margin: 0 0 0 auto;
-    padding: 12px 24px;
+    padding: 0 12px;
     border-radius: 6px;
+    font: 14px/36px $font-inter;
     background: $facebook-blue;
     cursor: pointer;
 
-    + button, + label {
+    + a,
+    + button,
+    + label {
       margin: 0 0 0 12px;
     }
   }
 }
 
-.sources-head {
-  h1 {
-    font: 300 36px/96px $font-inter;
-  }
-}
-
 .sources-import {
   display: flex;
-  padding: 12px;
   border: 24px;
+}
+
+.sources-placeholder {
+  margin: 24px 0 0;
+  padding: 72px;
+  border: 2px dashed $dark-300;
   border-radius: 12px;
-  background: $dark-500;
+  font: 400 14px/1 $font-inter;
+  text-align: center;
 }
 
 .sources-table {
@@ -36,15 +45,19 @@
 .sources-row {
   display: flex;
   padding: 12px;
-  border-bottom: 2px solid $dark-400;
+
+  &:nth-child(odd) {
+    border-radius: 6px;
+    background: $dark-400;
+  }
 
   div {
     margin: 0 0 0 auto;
   }
 
   span {
-    padding: 0 24px;
-    font: 16px/40px $font-inter;
+    padding: 0 12px;
+    font: 14px/36px $font-inter;
   }
 }
 

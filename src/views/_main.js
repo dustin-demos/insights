@@ -1,35 +1,33 @@
 
-import { div, h1, nav, p, text } from '../lib/vnodes/html'
-import Link from './_link'
+import Link from './components/link'
 
-const Main = slot => (state, dispatch) => {
+const Main = (data, slot) => (state, dispatch) => {
   const Slot = slot(state, dispatch)
 
-  return div({ class: 'main' }, [
-    div({ class: 'main-sidebar' }, [
-      Link({ to: '/' }, 'Instatistics'),
-      nav({ class: 'main-nav' }, [
-        Link({ class: '-icon-overview', to: '/overview' }, 'Overview'),
-        Link({ class: '-icon-insights', to: '/insights' }, 'Insights'),
-        Link({ class: '-icon-sources', to: '/sources' }, 'Sources'),
-        Link({ class: '-icon-hashtags -disabled', to: '/hashtags' }, 'Hashtags'),
-        Link({ class: '-icon-suggested -disabled', to: '/suggested' }, 'Suggested'),
-        Link({ class: '-icon-discover -disabled', to: '/discover' }, 'Discover'),
-        Link({ class: '-icon-settings -disabled', to: '/discover' }, 'Settings')
-      ]),
-      div({ class: 'main-footer' }, [
-        h1([
-          text('© Dustin Dowell, 2021')
-        ]),
-        p([
-          text('By using this website you agree to our\nTerms of Use and Privacy Policy.')
-        ])
-      ])
-    ]),
-    div({ class: 'main-slot' }, [
-      Slot
-    ])
-  ])
+  return (
+    <div class='main'>
+      <div class='main-side'>
+        <Link to='/'>Instatistics</Link>
+        <nav class='main-nav'>
+          <Link to='/overview' class='-icon-overview' >Overview</Link>
+          <Link to='/insights' class='-icon-insights' >Insights</Link>
+          <Link to='/sources' class='-icon-sources' >Sources</Link>
+          <Link to='/hashtags' class='-icon-hashtags -disabled'>Hashtags</Link>
+          <Link to='/suggested' class='-icon-suggested -disabled' >Suggested</Link>
+          <Link to='/discover' class='-icon-discover -disabled' >Discover</Link>
+          <Link to='/discover' class='-icon-settings -disabled' >Settings</Link>
+        </nav>
+        <footer class='main-footer'>
+          <h1>© Dustin Dowell, {state.footer.year}</h1>
+          <p>By using this website you agree to our Terms of Use and Privacy Policy.</p>
+        </footer>
+      </div>
+      <main>
+        <h1>{data.title}</h1>
+        {Slot}
+      </main>
+    </div>
+  )
 }
 
 export default Main

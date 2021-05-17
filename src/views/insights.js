@@ -1,5 +1,5 @@
 
-import { div, h1, table, tbody, td, text, textarea, th, thead, tr } from '../lib/vnodes/html'
+import { div, table, tbody, td, text, textarea, th, thead, tr } from '../pocket/tags/html'
 import Main from './_main'
 
 const Row = (foo, bar, data) =>
@@ -25,11 +25,6 @@ const Table = ({ head, data }) => {
 
 const Insights = (state, dispatch) => {
   return div({ class: 'insights' }, [
-    div({ class: 'insights-head' }, [
-      h1([
-        text('Insights')
-      ])
-    ]),
     div({ class: 'insights-body' }, [
       textarea([
         text('#art #dominatrix')
@@ -47,6 +42,6 @@ const Insights = (state, dispatch) => {
 }
 
 export default {
-  view: Main(Insights),
+  view: Main({ title: 'Insights' }, Insights),
   onroute: state => {}
 }

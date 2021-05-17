@@ -1,5 +1,6 @@
 
-import app from './lib/pocket'
+import { pocket } from './pocket/index'
+import { patch } from 'superfine'
 
 import * as facebook from './stores/facebook'
 import * as prompt from './stores/prompt'
@@ -11,24 +12,31 @@ import Overview from './views/overview'
 import Insights from './views/insights'
 import Sources from './views/sources'
 
-// import Discover from './views/discover'
-// import Statistics from './views/statistics'
-// import Suggested from './views/suggested'
-
 import * as subs from './subs'
 import * as sources from './stores/sources'
 
-app({
+/**
+ *
+ * Initialize
+ *
+ */
+
+const node = document.getElementById('app')
+const app = init => pocket(init, view => patch(node, view))
+
+const dispatch = app({
   state: {
+    dropActive: null,
+
     overview: {
-      chartRange: 48,
-      menuOpen: false, // range menu
-      menu: ''
+      chartRange: 48
     },
+
     sources: {
-      overlay: false,
+      overlay: false, // Make a better system
       combinations: [],
       imports: [],
+      posts: [],
       tags: []
     },
 
@@ -36,10 +44,7 @@ app({
     prompt: prompt.state,
 
     footer: {
-      year: new Date().getFullYear()
-    },
-    interface: {
-      activeTab: 'stats'
+      year: process.env.YEAR
     },
     persist: {
       lock: null
@@ -55,44 +60,33 @@ app({
 
     // '/discover': Discover,
     // '/suggested': Suggested,
-  },
-  onstart: dispatch => {
-    subs.gtm({ id: '' })
-    subs.fbsdk()
-
-    // dispatch(state => {
-    //   subs.persist(state, dispatch)
-    // })
-
-    window.fbAsyncInit = async () => {
-      FB.init({
-        appId: '813793032539615',
-        cookie: true,
-        version: 'v10.0'
-      })
-
-      FB.AppEvents.logPageView()
-
-      // try {
-      //   await dispatch(facebook.loginStatus)
-      //   await dispatch(facebook.me)
-      // } catch (error) {
-      //   console.log('Error >>> Login expired')
-      //   dispatch(prompt.step, 1)
-      // }
-
-      // dispatch(state => {
-      //   const { login, me } = state.facebook
-      //
-      //   if (login.success && me.success) {
-      //     dispatch(prompt.step, 2)
-      //   }
-      // })
-    }
-
-    dispatch(sources.restoreImports)
   }
 })
+
+/**
+ *
+ * Subscriptions
+ *
+ */
+
+subs.gtm({ id: '' })
+subs.fbsdk()
+
+dispatch(sources.restoreImports)
+
+/**
+ *
+ * Third Party
+ *
+ */
+
+// Facebook SDK
+window.fbAsyncInit = () => {
+  FB.init({
+    appId: '813793032539615',
+    version: 'v10.0'
+  })
+}
 
 // Google Tag Manager
 window.dataLayer = window.dataLayer || []

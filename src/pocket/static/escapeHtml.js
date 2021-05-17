@@ -1,5 +1,5 @@
 
-// Code derived from:
+// function derived from:
 // https://github.com/component/escape-html/blob/master/index.js
 
 const matchHtmlRegExp = /["'&<>]/
@@ -24,6 +24,7 @@ function escapeHtml (string) {
       case 39: escape = '&#39;'; break
       case 60: escape = '&lt;'; break
       case 62: escape = '&gt;'; break
+      default: continue
     }
 
     if (lastIndex !== index) {

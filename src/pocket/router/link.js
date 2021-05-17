@@ -1,5 +1,5 @@
 
-import { encode } from './routerLib'
+import { encode } from './query'
 
 /**
  * @function link

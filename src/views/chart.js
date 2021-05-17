@@ -1,10 +1,11 @@
 
-import * as html from '../lib/vnodes/html'
-import * as svg from '../lib/vnodes/svg'
+import * as html from '../pocket/tags/html'
+import * as svg from '../pocket/tags/svg'
 
 const randomInt = (min, max) => Math.floor(Math.random() * max) + min
 
 /**
+ *
  *
  *
  */
@@ -41,6 +42,7 @@ const plotPoints = ({ points, width }) => {
 /**
  *
  *
+ *
  */
 
 const gradientColor = '#0073ff'
@@ -70,6 +72,7 @@ const polygonGradient = data => {
 }
 
 /**
+ *
  *
  *
  */
@@ -107,6 +110,7 @@ export const gridLines = data => {
 /**
  *
  *
+ *
  */
 
 export const pathFromPoints = points => {
@@ -134,8 +138,10 @@ export const dotsFromPoints = points => {
 }
 
 /**
+ *
  * Generate a chart from a random set of points
  * @function randomChart
+ *
  */
 
 const width = 480
@@ -169,6 +175,8 @@ export const randomChart = data => {
 
 /**
  *
+ *
+ *
  */
 
 const chartWidth = 1024 / 2
@@ -199,15 +207,25 @@ export const chart = data => {
     points.push([x, chartHeight - y])
   }
 
-  return html.div({ class: 'chart' }, [
-    html.svg({ viewBox: `0 0 ${chartWidth} ${chartHeight}` }, [
-      ...gridLines(),
-      ...dotsFromPoints(points),
-      svg.path({
-        'stroke': '#1877f2',
-        'fill': 'none',
-        'd': pathFromPoints(points)
-      })
-    ])
-  ])
+  return (
+    <div class='chart'>
+      <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
+        {gridLines()}
+        {dotsFromPoints(points)}
+        <path stroke='#1877f2' fill='none' d={pathFromPoints(points)}></path>
+      </svg>
+    </div>
+  )
+
+  // return html.div({ class: 'chart' }, [
+  //   html.svg({ viewBox: `0 0 ${chartWidth} ${chartHeight}` }, [
+  //     ...gridLines(),
+  //     ...dotsFromPoints(points),
+  //     svg.path({
+  //       'stroke': '#1877f2',
+  //       'fill': 'none',
+  //       'd': pathFromPoints(points)
+  //     })
+  //   ])
+  // ])
 }

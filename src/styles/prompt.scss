@@ -36,11 +36,13 @@ $card-avatar-size: 288px - 72px - 36px;
 .card-main {
   padding: 0 12px;
 
-  h1, h2 {
+  h1,
+  h2 {
     text-align: center;
   }
 
-  h2, p {
+  h2,
+  p {
     font: 400 16px/28px sans-serif;
   }
 
