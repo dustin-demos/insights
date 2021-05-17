@@ -62,7 +62,7 @@ function renderNode (tag, props, children) {
 }
 
 function renderTextNode (value) {
-  return isHtmlSafe(value) && escapeHtml(value)
+  return escapeHtml(value)
 }
 
 export { renderNode, renderTextNode }

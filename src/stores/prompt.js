@@ -1,6 +1,6 @@
 
 import * as fb from './facebook'
-import link from '../lib/routerLink'
+// import link from '../lib/routerLink'
 
 /**
  *

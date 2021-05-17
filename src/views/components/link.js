@@ -1,13 +1,12 @@
 
-import link from '../lib/routerLink'
-import { a, text } from '../lib/vnodes/html'
+import { link } from '../../pocket/index'
 
 export default (props, content) => {
   const classList = location.pathname === props.to
     ? props.class + ' -active'
     : props.class
 
-  const onclick = event => {
+  const to = event => {
     event.preventDefault()
 
     link({
@@ -16,7 +15,5 @@ export default (props, content) => {
     })
   }
 
-  return a({ class: classList, href: props.to, onclick }, [
-    text(content)
-  ])
+  return <a class={classList} href={props.to} onclick={to}>{content}</a>
 }

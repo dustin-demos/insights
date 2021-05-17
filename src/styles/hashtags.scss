@@ -1,0 +1,70 @@
+
+.hashtags {
+  display: grid;
+  grid: auto auto 1fr / auto;
+  gap: 24px;
+  min-height: 0;
+  max-height: calc(100vh - 96px - 36px);
+  overflow: hidden;
+  user-select: none;
+}
+
+.hashtags > table {
+  display: grid;
+  grid: auto / var(--table-columns);
+  border-radius: 12px;
+  font: 14px/24px 'Source Code Pro', monospace;
+  overflow-y: overlay;
+  background: $dark-500;
+  user-select: none;
+
+  &::before {
+    display: block;
+    content: attr('data-columns');
+  }
+
+  thead,
+  tbody,
+  tr {
+    display: contents;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    margin: 0 0 12px;
+    padding: 12px 24px;
+    background: $dark-300;
+  }
+
+  td {
+    padding: 0 24px;
+    cursor: pointer;
+  }
+
+  tr.-active td {
+    background: mix($dark-500, $primary);
+  }
+}
+
+.hashtags-selected {
+  display: flex;
+  padding: 12px;
+  border-radius: 12px;
+  font: 14px/16px $font-inter;
+  background: $dark-500;
+
+  > button {
+    margin: 0 0 0 12px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    background: $primary;
+  }
+
+  > input {
+    width: 100%;
+    padding: 0 12px;
+    outline: none;
+    background: none;
+  }
+}

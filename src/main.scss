@@ -5,11 +5,13 @@
 @import 'styles/fonts';
 @import 'styles/reset';
 
+@import 'styles/components/drop';
+
 @import 'styles/app';
 @import 'styles/main';
 @import 'styles/prompt';
 
 @import 'styles/landing';
 @import 'styles/overview';
-@import 'styles/insights';
+@import 'styles/hashtags';
 @import 'styles/sources';

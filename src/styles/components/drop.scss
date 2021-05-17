@@ -1,0 +1,38 @@
+
+$icon-arrow: ic-expand-more-24px($light-600);
+
+.drop > button {
+  // margin: 0 0 0 12px;
+  padding: 12px 24px 12px (24px + 24px);
+  border-radius: 6px;
+  background: $dark-300 url($icon-arrow) 12px no-repeat;
+}
+
+.drop ul {
+  display: grid;
+  top: 12px;
+  padding: 6px;
+  border-radius: 6px;
+  list-style: none;
+  background: $dark-300;
+  box-shadow: 0 12px 24px rgba($dark-600, 0.5);
+}
+
+.drop.-hidden ul {
+  display: none;
+}
+
+.drop li {
+  display: contents;
+}
+
+.drop ul button {
+  padding: 12px 24px;
+  border-radius: 6px;
+  background: none;
+}
+
+.drop button:focus,
+.drop button:hover {
+  background-color: $facebook-blue;
+}

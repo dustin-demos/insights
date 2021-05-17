@@ -7,13 +7,11 @@ import * as fb from './facebookLib'
  *
  */
 
-const freeze = Object.freeze
-const newState = (data, error, loading, success) => {
-  return { data, error, loading, success }
-}
+const newState = (data, error, loading, success) =>
+  Object.freeze({ data, error, loading, success })
 
-const init = freeze(newState(null, null, null, null))
-const loading = freeze(newState(null, null, true, null))
+const init = newState(null, null, null, null)
+const loading = newState(null, null, true, null)
 
 /**
  *
@@ -21,15 +19,13 @@ const loading = freeze(newState(null, null, true, null))
  *
  */
 
-const setLoading = (state, key) => {
-  const { facebook } = state
+const setLoading = ({ facebook }, key) => {
   facebook[key] = loading
   return { facebook }
 }
 
 // TODO: Fix the state param here
-const setResponse = (state, data) => {
-  const { facebook } = state
+const setResponse = ({ facebook }, data) => {
   const { key, response } = data
 
   facebook[key] = response.error

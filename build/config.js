@@ -1,24 +1,42 @@
 
 const production = process.env.NODE_ENV === 'production'
+const year = new Date().getFullYear()
+
+const jsx = {
+  inject: ['./src/pocket/shim.js'],
+  jsxFactory: 'jsx',
+  jsxFragment: 'Fragment',
+  loader: {
+    '.js': 'jsx'
+  }
+}
 
 module.exports = {
   esbuild: {
     js: {
+      ...jsx,
       bundle: true,
       sourcemap: true,
       write: false,
       define: {
-        PROD: production,
-        STATIC: false
+        'process.env.PROD': production,
+        'process.env.STATIC': false,
+        'process.env.YEAR': year,
+        'PROD': production,
+        'STATIC': false
       }
     },
     html: {
+      ...jsx,
       bundle: true,
       platform: 'node',
       write: false,
       define: {
-        PROD: production,
-        STATIC: true
+        'process.env.PROD': production,
+        'process.env.STATIC': true,
+        'process.env.YEAR': year,
+        'PROD': production,
+        'STATIC': true
       }
     }
   },

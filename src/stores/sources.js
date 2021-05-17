@@ -1,7 +1,9 @@
 
 /**
  *
+ *
  * @function averageCombinations
+ *
  */
 
 const averageCombinations = data => {
@@ -67,28 +69,15 @@ const averageCombinations = data => {
 
 /**
  *
- * @function collectPosts
- */
-
-const collectPosts = data => {
-  let posts = []
-
-  for (let i = data.length; i--;) {
-    posts = posts.concat(data[i].posts)
-  }
-
-  return posts
-}
-
-/**
  *
  * @function collectTags
+ *
  */
 
 const collectTags = data => {
   const target = {}
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = data.length; i--;) {
     const post = data[i]
     const tags = post.caption.match(/#\w+/g)
     const reach = post.reach
@@ -126,96 +115,99 @@ const collectTags = data => {
 
 /**
  *
- * @function restoreImports
+ * Reduce all sources into an array.
+ * @function compileSources
+ *
+ */
+
+const compileImports = data => {
+  const target = []
+  const uniqueIDs = []
+
+  for (let i = data.length; i--;) {
+    const posts = data[i].posts
+
+    for (let i = posts.length; i--;) {
+      const post = posts[i]
+
+      if (uniqueIDs.includes(post.id) === false) {
+        target.push(post)
+        uniqueIDs.push(post.id)
+      }
+    }
+  }
+
+  return target
+}
+
+/**
+ *
+ * I haven't thought of a good description for this function yet.
+ * @function processSources
+ *
+ */
+
+const byDate = (a, b) => b.date - a.date
+
+const process = sources => {
+  const imports = sources.imports.sort(byDate)
+  const posts = compileImports(imports)
+
+  sources.combinations = averageCombinations(posts)
+  sources.posts = posts
+  sources.tags = collectTags(posts)
+
+  return sources
+}
+
+/**
+ *
+ * Actions
+ *
  */
 
 export const restoreImports = ({ sources }) => {
   const json = localStorage.getItem('imports')
 
   if (typeof json === 'string') {
-    const imports = JSON.parse(json)
+    sources.imports = JSON.parse(json)
 
-    if (imports.length > 0) {
-      const posts = collectPosts(imports)
-
-      sources.combinations = averageCombinations(posts)
-      sources.imports = imports
-      sources.tags = collectTags(posts)
-
-      return { sources }
+    return {
+      sources: process(sources)
     }
   }
 }
 
-/**
- *
- * @function deleteImport
- */
-
-// TODO: when deleting an import tags and combinations need to be re-processed
-
-export const deleteImport = ({ sources }, data) => {
+export const deleteImport = ({ sources }, index) => {
   if (sources.imports.length === 1) {
     sources.imports = []
     localStorage.removeItem('imports')
   } else {
-    sources.imports.splice(data.index)
+    sources.imports.splice(index)
     localStorage.setItem('imports', JSON.stringify(sources.imports))
   }
 
-  return { sources }
+  return {
+    sources: process(sources)
+  }
 }
-
-/**
- *
- * @function importJSON
- */
 
 export const importJSON = ({ sources }, data) => {
-  sources.imports.push({
-    date: Date.now(),
-    name: data.name,
-    posts: JSON.parse(data.data)
-  })
+  sources.imports.push(JSON.parse(data))
+  localStorage.setItem('imports', JSON.stringify(sources.imports))
 
-  const json = JSON.stringify(sources.imports)
-  const posts = collectPosts(sources.imports)
-
-  sources.combinations = averageCombinations(posts)
-  sources.tags = collectTags(posts)
-
-  localStorage.setItem('imports', json)
-
-  return { sources }
+  return {
+    sources: process(sources)
+  }
 }
 
-// /**
-//  *
-//  * @function importData
-//  */
-//
-// export const importData = ({ sources }, data) => {
-//   sources.imports.push({
-//     date: Date.now(),
-//     name: data.name,
-//     posts: data.data
-//   })
-//
-//   const json = JSON.stringify(sources.imports)
-//   const posts = collectPosts(sources.imports)
-//
-//   sources.combinations = averageCombinations(posts)
-//   sources.tags = collectTags(posts)
-//
-//   localStorage.setItem('imports', json)
-//
-//   return { sources }
-// }
+export const importInstagram = ({ sources }, data) => {
+  sources.imports.push(data)
+  sources.overlay = false
 
-/**
- *
- * State
- *
- */
+  localStorage.setItem('imports', JSON.stringify(sources.imports))
 
-export const state = {}
+  return {
+    sources: process(sources)
+  }
+}

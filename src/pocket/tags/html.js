@@ -6,8 +6,8 @@
 // Uglify that these function calls do not produce side effects and can safely
 // be removed when unused.
 
-import { h } from './h'
-export { h, text } from './h'
+import { h } from '../shim'
+export { h, text } from '../shim'
 
 export const a = /* @__PURE__ */ h('a')
 export const abbr = /* @__PURE__ */ h('abbr')
