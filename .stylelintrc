@@ -4,8 +4,7 @@
     "stylelint-order"
   ],
   "rules": {
-    "selector-list-comma-newline-after": "never-multi-line",
-    "selector-list-comma-space-after": "always",
+    "declaration-empty-line-before": "never",
     "at-rule-empty-line-before": [
       "always",
       {
@@ -15,7 +14,8 @@
         ],
         "ignoreAtRules": [
           "import",
-          "use"
+          "use",
+          "else"
         ]
       }
     ],
@@ -23,15 +23,32 @@
       true,
       {
         "ignoreAtRules": [
-          "debug",
-          "else",
-          "extend",
-          "function",
-          "if",
-          "import",
-          "return",
           "use",
+          "forward",
+          "import",
+          "mixin",
+          "include",
+          "function",
+          "return",
+          "extend",
+          "error",
+          "warn",
+          "debug",
+          "at-root",
+          "if",
+          "else",
+          "each",
+          "for",
           "while"
+        ]
+      }
+    ],
+    "block-closing-brace-newline-after": [
+      "always-multi-line",
+      {
+        "ignoreAtRules": [
+          "if",
+          "else"
         ]
       }
     ],
@@ -43,9 +60,33 @@
       "flex-direction",
       "flex-wrap",
 
-      "grid-column-gap",
+      "column-gap",
+      "row-gap",
+
       "grid-gap",
+      "grid-column-gap",
       "grid-row-gap",
+
+      "grid-auto-columns",
+      "grid-auto-flow",
+      "grid-auto-rows",
+
+      "grid-template",
+      "grid-template-areas",
+      "grid-template-columns",
+      "grid-template-rows",
+
+      "grid-start",
+      "grid-end",
+
+      "grid-column-start",
+      "grid-column-end",
+
+      "grid-row-start",
+      "grid-row-end",
+
+      "grid-before",
+      "grid-after",
 
       "font-smoothing"
     ],
@@ -55,54 +96,25 @@
     ],
     "order/properties-order": [
       "flex",
-      "flex-grow",
-      "flex-shrink",
-      "flex-basis",
 
       "align-self",
       "order",
 
       "grid-area",
       "grid-column",
+      "grid-row",
 
       "display",
       "visibility",
 
       "flex-flow",
-      "flex-direction",
-      "flex-wrap",
 
       "align-items",
       "align-content",
       "justify-content",
 
       "grid",
-
       "gap",
-      "column-gap",
-      "row-gap",
-
-      "grid-after",
-      "grid-auto-columns",
-      "grid-auto-flow",
-      "grid-auto-rows",
-      "grid-before",
-      "grid-column-end",
-      "grid-column-gap",
-      "grid-column-start",
-      "grid-columns",
-      "grid-end",
-      "grid-gap",
-      "grid-row",
-      "grid-row-end",
-      "grid-row-gap",
-      "grid-row-start",
-      "grid-rows",
-      "grid-start",
-      "grid-template",
-      "grid-template-areas",
-      "grid-template-columns",
-      "grid-template-rows",
 
       "position",
       "z-index",
@@ -178,7 +190,6 @@
       "font-family",
       "font-size",
       "font-size-adjust",
-      "font-smoothing",
       "font-stretch",
       "font-style",
       "font-variant",
