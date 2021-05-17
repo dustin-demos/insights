@@ -23,7 +23,7 @@ const ImportJSON = data => {
   }
 
   return (
-    <label>
+    <label role='button' tabindex='0'>
       <input type='file' onchange={change} hidden />
       Import from JSON
     </label>

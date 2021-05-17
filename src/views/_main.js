@@ -10,9 +10,9 @@ const Main = (data, slot) => (state, dispatch) => {
         <Link to='/'>Instatistics</Link>
         <nav class='main-nav'>
           <Link to='/overview' class='-icon-overview' >Overview</Link>
-          <Link to='/insights' class='-icon-insights' >Insights</Link>
+          <Link to='/hashtags' class='-icon-hashtags'>Hashtags</Link>
           <Link to='/sources' class='-icon-sources' >Sources</Link>
-          <Link to='/hashtags' class='-icon-hashtags -disabled'>Hashtags</Link>
+          <Link to='/insights' class='-icon-insights -disabled' >Insights</Link>
           <Link to='/suggested' class='-icon-suggested -disabled' >Suggested</Link>
           <Link to='/discover' class='-icon-discover -disabled' >Discover</Link>
           <Link to='/discover' class='-icon-settings -disabled' >Settings</Link>

@@ -87,8 +87,8 @@ const Overview = (state, dispatch) => {
           <div class='overview-menu-container'>{dropMenu}</div>
         </div>
         <TopHashtag combinations={state.sources.combinations} />
-        <Card head='Engagement' content='+14.5%'></Card>
-        <Card head='Reach' content='+134.1%'></Card>
+        {/* <Card head='Engagement' content='+14.5%'></Card> */}
+        {/* <Card head='Reach' content='+134.1%'></Card> */}
       </div>
     </div>
   )

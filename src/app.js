@@ -9,7 +9,7 @@ import Landing from './views/landing'
 import Missing from './views/missing'
 
 import Overview from './views/overview'
-import Insights from './views/insights'
+import Hashtags from './views/hashtags'
 import Sources from './views/sources'
 
 import * as subs from './subs'
@@ -26,6 +26,7 @@ const app = init => pocket(init, view => patch(node, view))
 
 const dispatch = app({
   state: {
+    activeTags: [],
     dropActive: null,
 
     overview: {
@@ -55,7 +56,7 @@ const dispatch = app({
     '/missing': Missing,
 
     '/overview': Overview,
-    '/insights': Insights,
+    '/hashtags': Hashtags,
     '/sources': Sources
 
     // '/discover': Discover,
