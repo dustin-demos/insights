@@ -7,7 +7,7 @@ const directory = path.join(process.cwd(), 'public')
 const reload = path.join(__dirname, '../reload.js')
 
 const script = fs.readFileSync(reload)
-const inject = '<script>' + script + '</script></body></html>'
+const inject = '\n\n<!-- reload script -->\n<script>' + script + '</script>'
 
 const mime = {
   '.css': 'text/css',
@@ -45,7 +45,7 @@ function writeHandler (req, res) {
       }
 
       const body = url.ext === '.html'
-        ? data.toString().slice(0, -14) + inject
+        ? data.toString() + inject
         : data
 
       res.writeHead(200)
