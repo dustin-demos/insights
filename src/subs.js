@@ -1,5 +1,5 @@
 
-const listener = addEventListener
+const listener = window.addEventListener
 
 /**
  * Ensure that gtm.js never affects load time performance.
@@ -7,7 +7,7 @@ const listener = addEventListener
  */
 
 export const gtm = data => {
-  if (PROD) {
+  if (process.env.PROD) {
     listener('load', () => {
       const script = document.createElement('script')
 
@@ -41,10 +41,6 @@ export const fbsdk = () => {
  */
 
 export const persist = (state, dispatch) => {
-  console.log(
-    JSON.parse(sessionStorage.getItem('state'))
-  )
-
   listener('DOMContentLoaded', () => {
     dispatch(state => {
       const data = sessionStorage.getItem('state')

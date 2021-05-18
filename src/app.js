@@ -71,7 +71,7 @@ const dispatch = app({
  *
  */
 
-subs.gtm({ id: '' })
+subs.gtm({ id: 'GTM-NRNQM2M' })
 subs.fbsdk()
 
 dispatch(sources.restoreImports)
