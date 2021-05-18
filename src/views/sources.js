@@ -97,6 +97,37 @@ const Placeholder = (props, children) => {
   )
 }
 
+const Posts = ({ posts }) => {
+  const target = []
+
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i]
+
+    console.log(post)
+
+    target.push(
+      <tr>
+        <td>{post.id}</td>
+        <td>{post.caption.slice(0, 36)}...</td>
+        <td>{post.engagement}</td>
+        <td>{post.impressions}</td>
+        <td>{post.likes}</td>
+        <td>{post.reach}</td>
+        <td>{post.status || 'Live'}</td>
+      </tr>
+    )
+  }
+
+  return (
+    <div class='sources-posts'>
+      <h1>Posts</h1>
+      <table>
+        <tbody>{target}</tbody>
+      </table>
+    </div>
+  )
+}
+
 const Sources = (state, dispatch) => {
   const open = () => {
     dispatch(enableOverlay)
@@ -128,17 +159,20 @@ const Sources = (state, dispatch) => {
 
   return (
     <div class='sources'>
-      <div class='sources-import'>
-        <button onclick={open}>Import from Instagram</button>
-        <ImportJSON onImport={importJSON} />
-        <a download={`${date}-compiled.json`} href={file}>Download All</a>
+      <div class='sources-foobar'>
+        <div class='sources-import'>
+          <button onclick={open}>Import from Instagram</button>
+          <ImportJSON onImport={importJSON} />
+          <a download={`${date}-compiled.json`} href={file}>Download All</a>
+        </div>
+        <Placeholder show={state.sources.imports.length > 0}>
+          <Table imports={state.sources.imports} onDelete={removeImport} />
+        </Placeholder>
+        <Overlay show={state.sources.overlay} onClose={close}>
+          {Home(state, dispatch)}
+        </Overlay>
       </div>
-      <Placeholder show={state.sources.imports.length > 0}>
-        <Table imports={state.sources.imports} onDelete={removeImport} />
-      </Placeholder>
-      <Overlay show={state.sources.overlay} onClose={close}>
-        {Home(state, dispatch)}
-      </Overlay>
+      <Posts posts={state.sources.posts} />
     </div>
   )
 }

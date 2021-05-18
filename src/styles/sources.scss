@@ -1,5 +1,37 @@
 
 .sources {
+  display: grid;
+  gap: 24px;
+  padding: 0 0 36px;
+}
+
+.sources-posts {
+  padding: 24px;
+  border-radius: 12px;
+  font: 14px/24px $font-mono;
+  background: $dark-500;
+
+  > h1 {
+    padding: 0 0 12px;
+    font: 600 24px/1 $font-inter;
+  }
+
+  > table {
+    display: grid;
+    grid: auto / 3fr 6fr 1fr 1fr 1fr 1fr 1fr;
+
+    > thead,
+    > tbody,
+    > thead > tr,
+    > tbody > tr {
+      display: contents;
+    }
+  }
+}
+
+//
+
+.sources-foobar {
   padding: 24px;
   border-radius: 12px;
   background: $dark-500;

@@ -6,6 +6,8 @@
  *
  */
 
+const nearestHundred = number => Math.round(number * 100) / 100
+
 const averageCombinations = data => {
   const averages = []
   const collect = {}
@@ -57,7 +59,7 @@ const averageCombinations = data => {
         tag: key,
         count: length,
         total: total,
-        rank: total / length
+        rank: nearestHundred(total / length)
       })
     }
   }
