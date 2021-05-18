@@ -5,6 +5,22 @@ import Placeholder from './components/placeholder'
 
 /**
  *
+ * Utilities
+ *
+ */
+
+const clipboard = (data, callback) => {
+  const item = new ClipboardItem({
+    'text/plain': new Blob([data], { type: 'text/plain' })
+  })
+
+  navigator.clipboard.write([item]).then(callback, err => {
+    console.error(err)
+  })
+}
+
+/**
+ *
  * Actions
  *
  */
@@ -81,15 +97,7 @@ const Chips = ({ array, flash, onClear, onCopy, onFlashEnd, onShuffle }) => {
   }
 
   const copy = () => {
-    const item = new ClipboardItem({
-      'text/plain': new Blob([array.join(' ')], { type: 'text/plain' })
-    })
-
-    navigator.clipboard.write([item]).then(() => {
-      onCopy()
-    }, err => {
-      console.error(err)
-    })
+    clipboard(array.join(' '), onCopy)
   }
 
   return <div class={classList} onanimationend={onFlashEnd}>
