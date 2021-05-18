@@ -3,6 +3,10 @@
   padding: 24px;
   border-radius: 12px;
   background: $dark-500;
+
+  &.-flash {
+    animation: 1s ease-out flash;
+  }
 }
 
 .chips-bar {
@@ -47,4 +51,14 @@
   border-radius: 16px;
   font: 14px/28px $font-inter;
   background: alpha($primary, 0.5);
+}
+
+@keyframes flash {
+  0% {
+    background: $primary;
+  }
+
+  100% {
+    background: $dark-500;
+  }
 }

@@ -17,6 +17,18 @@ const shuffleTags = state => {
   return { activeTags: shuffle(state.activeTags) }
 }
 
+const flash = (state, data) => async dispatch => {
+  if (state.copyFlash && data) {
+    window.requestAnimationFrame(() => {
+      dispatch(flash, true)
+    })
+
+    return { copyFlash: false }
+  }
+
+  return { copyFlash: data }
+}
+
 /**
  *
  * View
@@ -57,16 +69,10 @@ const Table = ({ head, data, onSelect, activeTags }) => {
   </div>
 }
 
-const Chips = ({ array, onClear, onShuffle }) => {
+const Chips = ({ array, flash, onClear, onCopy, onFlashEnd, onShuffle }) => {
   const len = array.length
-
-  // if (len === 0) {
-  //   return <div class='chips -placeholder'>
-  //     <div>Start by selecting a few tags.</div>
-  //   </div>
-  // }
-
   const target = []
+  const classList = flash ? 'chips -flash' : 'chips'
 
   for (let i = len; i--;) {
     target.push(
@@ -74,22 +80,22 @@ const Chips = ({ array, onClear, onShuffle }) => {
     )
   }
 
-  const onCopy = () => {
+  const copy = () => {
     const item = new ClipboardItem({
       'text/plain': new Blob([array.join(' ')], { type: 'text/plain' })
     })
 
     navigator.clipboard.write([item]).then(() => {
-      console.log('copied!')
+      onCopy()
     }, err => {
       console.error(err)
     })
   }
 
-  return <div class='chips'>
+  return <div class={classList} onanimationend={onFlashEnd}>
     <div class='chips-bar'>
       <h1>Selected Tags: {len}</h1>
-      <button class='-copy' onclick={onCopy}>Copy</button>
+      <button class='-copy' onclick={copy}>Copy</button>
       <button class='-shuffle' onclick={onShuffle}>Shuffle</button>
       <button class='-clear' onclick={onClear}>Clear</button>
     </div>
@@ -119,22 +125,26 @@ const Hashtags = (state, dispatch) => {
     }
   })
 
-  // const averages = Table({
-  //   head: ['Tag', 'Count', 'Reach', 'Average'],
-  //   data: state.sources.tags
-  // })
-
-  const clear = () => {
-    dispatch(clearTags)
-  }
-
-  const shuffle = () => {
-    dispatch(shuffleTags)
-  }
+  const TagChips = Chips({
+    array: state.activeTags,
+    flash: state.copyFlash,
+    onFlashEnd: () => {
+      dispatch(flash, false)
+    },
+    onCopy: () => {
+      dispatch(flash, true)
+    },
+    onClear: () => {
+      dispatch(clearTags)
+    },
+    onShuffle: () => {
+      dispatch(shuffleTags)
+    }
+  })
 
   return (
-    <div class='hashtags insights'>
-      <Chips array={state.activeTags} onClear={clear} onShuffle={shuffle} />
+    <div class='hashtags'>
+      {TagChips}
       {combinations}
     </div>
   )

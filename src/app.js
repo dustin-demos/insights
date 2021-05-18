@@ -27,6 +27,7 @@ const app = init => pocket(init, view => patch(node, view))
 const dispatch = app({
   state: {
     activeTags: [],
+    copyFlash: false,
     dropActive: null,
 
     overview: {
