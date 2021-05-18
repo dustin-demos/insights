@@ -1,12 +1,17 @@
 
 import Main from './_main'
 import shuffle from '../shuffle'
+import Placeholder from './components/placeholder'
 
 /**
  *
  * Actions
  *
  */
+
+const clearTags = () => {
+  return { activeTags: [] }
+}
 
 const shuffleTags = state => {
   return { activeTags: shuffle(state.activeTags) }
@@ -52,7 +57,7 @@ const Table = ({ head, data, onSelect, activeTags }) => {
   </div>
 }
 
-const Chips = ({ array, onShuffle }) => {
+const Chips = ({ array, onClear, onShuffle }) => {
   const len = array.length
 
   // if (len === 0) {
@@ -84,10 +89,13 @@ const Chips = ({ array, onShuffle }) => {
   return <div class='chips'>
     <div class='chips-bar'>
       <h1>Selected Tags: {len}</h1>
-      <button onclick={onCopy}>Copy</button>
-      <button onclick={onShuffle}>Shuffle</button>
+      <button class='-copy' onclick={onCopy}>Copy</button>
+      <button class='-shuffle' onclick={onShuffle}>Shuffle</button>
+      <button class='-clear' onclick={onClear}>Clear</button>
     </div>
-    <div class='chips-list'>{target}</div>
+    <Placeholder show={target.length} message='Select tags in the table below.'>
+      <div class='chips-list'>{target}</div>
+    </Placeholder>
   </div>
 }
 
@@ -116,13 +124,17 @@ const Hashtags = (state, dispatch) => {
   //   data: state.sources.tags
   // })
 
+  const clear = () => {
+    dispatch(clearTags)
+  }
+
   const shuffle = () => {
     dispatch(shuffleTags)
   }
 
   return (
     <div class='hashtags insights'>
-      <Chips array={state.activeTags} onShuffle={shuffle} />
+      <Chips array={state.activeTags} onClear={clear} onShuffle={shuffle} />
       {combinations}
     </div>
   )

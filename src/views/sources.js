@@ -3,6 +3,7 @@ import Main from './_main'
 import Home from './prompt'
 
 import * as sources from '../stores/sources'
+import Placeholder from './components/placeholder'
 
 const ImportJSON = data => {
   const change = event => {
@@ -87,16 +88,6 @@ const disableOverlay = state => {
  *
  */
 
-const Placeholder = (props, children) => {
-  if (props.show) return children
-
-  return (
-    <div class='sources-placeholder'>
-      Start by importing from instagram or a JSON file.
-    </div>
-  )
-}
-
 const Posts = ({ posts }) => {
   const target = []
 
@@ -165,7 +156,7 @@ const Sources = (state, dispatch) => {
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
         </div>
-        <Placeholder show={state.sources.imports.length > 0}>
+        <Placeholder show={state.sources.imports.length} message='Start by importing from instagram or a JSON file.'>
           <Table imports={state.sources.imports} onDelete={removeImport} />
         </Placeholder>
         <Overlay show={state.sources.overlay} onClose={close}>
