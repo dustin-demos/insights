@@ -3,18 +3,23 @@
   display: grid;
   grid: auto auto 1fr / auto;
   gap: 24px;
-  min-height: 0;
   max-height: calc(100vh - 96px - 36px);
-  overflow: hidden;
+  // overflow: hidden;
   user-select: none;
 }
 
-.hashtags > table {
+.hashtags-table {
+  // display: block;
+  max-height: 100%;
+  overflow: auto;
+  // background: blue;
+}
+
+.hashtags-table > table {
   display: grid;
   grid: auto / var(--table-columns);
   border-radius: 12px;
   font: 14px/24px 'Source Code Pro', monospace;
-  overflow-y: overlay;
   background: $dark-500;
   user-select: none;
 

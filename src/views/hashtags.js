@@ -2,6 +2,22 @@
 import Main from './_main'
 import shuffle from '../shuffle'
 
+/**
+ *
+ * Actions
+ *
+ */
+
+const shuffleTags = state => {
+  return { activeTags: shuffle(state.activeTags) }
+}
+
+/**
+ *
+ * View
+ *
+ */
+
 const Table = ({ head, data, onSelect, activeTags }) => {
   const target = data.map(item => {
     const values = Object.values(item)
@@ -26,14 +42,53 @@ const Table = ({ head, data, onSelect, activeTags }) => {
     gridColumns += ' 1fr'
   }
 
-  return (
+  return <div class='hashtags-table'>
     <table style={`--table-columns: ${gridColumns}`}>
       <thead>
         {head.map(item => <th>{item}</th>)}
       </thead>
       <tbody>{target}</tbody>
     </table>
-  )
+  </div>
+}
+
+const Chips = ({ array, onShuffle }) => {
+  const len = array.length
+
+  // if (len === 0) {
+  //   return <div class='chips -placeholder'>
+  //     <div>Start by selecting a few tags.</div>
+  //   </div>
+  // }
+
+  const target = []
+
+  for (let i = len; i--;) {
+    target.push(
+      <button>{array[i].slice(1)}</button>
+    )
+  }
+
+  const onCopy = () => {
+    const item = new ClipboardItem({
+      'text/plain': new Blob([array.join(' ')], { type: 'text/plain' })
+    })
+
+    navigator.clipboard.write([item]).then(() => {
+      console.log('copied!')
+    }, err => {
+      console.error(err)
+    })
+  }
+
+  return <div class='chips'>
+    <div class='chips-bar'>
+      <h1>Selected Tags: {len}</h1>
+      <button onclick={onCopy}>Copy</button>
+      <button onclick={onShuffle}>Shuffle</button>
+    </div>
+    <div class='chips-list'>{target}</div>
+  </div>
 }
 
 const Hashtags = (state, dispatch) => {
@@ -46,7 +101,7 @@ const Hashtags = (state, dispatch) => {
         const index = state.activeTags.indexOf(tag)
 
         if (index === -1) {
-          state.activeTags.unshift(tag)
+          state.activeTags.push(tag)
         } else {
           state.activeTags.splice(index, 1)
         }
@@ -61,21 +116,13 @@ const Hashtags = (state, dispatch) => {
   //   data: state.sources.tags
   // })
 
-  const tags = state.activeTags.join(' ')
-  const shuffleTags = () => {
-    dispatch(state => {
-      return { activeTags: shuffle(state.activeTags) }
-    })
+  const shuffle = () => {
+    dispatch(shuffleTags)
   }
 
   return (
     <div class='hashtags insights'>
-      <span>Selected Tags: {state.activeTags.length}</span>
-      <div class='hashtags-selected'>
-        <input type='text' value={tags} readonly />
-        <button>Copy</button>
-        <button onclick={shuffleTags}>Shuffle</button>
-      </div>
+      <Chips array={state.activeTags} onShuffle={shuffle} />
       {combinations}
     </div>
   )

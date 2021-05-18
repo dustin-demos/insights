@@ -1,0 +1,38 @@
+
+.chips {
+  padding: 24px;
+  border-radius: 12px;
+  background: $dark-500;
+}
+
+.chips-bar {
+  $offset: 0 - (32px - 24px) / 2;
+  display: flex;
+  gap: 0 6px;
+  margin: $offset 0 (24px + $offset) 0;
+}
+
+.chips-bar > h1 {
+  margin: 0 auto 0 0;
+  font: 600 24px/32px $font-inter;
+}
+
+.chips-bar > button {
+  padding: 0 20px;
+  border-radius: 20px;
+  background: $primary;
+}
+
+.chips-list {
+  display: flex;
+  flex-flow: wrap;
+  gap: 9px 6px;
+}
+
+.chips-list > button {
+  padding: 0 16px;
+  border: 2px solid $primary;
+  border-radius: 16px;
+  font: 14px/28px $font-inter;
+  background: alpha($primary, 0.5);
+}
