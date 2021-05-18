@@ -1,12 +1,13 @@
 
 import { readFileSync } from 'fs'
+import { script, style } from './pocket/tags/html'
 
 const styles = process.env.PROD === true
-  ? <style>{readFileSync('./public/main.css', 'utf8')}</style>
+  ? style(readFileSync('./public/main.css', 'utf8'))
   : <link rel='stylesheet' href='/main.css'/>
 
 const scripts = process.env.PROD === true
-  ? <script>{readFileSync('./public/app.js', 'utf8')}</script>
+  ? script(readFileSync('./public/app.js', 'utf8'))
   : <script src='/app.js' defer></script>
 
 const render = data => {
@@ -18,11 +19,11 @@ const render = data => {
       <meta name='description' content={data.description}/>
       <meta name='viewport' content={data.viewport}/>
       <link rel='icon' href='/cache/favicon.svg'/>
-      {styles}
+      {[styles]}
       <body>
         <noscript>Please enable JavaScript and try again.</noscript>
         <div id='app'></div>
-        {scripts}
+        {[scripts]}
       </body>
     </html>
   )
