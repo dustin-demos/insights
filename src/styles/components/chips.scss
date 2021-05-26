@@ -22,9 +22,10 @@
 }
 
 .chips-bar > button {
-  padding: 0 20px 0 (12px + 18px + 6px);
-  border-radius: 20px;
-  background: $primary 12px center / 18px no-repeat;
+  padding: 0 12px 0 36px;
+  border-radius: 6px;
+  // ((36px - 18px) / 2) = 9px but 10px looks better
+  background: $dark-100 10px center / 18px no-repeat;
 
   &.-clear {
     background-image: url(ic-clear-24px($white));

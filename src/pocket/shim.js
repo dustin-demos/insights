@@ -6,7 +6,7 @@ const EMPTY_OBJ = {}
 
 /**
  *
- * virtual nodes derived from:
+ * Virtual nodes derived from:
  * https://github.com/jorgebucaran/superfine/blob/main/index.js
  *
  */
@@ -38,7 +38,7 @@ const h = type => (props, children) => {
 
 /**
  *
- * jsx pragma derived from:
+ * JSX pragma derived from:
  * https://github.com/zaceno/hyperapp-jsx-pragma/blob/main/index.js
  *
  */

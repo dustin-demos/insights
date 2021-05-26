@@ -126,7 +126,7 @@ const compileImports = data => {
   const target = []
   const uniqueIDs = []
 
-  for (let i = data.length; i--;) {
+  for (let i = 0; i < data.length; i++) {
     const posts = data[i].posts
 
     for (let i = posts.length; i--;) {
@@ -145,6 +145,40 @@ const compileImports = data => {
 /**
  *
  * I haven't thought of a good description for this function yet.
+ * @function processPosts
+ *
+ */
+
+const titleRegex = /^.*?~/
+
+const processPosts = (posts, latest) => {
+  const latestIDs = []
+
+  for (let i = 0; i < latest.length; i++) {
+    latestIDs.push(latest[i].id)
+  }
+
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i]
+    const title = titleRegex.exec(post.caption)
+
+    post.modified = Date.now()
+
+    if (latestIDs.includes(post.id) === false) {
+      post.archived = true
+    }
+
+    if (title != null) {
+      post.title = title[0].slice(0, -1).trim()
+    }
+  }
+
+  return posts
+}
+
+/**
+ *
+ * I haven't thought of a good description for this function yet.
  * @function processSources
  *
  */
@@ -153,7 +187,7 @@ const byDate = (a, b) => b.date - a.date
 
 const process = sources => {
   const imports = sources.imports.sort(byDate)
-  const posts = compileImports(imports)
+  const posts = processPosts(compileImports(imports), (imports[0] || { posts: [] }).posts)
 
   sources.combinations = averageCombinations(posts)
   sources.posts = posts
@@ -180,12 +214,13 @@ export const restoreImports = ({ sources }) => {
   }
 }
 
-export const deleteImport = ({ sources }, index) => {
+export const removeImport = ({ sources }, index) => {
   if (sources.imports.length === 1) {
     sources.imports = []
     localStorage.removeItem('imports')
   } else {
-    sources.imports.splice(index)
+    console.log(sources.imports, index)
+    sources.imports.splice(index, 1)
     localStorage.setItem('imports', JSON.stringify(sources.imports))
   }
 

@@ -1,27 +1,27 @@
 
+$icon-check-box: ic-check-box-24px($white);
+$icon-check-box-outline: ic-check-box-outline-blank-24px($white);
+
 .hashtags {
   display: grid;
-  grid: auto auto 1fr / auto;
+  grid: auto 1fr / auto;
   gap: 24px;
-  max-height: calc(100vh - 96px - 36px);
-  // overflow: hidden;
+  height: calc(100vh - 96px - 36px);
   user-select: none;
 }
 
 .hashtags-table {
-  // display: block;
-  max-height: 100%;
-  overflow: auto;
-  // background: blue;
+  padding: 0 0 12px;
+  border-radius: 12px;
+  overflow-y: overlay;
+  background: $dark-500;
+  user-select: none;
 }
 
 .hashtags-table > table {
   display: grid;
   grid: auto / var(--table-columns);
-  border-radius: 12px;
   font: 14px/24px 'Source Code Pro', monospace;
-  background: $dark-500;
-  user-select: none;
 
   &::before {
     display: block;
@@ -45,10 +45,20 @@
   td {
     padding: 0 24px;
     cursor: pointer;
+
+    &:nth-child(1) {
+      padding: 0 24px 0 (24px + 24px + 12px);
+      background: url($icon-check-box-outline) 24px / 18px no-repeat;
+    }
   }
 
   tr.-active td {
-    background: mix($dark-500, $primary);
+    $active-color: mix($dark-500, $primary);
+    background: $active-color;
+
+    &:nth-child(1) {
+      background: $active-color url($icon-check-box) 24px / 18px no-repeat;
+    }
   }
 }
 
