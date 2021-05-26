@@ -2,15 +2,15 @@
 $icon-arrow: ic-expand-more-24px($light-600);
 
 .drop > button {
-  // margin: 0 0 0 12px;
-  padding: 12px 24px 12px (24px + 24px);
+  // margin: 0 0 0 40px; // temporary?
+  padding: 12px 18px 12px 40px;
   border-radius: 6px;
-  background: $dark-300 url($icon-arrow) 12px no-repeat;
+  background: $dark-300 url($icon-arrow) 8px no-repeat;
 }
 
 .drop ul {
   display: grid;
-  top: 12px;
+  margin: 12px 0 0;
   padding: 6px;
   border-radius: 6px;
   list-style: none;

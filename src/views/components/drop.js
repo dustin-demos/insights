@@ -5,22 +5,22 @@ const focusIn = () => {
   lock = true
 }
 
-export const Menu = data => {
+export const Menu = props => {
   const listItems = []
 
   const focusOut = () => {
     window.requestAnimationFrame(() => {
       if (lock === false) {
-        data.onClose()
+        props.onClose()
       }
 
       lock = false
     })
   }
 
-  for (const key in data.list) {
+  for (const key in props.list) {
     const select = () => {
-      data.onSelect(data.list[key])
+      props.onSelect(props.list[key], key)
     }
 
     listItems.push(
@@ -31,8 +31,8 @@ export const Menu = data => {
   }
 
   return (
-    <div class={data.isOpen ? 'drop' : 'drop -hidden'}>
-      <button onclick={data.onOpen} onfocusout={focusOut}>{data.label}</button>
+    <div class={props.isOpen ? 'drop' : 'drop -hidden'}>
+      <button onclick={props.onOpen} onfocusout={focusOut}>{props.label}</button>
       <ul>{listItems}</ul>
     </div>
   )

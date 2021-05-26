@@ -1,7 +1,11 @@
 
 import Main from './_main'
 import shuffle from '../shuffle'
+
+import * as sources from '../stores/sources'
+
 import Placeholder from './components/placeholder'
+import * as drop from './components/drop'
 
 /**
  *
@@ -17,6 +21,35 @@ const clipboard = (data, callback) => {
   navigator.clipboard.write([item]).then(callback, err => {
     console.error(err)
   })
+}
+
+/**
+ *
+ * Drop Menu Actions
+ *
+ */
+
+const dropOpen = (state, uid) => {
+  state.dropActive = state.dropActive === uid ? null : uid
+  return state
+}
+
+const dropClose = state => {
+  state.dropActive = false
+  return state
+}
+
+// NOTE:
+// this doesn't need to be an async function but it's easier this way
+// pocket is kind of scuffed in these kinds of situations
+const dropSelect = (state, { key, value }) => async dispatch => {
+  state.dropActive = false
+  state.hashtags.comboMethodName = key
+  state.hashtags.comboMethod = value
+
+  dispatch(sources.processSources)
+
+  return state
 }
 
 /**
@@ -114,7 +147,7 @@ const Chips = ({ array, flash, onClear, onCopy, onFlashEnd, onShuffle }) => {
 }
 
 const Hashtags = (state, dispatch) => {
-  const combinations = Table({
+  const combo = Table({
     activeTags: state.activeTags,
     head: ['Tag', 'Combinations', 'Total Averages', 'Average Combination'],
     data: state.sources.combinations,
@@ -150,10 +183,35 @@ const Hashtags = (state, dispatch) => {
     }
   })
 
+  const DropMenu = drop.Menu({
+    isOpen: state.dropActive === 'combo',
+    label: `Calculate Combinations using: ${state.hashtags.comboMethodName}`,
+    list: {
+      'Engagement': 'engagement',
+      'Impressions': 'impressions',
+      'Likes': 'likes',
+      'Reach': 'reach',
+      'Saved': 'saved'
+    },
+    onOpen: () => {
+      dispatch(dropOpen, 'combo')
+    },
+    onClose: () => {
+      dispatch(dropClose)
+    },
+    onSelect: (value, key) => {
+      dispatch(dropSelect, { key, value })
+    }
+  })
+
   return (
     <div class='hashtags'>
       {TagChips}
-      {combinations}
+      <div class='hashtags-combo'>
+        <h1>Combinations</h1>
+        <div class='hashtags-menu-container'>{DropMenu}</div>
+      </div>
+      {combo}
     </div>
   )
 }

@@ -3,7 +3,9 @@ import Main from './_main'
 import Home from './prompt'
 
 import * as sources from '../stores/sources'
+
 import Placeholder from './components/placeholder'
+import Table from './components/table'
 
 const ImportJSON = data => {
   const change = event => {
@@ -31,7 +33,7 @@ const ImportJSON = data => {
   )
 }
 
-const Table = data => {
+const SourcesTable = data => {
   const target = []
 
   for (let i = data.imports.length; i--;) {
@@ -88,36 +90,36 @@ const disableOverlay = state => {
  *
  */
 
-const Posts = ({ posts }) => {
-  const target = []
-
-  for (let i = 0; i < posts.length; i++) {
-    const post = posts[i]
-
-    console.log(post)
-
-    target.push(
-      <tr>
-        <td>{post.id}</td>
-        <td>{post.caption.slice(0, 36)}...</td>
-        <td>{post.engagement}</td>
-        <td>{post.impressions}</td>
-        <td>{post.likes}</td>
-        <td>{post.reach}</td>
-        <td>{post.status || 'Live'}</td>
-      </tr>
-    )
-  }
-
-  return (
-    <div class='sources-posts'>
-      <h1>Posts</h1>
-      <table>
-        <tbody>{target}</tbody>
-      </table>
-    </div>
-  )
-}
+// const Posts = ({ posts }) => {
+//   const target = []
+//
+//   for (let i = 0; i < posts.length; i++) {
+//     const post = posts[i]
+//
+//     console.log(post)
+//
+//     target.push(
+//       <tr>
+//         <td>{post.id}</td>
+//         <td>{post.caption.slice(0, 36)}...</td>
+//         <td>{post.engagement}</td>
+//         <td>{post.impressions}</td>
+//         <td>{post.likes}</td>
+//         <td>{post.reach}</td>
+//         <td>{post.status || 'Live'}</td>
+//       </tr>
+//     )
+//   }
+//
+//   return (
+//     <div class='sources-posts'>
+//       <h1>Posts</h1>
+//       <table>
+//         <tbody>{target}</tbody>
+//       </table>
+//     </div>
+//   )
+// }
 
 const Sources = (state, dispatch) => {
   const open = () => {
@@ -139,8 +141,13 @@ const Sources = (state, dispatch) => {
   }
 
   const removeImport = index => {
-    dispatch(sources.deleteImport, index)
+    dispatch(sources.removeImport, index)
   }
+
+  // const googleSheets = () => {
+  //   // https://docs.google.com/spreadsheets/d/1CdFSsRVKahdG4GASxl31k2rE44z_dA_ae2gaz7DgLmo
+  //   // 1CdFSsRVKahdG4GASxl31k2rE44z_dA_ae2gaz7DgLmo
+  // }
 
   const date = Date.now()
   const json = JSON.stringify({ date, posts: state.sources.posts })
@@ -152,18 +159,29 @@ const Sources = (state, dispatch) => {
     <div class='sources'>
       <div class='sources-foobar'>
         <div class='sources-import'>
+          {/* <button onclick={googleSheets}>Edit in Google Sheets</button> */}
           <button onclick={open}>Import from Instagram</button>
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
         </div>
         <Placeholder show={state.sources.imports.length} message='Start by importing from instagram or a JSON file.'>
-          <Table imports={state.sources.imports} onDelete={removeImport} />
+          <SourcesTable imports={state.sources.imports} onDelete={removeImport} />
         </Placeholder>
         <Overlay show={state.sources.overlay} onClose={close}>
           {Home(state, dispatch)}
         </Overlay>
       </div>
-      <Posts posts={state.sources.posts} />
+      {/* <Posts posts={state.sources.posts} /> */}
+      <div class='sources-posts'>
+        <h1>Posts</h1>
+        {
+          Table({
+            columns: '2fr 3fr 1fr 1fr 1fr 1fr',
+            keys: ['title', 'caption', 'likes', 'saved', 'reach', 'archived'],
+            data: state.sources.posts
+          })
+        }
+      </div>
     </div>
   )
 }
