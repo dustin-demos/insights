@@ -4,7 +4,7 @@ $icon-check-box-outline: ic-check-box-outline-blank-24px($white);
 
 .hashtags {
   display: grid;
-  grid: auto 1fr / auto;
+  grid: auto auto 1fr / auto;
   gap: 24px;
   height: calc(100vh - 96px - 36px);
   user-select: none;
