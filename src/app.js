@@ -34,10 +34,9 @@ const dispatch = app({
       chartRange: 48
     },
     hashtags: {
-      comboMethodName: 'Reach',
-      comboMethod: 'reach'
+      comboMethod: 'reach',
+      comboMethodName: 'Reach'
     },
-
     sources: {
       overlay: false, // Make a better system
       combinations: [],

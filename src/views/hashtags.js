@@ -44,8 +44,8 @@ const dropClose = state => {
 // pocket is kind of scuffed in these kinds of situations
 const dropSelect = (state, { key, value }) => async dispatch => {
   state.dropActive = false
-  state.hashtags.comboMethodName = key
   state.hashtags.comboMethod = value
+  state.hashtags.comboMethodName = key
 
   dispatch(sources.processSources)
 
