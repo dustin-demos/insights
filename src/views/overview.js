@@ -81,8 +81,12 @@ const Overview = (state, dispatch) => {
   })
 
   const posts = state.sources.posts
+  console.log(posts)
   const engagement = percentChanged(posts[0].engagement, posts[1].engagement)
+  const impressions = percentChanged(posts[0].impressions, posts[1].impressions)
+  const likes = percentChanged(posts[0].likes, posts[1].likes)
   const reach = percentChanged(posts[0].reach, posts[1].reach)
+  const saved = percentChanged(posts[0].saved, posts[1].saved)
 
   return (
     <div class='overview'>
@@ -94,7 +98,10 @@ const Overview = (state, dispatch) => {
         </div>
         <TopHashtag combinations={state.sources.combinations} />
         <Card head='Engagement' content={percentStringify(engagement)}></Card>
+        <Card head='Impressions' content={percentStringify(impressions)}></Card>
+        <Card head='Likes' content={percentStringify(likes)}></Card>
         <Card head='Reach' content={percentStringify(reach)}></Card>
+        <Card head='Saved' content={percentStringify(saved)}></Card>
       </div>
     </div>
   )
