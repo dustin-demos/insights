@@ -16,6 +16,7 @@ module.exports = {
     js: {
       ...jsx,
       bundle: true,
+      nodePaths: ['src', 'src/modules'],
       sourcemap: true,
       write: false,
       define: {
@@ -29,6 +30,7 @@ module.exports = {
     html: {
       ...jsx,
       bundle: true,
+      nodePaths: ['src', 'src/modules'],
       platform: 'node',
       write: false,
       define: {
