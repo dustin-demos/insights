@@ -11,7 +11,7 @@ import * as drop from './components/drop'
  */
 
 const dropOpen = (state, uid) => {
-  state.dropActive = uid
+  state.dropActive = state.dropActive === uid ? null : uid
   return state
 }
 

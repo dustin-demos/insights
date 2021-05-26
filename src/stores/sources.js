@@ -8,7 +8,8 @@
 
 const nearestHundred = number => Math.round(number * 100) / 100
 
-const averageCombinations = data => {
+// TODO: give "reach" a better name
+const averageCombinations = (data, key) => {
   const averages = []
   const collect = {}
   const result = []
@@ -16,7 +17,7 @@ const averageCombinations = data => {
   for (let foo = data.length; foo--;) {
     const post = data[foo]
     const tags = post.caption.match(/#\w+/g)
-    const reach = post.reach
+    const reach = post[key]
 
     // Temp: ignore posts without reach
     if (reach === undefined) continue
@@ -26,7 +27,7 @@ const averageCombinations = data => {
 
       const nextPost = data[bar]
       const nextTags = nextPost.caption.match(/#\w+/g)
-      const nextReach = nextPost.reach
+      const nextReach = nextPost[key]
 
       // Temp: ignore posts without reach
       if (nextReach === undefined) continue
@@ -76,16 +77,18 @@ const averageCombinations = data => {
  *
  */
 
-const collectTags = data => {
+const collectTags = (data, key) => {
   const target = {}
 
   for (let i = data.length; i--;) {
     const post = data[i]
     const tags = post.caption.match(/#\w+/g)
-    const reach = post.reach
+    // const reach = post.reach
+    const reach = post[key]
 
     // NOTE: This is temporary until I implement JSON validation.
-    if (post.reach === undefined) continue
+    // if (post.reach === undefined) continue
+    if (post[key] === undefined) continue
 
     for (let i = tags.length; i--;) {
       const tag = tags[i]
@@ -185,13 +188,13 @@ const processPosts = (posts, latest) => {
 
 const byDate = (a, b) => b.date - a.date
 
-const process = sources => {
+const process = (sources, key) => {
   const imports = sources.imports.sort(byDate)
   const posts = processPosts(compileImports(imports), (imports[0] || { posts: [] }).posts)
 
-  sources.combinations = averageCombinations(posts)
+  sources.combinations = averageCombinations(posts, key)
   sources.posts = posts
-  sources.tags = collectTags(posts)
+  sources.tags = collectTags(posts, key)
 
   return sources
 }
@@ -202,19 +205,19 @@ const process = sources => {
  *
  */
 
-export const restoreImports = ({ sources }) => {
+export const restoreImports = ({ sources, hashtags }) => {
   const json = localStorage.getItem('imports')
 
   if (typeof json === 'string') {
     sources.imports = JSON.parse(json)
 
     return {
-      sources: process(sources)
+      sources: process(sources, hashtags.comboMethod)
     }
   }
 }
 
-export const removeImport = ({ sources }, index) => {
+export const removeImport = ({ sources, hashtags }, index) => {
   if (sources.imports.length === 1) {
     sources.imports = []
     localStorage.removeItem('imports')
@@ -225,26 +228,32 @@ export const removeImport = ({ sources }, index) => {
   }
 
   return {
-    sources: process(sources)
+    sources: process(sources, hashtags.comboMethod)
   }
 }
 
-export const importJSON = ({ sources }, data) => {
+export const importJSON = ({ sources, hashtags }, data) => {
   sources.imports.push(JSON.parse(data))
   localStorage.setItem('imports', JSON.stringify(sources.imports))
 
   return {
-    sources: process(sources)
+    sources: process(sources, hashtags.comboMethod)
   }
 }
 
-export const importInstagram = ({ sources }, data) => {
+export const importInstagram = ({ sources, hashtags }, data) => {
   sources.imports.push(data)
   sources.overlay = false
 
   localStorage.setItem('imports', JSON.stringify(sources.imports))
 
   return {
-    sources: process(sources)
+    sources: process(sources, hashtags.comboMethod)
+  }
+}
+
+export const processSources = ({ sources, hashtags }) => {
+  return {
+    sources: process(sources, hashtags.comboMethod)
   }
 }

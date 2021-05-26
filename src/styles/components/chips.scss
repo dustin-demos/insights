@@ -21,11 +21,20 @@
   font: 600 24px/32px $font-inter;
 }
 
+.chips-bar > button,
+.chips-list > button {
+  font: 14px/28px $font-inter;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
 .chips-bar > button {
   padding: 0 12px 0 36px;
   border-radius: 6px;
   // ((36px - 18px) / 2) = 9px but 10px looks better
-  background: $dark-100 10px center / 18px no-repeat;
+  background: $dark-200 10px center / 18px no-repeat;
 
   &.-clear {
     background-image: url(ic-clear-24px($white));
@@ -50,7 +59,6 @@
   padding: 0 16px;
   border: 2px solid $primary;
   border-radius: 16px;
-  font: 14px/28px $font-inter;
   background: alpha($primary, 0.5);
 }
 

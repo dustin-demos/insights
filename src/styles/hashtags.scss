@@ -10,6 +10,26 @@ $icon-check-box-outline: ic-check-box-outline-blank-24px($white);
   user-select: none;
 }
 
+.hashtags-combo {
+  position: relative; // temp?
+  padding: 24px;
+  border-radius: 12px;
+  background: $dark-500;
+
+  > h1 {
+    font: 600 24px/1 $font-inter;
+  }
+}
+
+.hashtags-menu-container {
+  // display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  font: 14px/16px $font-inter;
+}
+
 .hashtags-table {
   padding: 0 0 12px;
   border-radius: 12px;
