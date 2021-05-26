@@ -67,7 +67,7 @@ const polygonGradient = data => {
 
   return svg.path({
     fill: 'url(#gradient)',
-    d: d + ` ${480 - 24} ${144 - 24} L 48 ${144 - 24} Z`
+    d: d + ` ${480 - 24} ${144} L 48 ${144} Z`
   })
 }
 
@@ -176,56 +176,67 @@ export const randomChart = data => {
 /**
  *
  *
+ * @function actualChart
  *
  */
 
-const chartWidth = 1024 / 2
-const chartHeight = 120
+export const actualChart = props => {
+  /**
+   *
+   * collect raw points
+   *
+   */
 
-export const chart = data => {
-  const points = []
   const arr = []
 
-  for (let i = data.insights.length; i--;) {
-    const item = data.insights[i]
+  for (let i = props.insights.length; i--;) {
+    const item = props.insights[i]
 
     if (typeof item.reach === 'number') {
       arr.push(item.reach)
     }
   }
 
-  const max = Math.max(...arr)
-  const length = arr.length
+  /**
+   *
+   * scale points
+   *
+   */
 
-  for (let i = length; i--;) {
-    const reach = arr[i]
-    const offset = chartWidth / (length * 2)
+  const points = []
+  const range = arr.slice(Math.max(arr.length - props.range, 0))
 
-    const x = Math.round(chartWidth / length * i) + offset
-    const y = reach * ((chartHeight - 15) / max)
+  const max = Math.max(...range)
+  const ratio = height / max
 
-    points.push([x, chartHeight - y])
+  for (let i = 0; i < range.length; i++) {
+    points.push(height - (range[i] * ratio))
   }
 
-  return (
-    <div class='chart'>
-      <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
-        {gridLines()}
-        {dotsFromPoints(points)}
-        <path stroke='#1877f2' fill='none' d={pathFromPoints(points)}></path>
-      </svg>
-    </div>
-  )
+  /**
+   *
+   * the rest
+   *
+   */
 
-  // return html.div({ class: 'chart' }, [
-  //   html.svg({ viewBox: `0 0 ${chartWidth} ${chartHeight}` }, [
-  //     ...gridLines(),
-  //     ...dotsFromPoints(points),
-  //     svg.path({
-  //       'stroke': '#1877f2',
-  //       'fill': 'none',
-  //       'd': pathFromPoints(points)
-  //     })
-  //   ])
-  // ])
+  const selection = plotPoints({
+    width,
+    points
+  })
+
+  return html.svg({ viewBox: `0 0 ${width} ${height}` }, [
+    gradient(),
+
+    ...gridLines({ width, height }),
+
+    polygonGradient(selection),
+    dotsFromPoints(selection),
+
+    svg.path({
+      'fill': 'none',
+      'stroke-width': 1,
+      'stroke': '#0073ff',
+      'd': pathFromPoints(selection)
+    })
+  ])
 }

@@ -31,7 +31,7 @@ const dispatch = app({
     dropActive: null,
 
     overview: {
-      chartRange: 48
+      chartRange: 24
     },
     hashtags: {
       comboMethod: 'reach',

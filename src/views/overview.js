@@ -54,9 +54,10 @@ const Overview = (state, dispatch) => {
     range: state.overview.chartRange
   })
 
-  // const actualChart = Chart.chart({
-  //   insights:
-  // })
+  const actualChart = Chart.actualChart({
+    range: state.overview.chartRange,
+    insights: state.sources.posts
+  })
 
   const dropMenu = drop.Menu({
     isOpen: state.dropActive === 'range',
@@ -64,8 +65,10 @@ const Overview = (state, dispatch) => {
     list: {
       'Last 12 Posts': 12,
       'Last 24 Posts': 24,
+      'Last 36 Posts': 36,
       'Last 48 Posts': 48,
-      'Last 96 Posts': 96
+      'Last 60 Posts': 60,
+      'Last 72 Posts': 72
     },
     onOpen: () => {
       dispatch(dropOpen, 'range')
@@ -83,7 +86,8 @@ const Overview = (state, dispatch) => {
       <div class='overview-grid'>
         <div class='overview-chart'>
           <h1>Profile Overview</h1>
-          {randomChart}
+          {/* {randomChart} */}
+          {actualChart}
           <div class='overview-menu-container'>{dropMenu}</div>
         </div>
         <TopHashtag combinations={state.sources.combinations} />
