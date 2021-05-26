@@ -90,37 +90,6 @@ const disableOverlay = state => {
  *
  */
 
-// const Posts = ({ posts }) => {
-//   const target = []
-//
-//   for (let i = 0; i < posts.length; i++) {
-//     const post = posts[i]
-//
-//     console.log(post)
-//
-//     target.push(
-//       <tr>
-//         <td>{post.id}</td>
-//         <td>{post.caption.slice(0, 36)}...</td>
-//         <td>{post.engagement}</td>
-//         <td>{post.impressions}</td>
-//         <td>{post.likes}</td>
-//         <td>{post.reach}</td>
-//         <td>{post.status || 'Live'}</td>
-//       </tr>
-//     )
-//   }
-//
-//   return (
-//     <div class='sources-posts'>
-//       <h1>Posts</h1>
-//       <table>
-//         <tbody>{target}</tbody>
-//       </table>
-//     </div>
-//   )
-// }
-
 const Sources = (state, dispatch) => {
   const open = () => {
     dispatch(enableOverlay)
@@ -144,11 +113,6 @@ const Sources = (state, dispatch) => {
     dispatch(sources.removeImport, index)
   }
 
-  // const googleSheets = () => {
-  //   // https://docs.google.com/spreadsheets/d/1CdFSsRVKahdG4GASxl31k2rE44z_dA_ae2gaz7DgLmo
-  //   // 1CdFSsRVKahdG4GASxl31k2rE44z_dA_ae2gaz7DgLmo
-  // }
-
   const date = Date.now()
   const json = JSON.stringify({ date, posts: state.sources.posts })
 
@@ -159,7 +123,6 @@ const Sources = (state, dispatch) => {
     <div class='sources'>
       <div class='sources-foobar'>
         <div class='sources-import'>
-          {/* <button onclick={googleSheets}>Edit in Google Sheets</button> */}
           <button onclick={open}>Import from Instagram</button>
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
@@ -171,7 +134,6 @@ const Sources = (state, dispatch) => {
           {Home(state, dispatch)}
         </Overlay>
       </div>
-      {/* <Posts posts={state.sources.posts} /> */}
       <div class='sources-posts'>
         <h1>Posts</h1>
         {
