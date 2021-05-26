@@ -107,6 +107,7 @@ const getInsights = async data => {
       // simplify stats from post
       Object.assign(post, {
         id: postRes.id,
+        date: new Date(postRes.timestamp).getTime(),
         caption: postRes.caption,
         likes: postRes.like_count,
         tags: postRes.caption.match(hashtagRegexp)

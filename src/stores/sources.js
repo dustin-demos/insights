@@ -1,6 +1,14 @@
 
 /**
  *
+ * Utilities
+ *
+ */
+
+const byDate = (a, b) => b.date - a.date
+
+/**
+ *
  *
  * @function averageCombinations
  *
@@ -176,7 +184,7 @@ const processPosts = (posts, latest) => {
     }
   }
 
-  return posts
+  return posts.sort(byDate)
 }
 
 /**
@@ -185,8 +193,6 @@ const processPosts = (posts, latest) => {
  * @function processSources
  *
  */
-
-const byDate = (a, b) => b.date - a.date
 
 const process = (sources, key) => {
   const imports = sources.imports.sort(byDate)
