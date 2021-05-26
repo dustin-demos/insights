@@ -32,6 +32,9 @@ const dropSelect = (state, range) => {
  *
  */
 
+const percentChanged = (a, b) => Math.round(((a - b) / a) * 10000) / 100
+const percentStringify = number => number < 0 ? `${number}%` : `+${number}%`
+
 const Card = data => {
   return (
     <div class='overview-card'>
@@ -77,18 +80,21 @@ const Overview = (state, dispatch) => {
     }
   })
 
+  const posts = state.sources.posts
+  const engagement = percentChanged(posts[0].engagement, posts[1].engagement)
+  const reach = percentChanged(posts[0].reach, posts[1].reach)
+
   return (
     <div class='overview'>
       <div class='overview-grid'>
         <div class='overview-chart'>
           <h1>Profile Overview</h1>
-          {/* {randomChart} */}
           {actualChart}
           <div class='overview-menu-container'>{dropMenu}</div>
         </div>
         <TopHashtag combinations={state.sources.combinations} />
-        {/* <Card head='Engagement' content='+14.5%'></Card> */}
-        {/* <Card head='Reach' content='+134.1%'></Card> */}
+        <Card head='Engagement' content={percentStringify(engagement)}></Card>
+        <Card head='Reach' content={percentStringify(reach)}></Card>
       </div>
     </div>
   )
