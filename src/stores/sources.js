@@ -165,22 +165,22 @@ const titleRegex = /^.*?~/
 const processPosts = (posts, latest) => {
   const latestIDs = []
 
-  for (let i = 0; i < latest.length; i++) {
+  for (let i = latest.length; i--;) {
     latestIDs.push(latest[i].id)
   }
 
-  for (let i = 0; i < posts.length; i++) {
+  for (let i = posts.length; i--;) {
     const post = posts[i]
     const title = titleRegex.exec(post.caption)
 
     post.modified = Date.now()
 
-    if (latestIDs.includes(post.id) === false) {
-      post.archived = true
-    }
-
     if (title != null) {
       post.title = title[0].slice(0, -1).trim()
+    }
+
+    if (latestIDs.includes(post.id) === false) {
+      post.archived = true
     }
   }
 

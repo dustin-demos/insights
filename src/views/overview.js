@@ -50,10 +50,6 @@ const TopHashtag = data => {
 }
 
 const Overview = (state, dispatch) => {
-  // const randomChart = Chart.randomChart({
-  //   range: state.overview.chartRange
-  // })
-
   const actualChart = Chart.actualChart({
     range: state.overview.chartRange,
     insights: state.sources.posts
