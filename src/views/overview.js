@@ -81,7 +81,6 @@ const Overview = (state, dispatch) => {
   })
 
   const posts = state.sources.posts
-  console.log(posts)
   const engagement = percentChanged(posts[0].engagement, posts[1].engagement)
   const impressions = percentChanged(posts[0].impressions, posts[1].impressions)
   const likes = percentChanged(posts[0].likes, posts[1].likes)
