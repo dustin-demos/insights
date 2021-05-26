@@ -80,12 +80,15 @@ const Overview = (state, dispatch) => {
     }
   })
 
-  const posts = state.sources.posts
-  const engagement = percentChanged(posts[0].engagement, posts[1].engagement)
-  const impressions = percentChanged(posts[0].impressions, posts[1].impressions)
-  const likes = percentChanged(posts[0].likes, posts[1].likes)
-  const reach = percentChanged(posts[0].reach, posts[1].reach)
-  const saved = percentChanged(posts[0].saved, posts[1].saved)
+  let posts = state.sources.posts
+  posts = state.sources.posts.length < 1 ? [{}, {}] : posts
+  const [recent, last] = posts
+
+  const engagement = percentChanged(recent.engagement, last.engagement)
+  const impressions = percentChanged(recent.impressions, last.impressions)
+  const likes = percentChanged(recent.likes, last.likes)
+  const reach = percentChanged(recent.reach, last.reach)
+  const saved = percentChanged(recent.saved, last.saved)
 
   return (
     <div class='overview'>
