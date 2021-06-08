@@ -24,7 +24,7 @@ const Main = (data, slot) => (state, dispatch) => {
       </div>
       <main>
         <h1>{data.title}</h1>
-        {Slot}
+        <div>{Slot}</div>
       </main>
     </div>
   )
