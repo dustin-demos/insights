@@ -1,5 +1,5 @@
 
-import { pocket } from './pocket/index'
+import { pocket } from 'pocket/index'
 import { patch } from 'superfine'
 
 import * as facebook from './stores/facebook'
@@ -26,6 +26,14 @@ const app = init => pocket(init, view => patch(node, view))
 
 const dispatch = app({
   state: {
+    landing: {
+      index: 0,
+      slides: [
+        '/tmp/slide-0.png',
+        '/tmp/slide-1.png'
+      ]
+    },
+
     activeTags: [],
     copyFlash: false,
     dropActive: null,

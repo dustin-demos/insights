@@ -1,5 +1,5 @@
 
-import { link } from '../../pocket/index'
+import { link } from 'pocket/index'
 
 export default (props, content) => {
   const classList = location.pathname === props.to

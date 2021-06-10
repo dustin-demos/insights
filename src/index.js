@@ -1,6 +1,6 @@
 
 import { readFileSync } from 'fs'
-import { script, style } from './pocket/tags/html'
+import { script, style } from 'pocket/tags/html'
 
 const styles = process.env.PROD === true
   ? style(readFileSync('./public/main.css', 'utf8'))

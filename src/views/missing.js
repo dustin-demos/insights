@@ -1,5 +1,5 @@
 
-import { div, text } from '../pocket/tags/html'
+import { div, text } from 'pocket/tags/html'
 
 const h = (tag, data) => tag([text(data)])
 

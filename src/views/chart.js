@@ -1,6 +1,6 @@
 
-import * as html from '../pocket/tags/html'
-import * as svg from '../pocket/tags/svg'
+import * as html from 'pocket/tags/html'
+import * as svg from 'pocket/tags/svg'
 
 const randomInt = (min, max) => Math.floor(Math.random() * max) + min
 

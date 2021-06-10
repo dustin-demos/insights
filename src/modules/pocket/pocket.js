@@ -94,6 +94,7 @@ const sync = ({ router }) => {
 
 export default (init, patch) => {
   let route
+  let beforeLeave
 
   init.state.router = {
     query: '',
@@ -109,9 +110,15 @@ export default (init, patch) => {
 
     route = init.pages[init.state.router.to] || init.pages['/missing']
 
-    if (typeof route.onroute === 'function') {
-      route.onroute(init.state, dispatch)
+    if (typeof route.onRoute === 'function') {
+      route.onRoute(init.state, dispatch)
     }
+
+    if (typeof beforeLeave === 'function') {
+      beforeLeave()
+    }
+
+    beforeLeave = route.onBeforeLeave
   }
 
   listener()

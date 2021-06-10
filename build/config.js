@@ -3,7 +3,7 @@ const production = process.env.NODE_ENV === 'production'
 const year = new Date().getFullYear()
 
 const jsx = {
-  inject: ['./src/pocket/shim.js'],
+  inject: ['./src/modules/pocket/shim.js'],
   jsxFactory: 'jsx',
   jsxFragment: 'Fragment',
   loader: {
@@ -16,7 +16,7 @@ module.exports = {
     js: {
       ...jsx,
       bundle: true,
-      nodePaths: ['src', 'src/modules'],
+      nodePaths: ['src/modules'],
       sourcemap: true,
       write: false,
       define: {
@@ -30,7 +30,7 @@ module.exports = {
     html: {
       ...jsx,
       bundle: true,
-      nodePaths: ['src', 'src/modules'],
+      nodePaths: ['src/modules'],
       platform: 'node',
       write: false,
       define: {

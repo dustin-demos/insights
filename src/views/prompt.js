@@ -1,5 +1,5 @@
 
-import { a, div, h1, h2, p, text } from '../pocket/tags/html'
+import { a, div, h1, h2, p, text } from 'pocket/tags/html'
 import * as prompt from '../stores/prompt'
 import * as sources from '../stores/sources'
 
