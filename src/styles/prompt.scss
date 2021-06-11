@@ -82,12 +82,12 @@ $card-avatar-size: 288px - 72px - 36px;
     padding: 0 18px;
     border-radius: 6px;
     font: 600 16px/42px sans-serif;
-    background: $facebook-blue;
+    background: $primary;
     cursor: pointer;
 
     &.-facebook {
       padding: 0 18px 0 48px;
-      background: $facebook-blue url($icon-facebook) 12px/30px no-repeat;
+      background: $primary url($icon-facebook) 12px/30px no-repeat;
     }
 
     &.-disable {
@@ -117,7 +117,7 @@ $card-avatar-size: 288px - 72px - 36px;
   cursor: pointer;
 
   &.-active {
-    background: $facebook-blue url($icon-check-circle) right 18px center no-repeat;
+    background: $primary url($icon-check-circle) right 18px center no-repeat;
   }
 }
 
