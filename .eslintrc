@@ -16,6 +16,8 @@
   "rules": {
     "arrow-parens": ["error", "as-needed"],
     "quote-props": ["error", "consistent"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-newline": ["error", { "prevent": true }],
     "react/jsx-uses-vars": "error"
   },
   "globals": {
