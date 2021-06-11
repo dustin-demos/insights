@@ -13,7 +13,7 @@ $icon-settings: ic-settings-24px($light-500);
   display: grid;
   grid: 1fr / 288px 1fr;
   gap: 36px;
-  min-width: 1200px; // temporary?
+  min-width: 1280px;
   height: 100vh;
   animation: 0.5s ease-in-out fadein;
 
@@ -28,7 +28,7 @@ $icon-settings: ic-settings-24px($light-500);
   }
 
   > main > div {
-    max-width: 960px - 4px;
+    max-width: 1280px - 288px - 36px - 36px;
   }
 }
 
