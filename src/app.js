@@ -7,6 +7,7 @@ import * as prompt from './stores/prompt'
 
 import Landing from './views/landing'
 import Missing from './views/missing'
+import Palette from './views/palette'
 
 import Overview from './views/overview'
 import Hashtags from './views/hashtags'
@@ -66,6 +67,7 @@ const dispatch = app({
   pages: {
     '/': Landing,
     '/missing': Missing,
+    '/palette': Palette,
 
     '/overview': Overview,
     '/hashtags': Hashtags,
