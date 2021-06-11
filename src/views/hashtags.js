@@ -14,7 +14,7 @@ import * as drop from './components/drop'
  */
 
 const clipboard = (data, callback) => {
-  const item = new ClipboardItem({
+  const item = new ClipboardItem({ // eslint-disable-line
     'text/plain': new Blob([data], { type: 'text/plain' })
   })
 
