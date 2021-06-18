@@ -40,6 +40,7 @@ export const cancelDialog = ({ facebookManual }) => {
 
 const handlers = {
   login: ({ facebookManual }, data) => {
+    console.log('hi')
     facebookManual.message = data.body
     return { facebookManual }
   },
@@ -47,8 +48,9 @@ const handlers = {
 }
 
 export const handleMessage = (state, data) => {
-  return handlers[data.type](state, data)
+  return handlers[data.event](state, data)
 }
+
 /**
  *
  * State

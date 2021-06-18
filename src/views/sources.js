@@ -3,6 +3,7 @@ import Main from './_main'
 import Home from './prompt'
 
 import * as facebookManual from '../stores/facebookManual'
+import * as facebookManualLib from '../stores/facebookManualLib'
 import * as sources from '../stores/sources'
 
 import Placeholder from './components/placeholder'
@@ -160,19 +161,14 @@ const Sources = (state, dispatch) => {
  *
  */
 
-let listener = null
-const handler = (x, dispatch) => event => {
-  console.log(event)
-  dispatch(facebookManual.handleMessage, event.data)
-}
+const listener = facebookManualLib.dialogListener()
 
 export default {
   view: Main({ title: 'Sources' }, Sources),
   onRoute: (state, dispatch) => {
-    listener = handler(state, dispatch)
-    window.addEventListener('message', listener)
+    listener.add(dispatch)
   },
   onBeforeLeave: () => {
-    window.removeEventListener('message', listener)
+    listener.remove()
   }
 }

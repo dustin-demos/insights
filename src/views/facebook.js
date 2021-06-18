@@ -1,10 +1,11 @@
 
-const postMessage = (type, body) => {
-  window.opener.postMessage({ type, body }, window.location.origin)
+const postMessage = (event, body) => {
+  window.opener.postMessage({ event, body }, window.location.origin)
 }
 
 const Facebook = (state, dispatch) => {
   const click = () => {
+    console.log('click')
     postMessage('login', state.router)
   }
 

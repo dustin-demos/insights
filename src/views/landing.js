@@ -1,6 +1,8 @@
 
 import * as facebookManual from '../stores/facebookManual'
-// import Link from './components/link'
+import * as facebookManualLib from '../stores/facebookManualLib'
+
+import Link from './components/link'
 
 /**
  *
@@ -41,7 +43,7 @@ const Landing = (state, dispatch) => {
         <div class='landing-callout'>
           <h1>Optimize your tags.</h1>
           <h2>Use our fine-tuned heruristics to pick the best tags for posts using your own data.</h2>
-          {/* <Link to='/overview'>Get Started for FREE</Link> */}
+          <Link to='/overview'>No thanks. Take me to Overview.</Link>
           <button onclick={click}>Get Started for FREE</button>
         </div>
       </div>
@@ -69,11 +71,11 @@ const Landing = (state, dispatch) => {
  *
  */
 
-const nextSlide = ({ landing }) => {
-  const index = landing.index + 1
-  landing.index = index >= landing.slides.length ? 0 : index
-  return { landing }
-}
+// const nextSlide = ({ landing }) => {
+//   const index = landing.index + 1
+//   landing.index = index >= landing.slides.length ? 0 : index
+//   return { landing }
+// }
 
 /**
  *
@@ -81,14 +83,18 @@ const nextSlide = ({ landing }) => {
  *
  */
 
-let intervalID
+// let intervalID
+const listener = facebookManualLib.dialogListener()
 
 export default {
+  middleware: ['slideshow'],
   view: Landing,
   onRoute: (state, dispatch) => {
-    intervalID = setInterval(() => { dispatch(nextSlide) }, 5000)
+    // intervalID = setInterval(() => { dispatch(nextSlide) }, 5000)
+    listener.add(dispatch)
   },
   onBeforeLeave: () => {
-    clearInterval(intervalID)
+    // clearInterval(intervalID)
+    listener.remove()
   }
 }

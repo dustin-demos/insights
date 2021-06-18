@@ -88,13 +88,57 @@ const sync = ({ router }) => {
 }
 
 /**
+ * Apply middleware to each page
+ * @function middleware
+ */
+
+const middleware = (init, dispatch) => {
+  const target = []
+
+  return array => {
+    array = array ?? []
+
+    for (let i = 0; i < target.length; i++) {
+      target[i](dispatch)
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      const item = init[array[i]]()
+
+      item.onRoute(dispatch)
+      target.push(item.onBeforeLeave)
+    }
+  }
+}
+
+/**
+ * Apply route events to each page
+ * @function routeEvents
+ */
+
+const routeEvents = dispatch => {
+  let target
+
+  return route => {
+    if (typeof target === 'function') {
+      target(dispatch)
+    }
+
+    if (typeof route.onRoute === 'function') {
+      route.onRoute(dispatch)
+    }
+
+    target = route.onBeforeLeave
+  }
+}
+
+/**
  * Initialize the app
  * @module pocket
  */
 
 export default (init, patch) => {
   let route
-  let beforeLeave
 
   init.state.router = {
     query: '',
@@ -105,20 +149,16 @@ export default (init, patch) => {
     patch(route.view(state, dispatch))
   })
 
+  const applyMiddleware = middleware(init.middleware, dispatch)
+  const applyRouteEvents = routeEvents(dispatch)
+
   const listener = () => {
     dispatch(sync)
 
     route = init.pages[init.state.router.to] || init.pages['/missing']
 
-    if (typeof route.onRoute === 'function') {
-      route.onRoute(init.state, dispatch)
-    }
-
-    if (typeof beforeLeave === 'function') {
-      beforeLeave()
-    }
-
-    beforeLeave = route.onBeforeLeave
+    applyMiddleware(route.middleware)
+    applyRouteEvents(route)
   }
 
   listener()

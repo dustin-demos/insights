@@ -94,6 +94,37 @@ const dispatch = app({
       lock: null
     }
   },
+  middleware: {
+    facebook: () => {
+      // whatever you want here
+      // code here will act as a place to store temporary data
+      // stuff like listeners and intervals
+      return {
+        onRoute: () => {},
+        onBeforeLeave: () => {}
+      }
+    },
+    slideshow: () => {
+      let intervalID
+
+      const nextSlide = ({ landing }) => {
+        const index = landing.index + 1
+        landing.index = index >= landing.slides.length ? 0 : index
+        return { landing }
+      }
+
+      return {
+        onRoute: dispatch => {
+          console.log('set interval')
+          intervalID = setInterval(() => { dispatch(nextSlide) }, 5000)
+        },
+        onBeforeLeave: () => {
+          console.log('clear interval')
+          clearInterval(intervalID)
+        }
+      }
+    }
+  },
   pages: {
     '/': Landing,
     '/fb': Facebook,
