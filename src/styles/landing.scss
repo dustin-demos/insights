@@ -1,40 +1,127 @@
 
-.landing {
-  display: grid;
-  height: 100vh;
+@use 'sass:math';
+
+// .landing {}
+
+/**
+ *
+ * Hero
+ *
+ */
+
+.landing-hero {
+  display: flex;
+  background: $dark-500;
 }
 
-.landing-graphic {
-  $size: 256px * 1.5;
-  display: grid;
-  width: $size;
-  height: $size;
-  margin: auto auto 0;
-  padding: 0 0 44px; // (($size - $size * (83.333 / 100)) - 40px / 2)
-  background: url('/cache/graphic.svg') top -18px center/$size no-repeat;
+/**
+ *
+ * Callout
+ *
+ */
 
-  a {
-    margin: auto auto 0;
-    padding: 0 24px;
-    border-radius: 20px;
-    font: 16px/40px $font-inter;
-    background: $primary;
-    cursor: pointer;
+.landing-callout {
+  margin: auto;
+  padding: (540px / 2) 0;
+  text-align: center;
+}
+
+.landing-callout > h1 {
+  font: 600 clamp(36px, 6vw, 72px)/1.5 $font-inter;
+}
+
+.landing-callout > h2 {
+  font: 400 16px/24px $font-inter;
+}
+
+// .landing-callout > a {
+//   display: inline-block;
+//   margin: 24px 0 0;
+//   padding: 0 36px;
+//   border-radius: 24px;
+//   font: 18px/48px $font-inter;
+//   background: $primary;
+// }
+
+.landing-callout > button {
+  margin: 24px 0 0;
+  padding: 0 36px;
+  border-radius: 24px;
+  font: 18px/48px $font-inter;
+  background: $primary;
+}
+
+/**
+ *
+ * Slider
+ *
+ */
+
+.landing-slider {
+  max-width: 960px;
+  margin: (0 - 540px / 3) auto 0;
+  border-radius: 24px;
+  transition: background-image 0.5s ease-in-out;
+  background: $dark-600 center / contain no-repeat;
+  box-shadow: 0 12px 36px rgba($dark-600, 0.5);
+}
+
+.landing-slider::before {
+  display: block;
+  padding: 0 0 56.25%; // (960 / 540) * 100
+  content: '';
+}
+
+.landing-slider > div:nth-child(1) {
+  background: $dark-500;
+}
+
+@media (min-width: 1024px) {
+  .landing-slider {
+
   }
 }
 
+/**
+ *
+ * Footer
+ *
+ */
+
 .landing-footer {
+  padding: 72px 0 36px;
   color: alpha($light-100, 0.5);
   font: 14px/24px sans-serif;
   text-align: center;
   white-space: pre;
-
-  &.-span {
-    grid-column: 1 / -1;
-  }
-
-  a {
-    padding: 0 6px;
-    text-decoration: underline;
-  }
 }
+
+.landing-footer > a {
+  padding: 0 6px;
+  text-decoration: underline;
+}
+
+// .landing {
+//   display: grid;
+//   height: 100vh;
+// }
+//
+// .landing-graphic {
+//   $size: 256px * 1.5;
+//   display: grid;
+//   width: $size;
+//   height: $size;
+//   margin: auto auto 0;
+//   padding: 0 0 44px; // (($size - $size * (83.333 / 100)) - 40px / 2)
+//   background: url('/cache/graphic.svg') top -18px center/$size no-repeat;
+//
+//   a {
+//     margin: auto auto 0;
+//     padding: 0 24px;
+//     border-radius: 20px;
+//     font: 16px/40px $font-inter;
+//     background: $primary;
+//     cursor: pointer;
+//   }
+// }
+//

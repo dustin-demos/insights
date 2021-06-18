@@ -1,4 +1,7 @@
 
+import * as chart from './chart'
+import * as lambda from './lambda'
+
 /**
  *
  * Utilities
@@ -6,125 +9,6 @@
  */
 
 const byDate = (a, b) => b.date - a.date
-
-/**
- *
- *
- * @function averageCombinations
- *
- */
-
-const nearestHundred = number => Math.round(number * 100) / 100
-
-// TODO: give "reach" a better name
-const averageCombinations = (data, key) => {
-  const averages = []
-  const collect = {}
-  const result = []
-
-  for (let foo = data.length; foo--;) {
-    const post = data[foo]
-    const tags = post.caption.match(/#\w+/g)
-    const reach = post[key]
-
-    // Temp: ignore posts without reach
-    if (reach === undefined) continue
-
-    for (let bar = data.length - 1; bar--;) {
-      if (foo === bar) continue // ingnore same post
-
-      const nextPost = data[bar]
-      const nextTags = nextPost.caption.match(/#\w+/g)
-      const nextReach = nextPost[key]
-
-      // Temp: ignore posts without reach
-      if (nextReach === undefined) continue
-
-      for (let baz = tags.length; baz--;) {
-        const tag = tags[baz]
-
-        if (nextTags.includes(tag)) {
-          averages.push([tag, (reach + nextReach) / 2])
-        }
-      }
-    }
-  }
-
-  for (let foo = averages.length; foo--;) {
-    const [tag, average] = averages[foo]
-
-    collect[tag] === undefined
-      ? collect[tag] = [average]
-      : collect[tag].push(average)
-  }
-
-  for (const key in collect) {
-    const averages = collect[key]
-    const total = averages.reduce((a, b) => a + b)
-    const length = averages.length
-
-    if (length > 1) {
-      result.push({
-        tag: key,
-        count: length,
-        total: total,
-        rank: nearestHundred(total / length)
-      })
-    }
-  }
-
-  result.sort((a, b) => b.rank - a.rank)
-
-  return result
-}
-
-/**
- *
- *
- * @function collectTags
- *
- */
-
-const collectTags = (data, key) => {
-  const target = {}
-
-  for (let i = data.length; i--;) {
-    const post = data[i]
-    const tags = post.caption.match(/#\w+/g)
-    // const reach = post.reach
-    const reach = post[key]
-
-    // NOTE: This is temporary until I implement JSON validation.
-    // if (post.reach === undefined) continue
-    if (post[key] === undefined) continue
-
-    for (let i = tags.length; i--;) {
-      const tag = tags[i]
-      const current = target[tag]
-
-      target[tag] = current === undefined
-        ? { count: 1, reach: reach }
-        : { count: current.count + 1, reach: current.reach + reach }
-    }
-  }
-
-  const result = []
-
-  for (const key in target) {
-    const item = target[key]
-
-    result.push({
-      tag: key,
-      count: item.count,
-      reach: item.reach,
-      average: item.reach / item.count
-    })
-  }
-
-  result.sort((a, b) => b.average - a.average)
-
-  return result
-}
 
 /**
  *
@@ -190,17 +74,33 @@ const processPosts = (posts, latest) => {
 /**
  *
  * I haven't thought of a good description for this function yet.
- * @function processSources
+ * @function process
  *
  */
 
-const process = (sources, key) => {
-  const imports = sources.imports.sort(byDate)
-  const posts = processPosts(compileImports(imports), (imports[0] || { posts: [] }).posts)
+const metrics = ['engagement', 'impressions', 'likes', 'reach', 'saved']
 
-  sources.combinations = averageCombinations(posts, key)
+const hasMetrics = post => {
+  for (let i = 0; i < metrics.length; i++) {
+    if (typeof post[metrics[i]] !== 'number') {
+      return false
+    }
+  }
+
+  return true
+}
+
+const process = (state, { key, sources }) => async dispatch => {
+  const imports = sources.imports.sort(byDate)
+
+  let posts = (imports[0] || { posts: [] }).posts
+  posts = processPosts(compileImports(imports), posts)
+  posts = posts.filter(hasMetrics)
+
+  dispatch(chart.processMetrics, posts)
+  await dispatch(lambda.combinations, { data: posts, key })
+
   sources.posts = posts
-  sources.tags = collectTags(posts, key)
 
   return sources
 }
@@ -211,19 +111,24 @@ const process = (sources, key) => {
  *
  */
 
-export const restoreImports = ({ sources, hashtags }) => {
+export const restoreImports = ({ sources, hashtags }) => dispatch => {
   const json = localStorage.getItem('imports')
 
   if (typeof json === 'string') {
     sources.imports = JSON.parse(json)
 
-    return {
-      sources: process(sources, hashtags.comboMethod)
-    }
+    // return {
+    //   sources: process(sources, hashtags.comboMethod)
+    // }
+
+    dispatch(process, {
+      sources,
+      key: hashtags.comboMethod
+    })
   }
 }
 
-export const removeImport = ({ sources, hashtags }, index) => {
+export const removeImport = ({ sources, hashtags }, index) => dispatch => {
   if (sources.imports.length === 1) {
     sources.imports = []
     localStorage.removeItem('imports')
@@ -233,18 +138,28 @@ export const removeImport = ({ sources, hashtags }, index) => {
     localStorage.setItem('imports', JSON.stringify(sources.imports))
   }
 
-  return {
-    sources: process(sources, hashtags.comboMethod)
-  }
+  // return {
+  //   sources: process(sources, hashtags.comboMethod)
+  // }
+
+  dispatch(process, {
+    sources,
+    key: hashtags.comboMethod
+  })
 }
 
-export const importJSON = ({ sources, hashtags }, data) => {
+export const importJSON = ({ sources, hashtags }, data) => dispatch => {
   sources.imports.push(JSON.parse(data))
   localStorage.setItem('imports', JSON.stringify(sources.imports))
 
-  return {
-    sources: process(sources, hashtags.comboMethod)
-  }
+  // return {
+  //   sources: process(sources, hashtags.comboMethod)
+  // }
+
+  dispatch(process, {
+    sources,
+    key: hashtags.comboMethod
+  })
 }
 
 export const importInstagram = ({ sources, hashtags }, data) => {
@@ -258,8 +173,20 @@ export const importInstagram = ({ sources, hashtags }, data) => {
   }
 }
 
-export const processSources = ({ sources, hashtags }) => {
-  return {
-    sources: process(sources, hashtags.comboMethod)
-  }
+/**
+ *
+ * Actions
+ *
+ */
+
+// probably just delete this and use process directly?
+export const processSources = ({ sources, hashtags }) => dispatch => {
+  dispatch(process, {
+    sources,
+    key: hashtags.comboMethod
+  })
+
+  // return {
+  //   sources: process(sources, hashtags.comboMethod)
+  // }
 }

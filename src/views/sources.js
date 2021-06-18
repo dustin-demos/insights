@@ -2,6 +2,7 @@
 import Main from './_main'
 import Home from './prompt'
 
+import * as facebookManual from '../stores/facebookManual'
 import * as sources from '../stores/sources'
 
 import Placeholder from './components/placeholder'
@@ -91,6 +92,10 @@ const disableOverlay = state => {
  */
 
 const Sources = (state, dispatch) => {
+  const manualFacebookLogin = () => {
+    dispatch(facebookManual.openDialog)
+  }
+
   const open = () => {
     dispatch(enableOverlay)
   }
@@ -123,6 +128,7 @@ const Sources = (state, dispatch) => {
     <div class='sources'>
       <div class='sources-foobar'>
         <div class='sources-import'>
+          <button onclick={manualFacebookLogin}>Manual Facebook Login</button>
           <button onclick={open}>Import from Instagram</button>
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
@@ -148,7 +154,25 @@ const Sources = (state, dispatch) => {
   )
 }
 
+/**
+ *
+ *  Waiting for the Facebook login popup to send use a message
+ *
+ */
+
+let listener = null
+const handler = (x, dispatch) => event => {
+  console.log(event)
+  dispatch(facebookManual.handleMessage, event.data)
+}
+
 export default {
   view: Main({ title: 'Sources' }, Sources),
-  onroute: state => {}
+  onRoute: (state, dispatch) => {
+    listener = handler(state, dispatch)
+    window.addEventListener('message', listener)
+  },
+  onBeforeLeave: () => {
+    window.removeEventListener('message', listener)
+  }
 }

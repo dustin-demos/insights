@@ -22,8 +22,13 @@ const dropClose = state => {
 
 const dropSelect = (state, range) => {
   state.dropActive = false
-  state.overview.chartRange = range
+  state.chart.range = range
   return state
+}
+
+const toggleMetric = ({ chart }, metric) => {
+  chart.legend[metric] = !chart.legend[metric]
+  return { chart }
 }
 
 /**
@@ -54,13 +59,13 @@ const TopHashtag = data => {
 
 const Overview = (state, dispatch) => {
   const actualChart = Chart.actualChart({
-    range: state.overview.chartRange,
+    range: state.chart.range,
     insights: state.sources.posts
   })
 
   const dropMenu = drop.Menu({
     isOpen: state.dropActive === 'range',
-    label: `Last ${state.overview.chartRange} Posts`,
+    label: `Last ${state.chart.range} Posts`,
     list: {
       'Last 12 Posts': 12,
       'Last 24 Posts': 24,
@@ -90,11 +95,27 @@ const Overview = (state, dispatch) => {
   const reach = percentChanged(recent.reach, last.reach)
   const saved = percentChanged(recent.saved, last.saved)
 
+  const chartNumberTwo = Chart.chart({
+    chart: state.chart,
+    posts: state.sources.posts,
+    onClick: metric => {
+      dispatch(toggleMetric, metric)
+    }
+  })
+
+  // const chartNumberTwo = Chart.chart({
+  //   chart: state.chart,
+  //   onClick: metric => {
+  //     dispatch(toggleMetric, metric)
+  //   }
+  // })
+
   return (
     <div class='overview'>
       <div class='overview-grid'>
         <div class='overview-chart'>
           <h1>Profile Overview</h1>
+          {chartNumberTwo}
           {actualChart}
           <div class='overview-menu-container'>{dropMenu}</div>
         </div>
@@ -111,5 +132,10 @@ const Overview = (state, dispatch) => {
 
 export default {
   view: Main({ title: 'Overview' }, Overview),
-  onroute: state => {}
+  onRoute: state => {
+    console.log('entering overview')
+  },
+  onBeforeLeave: state => {
+    console.log('leaving overview')
+  }
 }

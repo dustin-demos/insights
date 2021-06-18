@@ -6,6 +6,14 @@ const randomInt = (min, max) => Math.floor(Math.random() * max) + min
 
 /**
  *
+ * Colors
+ *
+ */
+
+const blue = '#0073ff'
+
+/**
+ *
  *
  *
  */
@@ -45,19 +53,14 @@ const plotPoints = ({ points, width }) => {
  *
  */
 
-const gradientColor = '#0073ff'
-
-const gradient = () => {
-  return svg.linearGradient({
-    id: 'gradient',
-    gradientTransform: 'rotate(90)'
-  }, [
-    svg.stop({ 'stop-color': gradientColor + '3f' }),
-    svg.stop({ 'offset': '100%', 'stop-color': gradientColor + '00' })
+const gradient = (id, fill) => {
+  return svg.linearGradient({ id, gradientTransform: 'rotate(90)' }, [
+    svg.stop({ 'stop-color': fill, 'stop-opacity': 0.25 }),
+    svg.stop({ 'offset': '100%', 'stop-color': fill, 'stop-opacity': 0 })
   ])
 }
 
-const polygonGradient = data => {
+const polygonGradient = (id, data) => {
   let d = 'M '
 
   for (let i = 0; i < data.length; i++) {
@@ -66,7 +69,7 @@ const polygonGradient = data => {
   }
 
   return svg.path({
-    fill: 'url(#gradient)',
+    fill: `url(#${id})`,
     d: d + ` ${480 - 24} ${144} L 48 ${144} Z`
   })
 }
@@ -124,7 +127,7 @@ export const pathFromPoints = points => {
   return target.slice(0, -2)
 }
 
-export const dotsFromPoints = points => {
+export const dotsFromPoints = (fill, points) => {
   const target = []
 
   for (let i = 0; i < points.length; i++) {
@@ -134,7 +137,7 @@ export const dotsFromPoints = points => {
     target.push(dot)
   }
 
-  return svg.g({ fill: '#0073ff' }, target)
+  return svg.g({ fill }, target)
 }
 
 /**
@@ -157,17 +160,17 @@ export const randomChart = data => {
   })
 
   return html.svg({ viewBox: `0 0 ${width} ${height}` }, [
-    gradient(),
+    gradient('gradient', blue),
 
     ...gridLines({ width, height }),
 
-    polygonGradient(selection),
-    dotsFromPoints(selection),
+    polygonGradient('gradient', selection),
+    dotsFromPoints(blue, selection),
 
     svg.path({
       'fill': 'none',
       'stroke-width': 1,
-      'stroke': '#0073ff',
+      'stroke': blue,
       'd': pathFromPoints(selection)
     })
   ])
@@ -180,6 +183,22 @@ export const randomChart = data => {
  *
  */
 
+const line = ({ id, fill, points }) => {
+  const selection = plotPoints({ width, points })
+
+  return [
+    gradient(id, fill),
+    // polygonGradient(id, selection),
+    svg.path({
+      'fill': 'none',
+      'stroke-width': 1,
+      'stroke': fill,
+      'd': pathFromPoints(selection)
+    }),
+    dotsFromPoints(fill, selection)
+  ]
+}
+
 export const actualChart = props => {
   /**
    *
@@ -187,13 +206,17 @@ export const actualChart = props => {
    *
    */
 
-  const arr = []
+  const engagement = []
+  const impressions = []
 
   for (let i = props.insights.length; i--;) {
     const item = props.insights[i]
 
-    if (typeof item.reach === 'number') {
-      arr.push(item.reach)
+    if (typeof item.engagement === 'number') {
+      if (typeof item.impressions === 'number') {
+        engagement.push(item.engagement)
+        impressions.push(item.impressions)
+      }
     }
   }
 
@@ -204,7 +227,7 @@ export const actualChart = props => {
    */
 
   const points = []
-  const range = arr.slice(Math.max(arr.length - props.range, 0))
+  const range = impressions.slice(Math.max(impressions.length - props.range, 0))
 
   const max = Math.max(...range)
   const ratio = height / max
@@ -213,30 +236,184 @@ export const actualChart = props => {
     points.push(height - (range[i] * ratio))
   }
 
+  //
+
+  const _points = []
+  const _range = engagement.slice(Math.max(engagement.length - props.range, 0))
+
+  // const max = Math.max(...range)
+  // const ratio = height / max
+
+  for (let i = 0; i < _range.length; i++) {
+    _points.push(height - (_range[i] * ratio))
+  }
+
   /**
    *
    * the rest
    *
    */
 
-  const selection = plotPoints({
-    width,
-    points
-  })
-
   return html.svg({ viewBox: `0 0 ${width} ${height}` }, [
-    gradient(),
-
     ...gridLines({ width, height }),
-
-    polygonGradient(selection),
-    dotsFromPoints(selection),
-
-    svg.path({
-      'fill': 'none',
-      'stroke-width': 1,
-      'stroke': '#0073ff',
-      'd': pathFromPoints(selection)
+    ...line({
+      id: 'impressions',
+      fill: 'var(--orange)',
+      points: points
+    }),
+    ...line({
+      id: 'engagement',
+      fill: 'var(--red)',
+      points: _points
     })
   ])
+}
+
+/**
+ *
+ * Main export
+ *
+ */
+
+// This was an attempt at making stuff faster
+// Its, kind of, but it might not actually be faster
+// Also it renders the SVG backwards and idk why
+
+// const metricPoints = ({ height, range, metrics, legend }) => {
+//   const keys = []
+//
+//   for (const key in legend) {
+//     if (legend[key] === true) {
+//       keys.push(key)
+//     }
+//   }
+//
+//   const target = []
+//   let max = 0
+//
+//   for (let i = keys.length; i--;) {
+//     const key = keys[i]
+//     const points = metrics[key].slice(0, range)
+//     const value = Math.max.apply(null, points)
+//
+//     target[key] = target[key] ?? []
+//     target[key] = points
+//
+//     if (value > max) {
+//       max = value
+//     }
+//   }
+//
+//   const ratio = height / max
+//
+//   for (let i = keys.length; i--;) {
+//     const key = keys[i]
+//     const points = target[key]
+//
+//     for (let j = points.length; j--;) {
+//       target[key][j] = height - (points[j] * ratio)
+//     }
+//   }
+//
+//   return target
+// }
+
+const metricPoints = ({ chart: { legend, range }, posts }) => {
+  const target = {}
+  let max = 0
+
+  for (let i = Math.min(posts.length, range); i--;) {
+    const post = posts[i] ?? {}
+
+    for (const key in legend) {
+      if (legend[key] === true) {
+        const value = post[key]
+
+        target[key] = target[key] ?? []
+        target[key].push(value)
+
+        if (value > max) {
+          max = value
+        }
+      }
+    }
+  }
+
+  const ratio = height / max
+
+  for (const key in target) {
+    const points = target[key]
+
+    for (let i = 0; i < points.length; i++) {
+      target[key][i] = height - (points[i] * ratio)
+    }
+  }
+
+  return target
+}
+
+export const chart = props => {
+  /**
+   *
+   * Legend
+   *
+   */
+
+  const legend = []
+
+  for (const key in props.chart.legend) {
+    const style = `--legend-color: ${props.chart.colors[key]}`
+    const classList = props.chart.legend[key] && '-checked'
+
+    const onclick = () => {
+      props.onClick(key)
+    }
+
+    legend.push(
+      <button style={style} onclick={onclick}>
+        <div class={classList}></div>
+        <span>{key}</span>
+      </button>
+    )
+  }
+
+  /**
+   *
+   * SVG
+   *
+   */
+
+  let children = gridLines({ width, height })
+
+  // const foo = metricPoints(props.chart)
+
+  const foo = metricPoints({
+    chart: props.chart,
+    posts: props.posts
+  })
+
+  for (const key in foo) {
+    console.log(key, foo)
+
+    children = children.concat(
+      line({
+        id: key,
+        fill: props.chart.colors[key],
+        points: foo[key]
+      })
+    )
+  }
+
+  /**
+   *
+   * View
+   *
+   */
+
+  return (
+    <div class='chart'>
+      <div class='chart-legend'>{legend}</div>
+      {html.svg({ viewBox: `0 0 ${width} ${height}` }, children)}
+    </div>
+  )
 }

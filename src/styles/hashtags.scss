@@ -37,6 +37,12 @@ $icon-check-box-outline: ic-check-box-outline-blank-24px($white);
   user-select: none;
 }
 
+// Is this a good enough way to show that data is loading?
+.hashtags-table.-loading td {
+  transition: opacity 100ms;
+  opacity: 0.5;
+}
+
 .hashtags-table > table {
   display: grid;
   grid: auto / var(--table-columns);

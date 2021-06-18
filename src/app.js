@@ -1,10 +1,14 @@
 
 import { pocket } from 'pocket/index'
 import { patch } from 'superfine'
+// import fetchCache from 'fetch-from-cache/index'
 
 import * as facebook from './stores/facebook'
+import * as facebookManual from './stores/facebookManual'
+import * as lambda from './stores/lambda'
 import * as prompt from './stores/prompt'
 
+import Facebook from './views/facebook'
 import Landing from './views/landing'
 import Missing from './views/missing'
 import Palette from './views/palette'
@@ -27,6 +31,9 @@ const app = init => pocket(init, view => patch(node, view))
 
 const dispatch = app({
   state: {
+    lambda: lambda.state,
+    facebookManual: facebookManual.state,
+
     landing: {
       index: 0,
       slides: [
@@ -34,24 +41,47 @@ const dispatch = app({
         '/tmp/slide-1.png'
       ]
     },
+    chart: {
+      width: 480,
+      height: 144,
+      range: 24,
+      // metrics: {
+      //   engagement: [],
+      //   impressions: [],
+      //   likes: [],
+      //   reach: [],
+      //   saved: []
+      // },
+      colors: {
+        engagement: 'var(--blue)',
+        impressions: 'var(--green)',
+        likes: 'var(--yellow)',
+        reach: 'var(--orange)',
+        saved: 'var(--red)'
+      },
+      legend: {
+        engagement: true,
+        impressions: true,
+        likes: false,
+        reach: false,
+        saved: false
+      }
+    },
 
     activeTags: [],
     copyFlash: false,
     dropActive: null,
 
-    overview: {
-      chartRange: 24
-    },
     hashtags: {
-      comboMethod: 'reach',
-      comboMethodName: 'Reach'
+      comboMethod: 'reach', // rename to comboMetric?
+      comboMethodName: 'Reach' // rename to comboMetricName?
     },
     sources: {
-      overlay: false, // Make a better system
+      overlay: false, // Move this somewhere else
+
       combinations: [],
       imports: [],
-      posts: [],
-      tags: []
+      posts: []
     },
 
     facebook: facebook.state,
@@ -66,6 +96,8 @@ const dispatch = app({
   },
   pages: {
     '/': Landing,
+    '/fb': Facebook,
+
     '/missing': Missing,
     '/palette': Palette,
 
@@ -109,3 +141,33 @@ window.dataLayer.push({
   'gtm.start': Date.now(),
   'event': 'gtm.js'
 })
+
+/**
+ *
+ * Google Translate
+ * https://cloud.google.com/translate/docs/reference/rest/v2/translate
+ *
+ */
+
+// const path = 'https://translation.googleapis.com/language/translate/v2'
+// const key = 'AIzaSyB52WzBoQzBvxXBMmUCKQlH4zHp8TvcDzo'
+
+// fetchCache({
+//   path: `${path}?key=${key}`,
+//   options: {
+//     method: 'POST',
+//     cache: 'force-cache',
+//     body: JSON.stringify({
+//       q: 'Hello',
+//       target: 'es',
+//       format: 'text',
+//       source: 'en'
+//     })
+//   }
+// })
+//   .then(data => {
+//     console.log(data)
+//   })
+//   .catch(error => {
+//     console.log(error)
+//   })

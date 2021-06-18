@@ -18,13 +18,14 @@
 .overview-chart {
   grid-column: span 3;
   position: relative; // temp?
+  padding: 0 0 24px;
 
   > h1 {
     padding: 24px 24px 0;
   }
 
   > svg {
-    margin: 48px 0 24px 0;
+    // margin: 48px 0 24px 0;
     overflow: visible; // neato peato, might be inconsistent cross browser
   }
 }

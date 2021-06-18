@@ -1,0 +1,35 @@
+
+.overlay {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($dark-600, 0.625);
+}
+
+.overlay.-hidden {
+  display: none;
+}
+
+.overlay > div {
+  display: flex;
+  width: 384px;
+  height: 384px;
+  margin: auto;
+  border-radius: 24px;
+  background: $dark-400 url('/cache/spinner.svg') center / 48px no-repeat;
+}
+
+.overlay > div > button {
+  height: 44px;
+  margin: (384px / 2 + 24px + 36px) auto 0;
+  padding: 0 24px;
+  border-radius: 12px;
+  background: $dark-200;
+}
+
+.overlay > div > button:hover {
+  background: $dark-100;
+}

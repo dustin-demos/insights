@@ -1,5 +1,5 @@
 
-// function derived from:
+// Function derived from:
 // https://github.com/dcousens/fisher-yates/blob/master/index.js
 // https://github.com/sindresorhus/array-shuffle/blob/main/index.js
 

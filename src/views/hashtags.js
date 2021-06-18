@@ -1,7 +1,8 @@
 
-import Main from './_main'
-import shuffle from '../shuffle'
+import memoize from 'pocket/memoize'
+import shuffle from 'shuffle-array'
 
+import Main from './_main'
 import * as sources from '../stores/sources'
 
 import Placeholder from './components/placeholder'
@@ -84,36 +85,41 @@ const flash = (state, data) => async dispatch => {
  *
  */
 
-const Table = ({ head, data, onSelect, activeTags }) => {
-  const target = data.map(item => {
+const memo = memoize(target => target.length === 0)
+
+const Table = props => {
+  const { head, onSelect, activeTags } = props
+  const target = []
+
+  for (let i = 0; i < props.data.length; i++) {
+    const item = props.data[i]
     const values = Object.values(item)
     const tag = values[0]
-
-    const click = () => {
-      onSelect(tag)
-    }
-
     const classList = activeTags.includes(tag) && '-active'
+    const click = () => { onSelect(tag) }
 
-    return (
+    target.push(
       <tr role='button' class={classList} onclick={click}>
         {values.map(item => <td>{item}</td>)}
       </tr>
     )
-  })
+  }
 
   let gridColumns = ''
-
   for (let i = head.length; i--;) {
     gridColumns += ' 1fr'
   }
 
-  return <div class='hashtags-table'>
+  const classList = props.loading === true
+    ? 'hashtags-table -loading'
+    : 'hashtags-table'
+
+  return <div class={classList}>
     <table style={`--table-columns: ${gridColumns}`}>
       <thead>
         {head.map(item => <th>{item}</th>)}
       </thead>
-      <tbody>{target}</tbody>
+      <tbody>{memo('tbody', target)}</tbody>
     </table>
   </div>
 }
@@ -150,7 +156,11 @@ const Hashtags = (state, dispatch) => {
   const combo = Table({
     activeTags: state.activeTags,
     head: ['Tag', 'Combinations', 'Total Averages', 'Average Combination'],
-    data: state.sources.combinations,
+
+    // what can i do about this besides ?? []
+    data: state.lambda.combinations.data ?? [],
+    loading: state.lambda.combinations.loading,
+
     onSelect: tag => {
       dispatch(state => {
         const index = state.activeTags.indexOf(tag)

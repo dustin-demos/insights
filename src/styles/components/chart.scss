@@ -1,0 +1,35 @@
+
+.chart > svg {
+  overflow: visible;
+}
+
+.chart-legend,
+.chart-legend > button {
+  display: flex;
+}
+
+.chart-legend {
+  padding: 12px;
+}
+
+.chart-legend > button {
+  gap: 12px;
+  padding: 12px;
+  background: none;
+}
+
+.chart-legend > button > div {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--legend-color);
+  border-radius: 9px;
+}
+
+.chart-legend > button > div.-checked {
+  background: var(--legend-color);
+}
+
+.chart-legend > button > span {
+  font: 400 14px/18px $font-inter;
+  text-transform: capitalize;
+}
