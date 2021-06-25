@@ -4,7 +4,6 @@
     "stylelint-order"
   ],
   "rules": {
-    "declaration-empty-line-before": "never",
     "at-rule-empty-line-before": [
       "always",
       {
@@ -60,6 +59,16 @@
       "flex-direction",
       "flex-wrap",
 
+      "align-content",
+      "align-items",
+      "align-self",
+      "align-tracks",
+
+      "justify-content",
+      "justify-items",
+      "justify-self",
+      "justify-tracks",
+
       "column-gap",
       "row-gap",
 
@@ -95,6 +104,8 @@
       "declarations"
     ],
     "order/properties-order": [
+      "appearance",
+
       "flex",
 
       "align-self",
@@ -109,9 +120,9 @@
 
       "flex-flow",
 
-      "align-items",
-      "align-content",
-      "justify-content",
+      "place-content",
+      "place-items",
+      "place-self",
 
       "grid",
       "gap",
