@@ -96,7 +96,7 @@ const middleware = (init, dispatch) => {
   const target = []
 
   return array => {
-    array = array ?? []
+    array ??= []
 
     for (let i = 0; i < target.length; i++) {
       target[i](dispatch)
