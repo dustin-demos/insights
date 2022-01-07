@@ -3,9 +3,14 @@ import { pocket } from 'pocket/index'
 import { patch } from 'superfine'
 // import fetchCache from 'fetch-from-cache/index'
 
-import * as facebook from './stores/facebook'
+import * as common from './stores/common'
+import * as panel from './stores/panel'
+
 import * as facebookManual from './stores/facebookManual'
 import * as lambda from './stores/lambda'
+
+// These stores are a bit crusty
+import * as facebook from './stores/facebook'
 import * as prompt from './stores/prompt'
 
 import Facebook from './views/facebook'
@@ -16,6 +21,8 @@ import Palette from './views/palette'
 import Overview from './views/overview'
 import Hashtags from './views/hashtags'
 import Sources from './views/sources'
+
+import Foobar from 'pages/Foobar'
 
 import * as subs from './subs'
 import * as sources from './stores/sources'
@@ -29,10 +36,13 @@ import * as sources from './stores/sources'
 const node = document.getElementById('app')
 const app = init => pocket(init, view => patch(node, view))
 
-const dispatch = app({
+export const dispatch = app({
   state: {
-    lambda: lambda.state,
+    ...common.state,
+    panel: panel.state,
+
     facebookManual: facebookManual.state,
+    lambda: lambda.state,
 
     landing: {
       index: 0,
@@ -134,7 +144,9 @@ const dispatch = app({
 
     '/overview': Overview,
     '/hashtags': Hashtags,
-    '/sources': Sources
+    '/sources': Sources,
+
+    '/foobar': Foobar
 
     // '/discover': Discover,
     // '/suggested': Suggested,
@@ -172,33 +184,3 @@ window.dataLayer.push({
   'gtm.start': Date.now(),
   'event': 'gtm.js'
 })
-
-/**
- *
- * Google Translate
- * https://cloud.google.com/translate/docs/reference/rest/v2/translate
- *
- */
-
-// const path = 'https://translation.googleapis.com/language/translate/v2'
-// const key = 'AIzaSyB52WzBoQzBvxXBMmUCKQlH4zHp8TvcDzo'
-
-// fetchCache({
-//   path: `${path}?key=${key}`,
-//   options: {
-//     method: 'POST',
-//     cache: 'force-cache',
-//     body: JSON.stringify({
-//       q: 'Hello',
-//       target: 'es',
-//       format: 'text',
-//       source: 'en'
-//     })
-//   }
-// })
-//   .then(data => {
-//     console.log(data)
-//   })
-//   .catch(error => {
-//     console.log(error)
-//   })

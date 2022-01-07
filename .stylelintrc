@@ -284,12 +284,6 @@
       "perspective",
       "perspective-origin",
 
-      "transition",
-      "transition-property",
-      "transition-duration",
-      "transition-timing-function",
-      "transition-delay",
-
       "animation",
       "animation-name",
       "animation-duration",
@@ -327,7 +321,13 @@
       "nav-left",
 
       "overflow-scrolling",
-      "text-size-adjust"
+      "text-size-adjust",
+
+      "transition",
+      "transition-property",
+      "transition-duration",
+      "transition-timing-function",
+      "transition-delay"
     ]
   }
 }

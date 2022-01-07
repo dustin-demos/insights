@@ -1,0 +1,39 @@
+
+.palette {
+  display: flex;
+  height: 100vh;
+}
+
+.palette > div {
+  display: flex;
+  margin: auto;
+}
+
+.palette > div > div {
+  width: 72px;
+  height: 72px;
+
+  &.-red {
+    background: $red;
+  }
+
+  &.-orange {
+    background: $orange;
+  }
+
+  &.-yellow {
+    background: $yellow;
+  }
+
+  &.-green {
+    background: $green;
+  }
+
+  &.-blue {
+    background: $blue;
+  }
+
+  &.-purple {
+    background: $purple;
+  }
+}

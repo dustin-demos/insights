@@ -1,0 +1,30 @@
+
+.layout-dashboard {
+  min-height: 100vh;
+  color: var(--text-primary, red);
+  background: var(--background, red);
+  transition:
+    background-color 200ms,
+    padding 200ms;
+}
+
+.layout-dashboard-content {
+  padding: 18px;
+  transition: padding 200ms;
+}
+
+@media (min-width: 768px) {
+  .layout-dashboard-content {
+    padding: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-dashboard {
+    padding: 0 0 0 84px;
+  }
+
+  .layout-dashboard.-sidebar {
+    padding: 0 0 0 288px;
+  }
+}

@@ -56,7 +56,7 @@ const pocket = (state, render) => {
     console.log(
       'Dispatch >>',
       action.name || '(anon)',
-      typeof result === 'function' ? '(effect)' : result
+      typeof result === 'function' ? '(effect)' : JSON.stringify(result, null, 2)
     )
 
     if (typeof result === 'function') {

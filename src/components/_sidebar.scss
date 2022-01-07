@@ -1,0 +1,135 @@
+
+$icons: (
+  'ic-dashboard': ic-dashboard-24px($light-500),
+  'ic-explore': ic-explore-24px($light-500),
+  'ic-insights': ic-insights-24px($light-500),
+  'ic-lightbulb': ic-lightbulb-24px($light-500),
+  'ic-settings': ic-settings-24px($light-500),
+  'ic-source': ic-source-24px($light-500),
+  'ic-tag': ic-tag-24px($light-500),
+);
+
+/**
+ * Component Sidebar
+ */
+
+.component-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 84px;
+  margin: 0 0 0 -84px;
+  padding: 48px 0 24px;
+  overflow: hidden;
+  background: var(--sidebar-background, red);
+  transition:
+    background-color 200ms,
+    margin 200ms,
+    padding 200ms,
+    width 200ms;
+}
+
+.component-sidebar > a {
+  display: block;
+  padding: 0 0 12px ((84px / 2) + 18px + 18px);
+  color: transparent;
+  font: 30px / 36px $font-inter;
+  background: url('/cache/logo.svg') ((84px / 2) - 18px) 0 / 36px no-repeat;
+  transition:
+    background-position 200ms,
+    color 200ms,
+    padding 200ms;
+}
+
+.component-sidebar > h2 {
+  padding: 36px 0 12px 18px;
+  color: transparent;
+  font: 14px / 12px var(--font-inter);
+  transition:
+    color 200ms,
+    padding 200ms;
+}
+
+.component-sidebar.-active {
+  width: 288px;
+  margin: 0;
+  padding: 48px 36px 24px;
+}
+
+.component-sidebar.-active > a {
+  padding: 0 0 12px (36px + 18px);
+  color: var(--text-primary, red);
+  background-position: 0 0;
+}
+
+.component-sidebar.-active > h2 {
+  padding: 36px 0 12px;
+  color: var(--text-secondary, red);
+}
+
+/**
+ * Component Panel Nav
+ */
+
+$icons: (
+  'ic-dashboard': ic-dashboard-24px($light-500),
+  'ic-tag': ic-tag-24px($light-500),
+  'ic-source': ic-source-24px($light-500),
+  'ic-insights': ic-insights-24px($light-500),
+  'ic-lightbulb': ic-lightbulb-24px($light-500),
+  'ic-explore': ic-explore-24px($light-500),
+  'ic-settings': ic-settings-24px($light-500),
+);
+
+.component-sidebar-nav {
+  display: grid;
+  white-space: nowrap;
+}
+
+.component-sidebar-nav > a {
+  padding: 19px 24px 19px ((84px / 2) + 12px + 18px);
+  color: transparent;
+  background-repeat: no-repeat;
+  background-position: ((84px / 2) - 12px) center;
+  transition:
+    background-color 100ms,
+    background-position 200ms,
+    border-radius 200ms,
+    color 200ms,
+    margin 200ms,
+    padding 200ms;
+}
+
+@each $key, $value in $icons {
+  .component-sidebar-nav > a.#{$key} {
+    background-image: url('#{$value}');
+  }
+}
+
+.component-sidebar-nav > a:hover {
+  background-color: var(--sidebar-link-background, red);
+}
+
+.component-sidebar-nav.-active > a {
+  margin: 6px 0;
+  padding: 13px 0 13px (18px + 24px + 18px);
+  border-radius: 9px;
+  color: var(--text-secondary, red);
+  background-position: 18px center;
+}
+
+/**
+ *
+ */
+
+@media (min-width: 1024px) {
+  .component-sidebar {
+    width: 84px;
+    margin: 0;
+  }
+
+  .component-sidebar.-active {
+    width: 288px;
+  }
+}

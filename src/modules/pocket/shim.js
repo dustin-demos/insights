@@ -57,13 +57,18 @@ const flatten = (children, target = []) => {
   return target
 }
 
+// Flattening child is bad for static rendering... why?
 const jsx = (type, props, ...children) => {
+  props ??= {}
+  // children = flatten(children)
+
   if (typeof type === 'function') {
     return type(props, flatten(children))
   }
 
-  props = props || {}
+  // props = props || {}
 
+  // process.env.NODE_ENV === 'static' ???
   if (process.env.STATIC) {
     for (let i = 0; i < children.length; i++) {
       const child = children[i]

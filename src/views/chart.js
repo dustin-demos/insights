@@ -87,10 +87,10 @@ export const gridLines = data => {
 
   for (let i = 1; i < 6; i++) {
     const y = data.height / 6 * i
-    const width = data.width - 12
+    const width = data.width
 
-    const line = svg.path({ d: `M 36 ${y} L ${width} ${y}` })
-    const label = svg.text({ 'x': 24, 'y': y }, [html.text(data.height - y)])
+    const line = svg.path({ d: `M 24 ${y} L ${width} ${y}` })
+    const label = svg.text({ 'x': 12, 'y': y }, [html.text(data.height - y)])
 
     lineTarget.push(line)
     labelTarget.push(label)

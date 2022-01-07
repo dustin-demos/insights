@@ -1,9 +1,28 @@
 
+@import 'modules/alpha';
+@import 'modules/destructure-color';
+@import 'modules/lab';
+
 @import '@whaaaley/material-icons-scss/extended/round';
 
-@import 'styles/colors';
-@import 'styles/fonts';
-@import 'styles/reset';
+@import 'colors';
+@import 'fonts';
+@import 'reset';
+
+@import 'ui/button';
+@import 'ui/card';
+@import 'ui/toggle';
+
+@import 'components/panel';
+@import 'components/sidebar';
+
+@import 'pages/foobar';
+
+@import 'layouts/dashboard';
+
+//
+//
+//
 
 @import 'styles/components/chart';
 @import 'styles/components/chips';
@@ -23,3 +42,5 @@
 @import 'styles/overview';
 @import 'styles/hashtags';
 @import 'styles/sources';
+
+@import 'styles/palette';

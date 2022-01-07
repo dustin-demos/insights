@@ -6,10 +6,7 @@
 }
 
 .sources-posts {
-  padding: 24px;
-  border-radius: 12px;
   font: 14px/24px $font-mono;
-  background: $dark-500;
 
   > h1 {
     padding: 0 0 12px;
@@ -42,10 +39,6 @@
 //
 
 .sources-foobar {
-  padding: 24px;
-  border-radius: 12px;
-  background: $dark-500;
-
   a,
   button,
   label {

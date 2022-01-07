@@ -1,11 +1,11 @@
 
 import Link from './components/link'
 
-const Main = (data, slot) => (state, dispatch) => {
-  const Slot = slot(state, dispatch)
+const Main = (props, children) => (state, dispatch) => {
+  const slot = children(state, dispatch)
 
   return (
-    <div class='main'>
+    <div class='main -default'>
       <div class='main-side'>
         <Link to='/'>Instatistics</Link>
         <nav class='main-nav'>
@@ -23,8 +23,8 @@ const Main = (data, slot) => (state, dispatch) => {
         </footer>
       </div>
       <main>
-        <h1>{data.title}</h1>
-        <div>{Slot}</div>
+        <h1>{props.title}</h1>
+        <div>{slot}</div>
       </main>
     </div>
   )

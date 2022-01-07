@@ -1,0 +1,65 @@
+
+$icon-close: ic-cancel-24px($yellow);
+
+/**
+ * Component Panel
+ */
+
+.component-panel {
+  position: fixed;
+  // top: var(--y);
+  // left: var(--x);
+  height: 36px + 16px + 36px;
+  padding: 36px;
+  border-radius: 24px;
+  color: var(--light-500, red);
+  white-space: nowrap; // important
+  overflow: hidden;
+  background: var(--dark-500, red);
+  transition: height 200ms;
+}
+
+.component-panel > button {
+  position: absolute;
+  top: 36px - 9px;
+  right: 36px - 9px;
+  padding: 18px;
+  background: url($icon-close) center no-repeat;
+}
+
+.component-panel > h1 {
+  padding: 0 0 36px;
+  font: 600 16px/1 var(--font-inter);
+}
+
+.component-panel.-active {
+  height: var(--height);
+}
+
+/**
+ * Component Panel Settings
+ */
+
+.component-panel-settings {
+  display: grid;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.component-panel-settings > div {
+  display: grid;
+  grid: auto / 1fr auto 1fr;
+  gap: 24px;
+  color: var(--text-secondary, red);
+  font: 400 14px/24px var(--font-inter);
+}
+
+.component-panel-settings > hr {
+  height: 2px;
+  background: var(--dark-300, red);
+}
+
+.component-panel-settings.-active {
+  opacity: 1;
+}

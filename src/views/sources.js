@@ -6,6 +6,8 @@ import * as facebookManual from '../stores/facebookManual'
 import * as facebookManualLib from '../stores/facebookManualLib'
 import * as sources from '../stores/sources'
 
+import Card from 'ui/Card'
+
 import Placeholder from './components/placeholder'
 import Table from './components/table'
 
@@ -30,7 +32,7 @@ const ImportJSON = data => {
   return (
     <label role='button' tabindex='0'>
       <input type='file' onchange={change} hidden />
-      Import from JSON
+      From JSON
     </label>
   )
 }
@@ -125,32 +127,40 @@ const Sources = (state, dispatch) => {
   const blob = new Blob([json], { type: 'application/json' })
   const file = URL.createObjectURL(blob)
 
-  return (
-    <div class='sources'>
+  const importSlot = {
+    corner: (
       <div class='sources-foobar'>
         <div class='sources-import'>
-          <button onclick={manualFacebookLogin}>Manual Facebook Login</button>
-          <button onclick={open}>Import from Instagram</button>
+          <button onclick={manualFacebookLogin}>Manual FB</button>
+          <button onclick={open}>From Instagram</button>
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
         </div>
+      </div>
+    )
+  }
+
+  const postsTable = Table({
+    columns: '2fr 3fr 1fr 1fr 1fr 1fr',
+    keys: ['title', 'caption', 'likes', 'saved', 'reach', 'archived'],
+    data: state.sources.posts
+  })
+
+  return (
+    <div class='sources'>
+      <Card icon='ic-sync' title='Import / Export' slot={importSlot}>
         <Placeholder show={state.sources.imports.length} message='Start by importing from instagram or a JSON file.'>
           <SourcesTable imports={state.sources.imports} onDelete={removeImport} />
         </Placeholder>
-        <Overlay show={state.sources.overlay} onClose={close}>
-          {Home(state, dispatch)}
-        </Overlay>
-      </div>
-      <div class='sources-posts'>
-        <h1>Posts</h1>
-        {
-          Table({
-            columns: '2fr 3fr 1fr 1fr 1fr 1fr',
-            keys: ['title', 'caption', 'likes', 'saved', 'reach', 'archived'],
-            data: state.sources.posts
-          })
-        }
-      </div>
+      </Card>
+      <Card icon='ic-photo-camera' title='Instagram Posts'>
+        <div class='sources-posts'>
+          {postsTable}
+        </div>
+      </Card>
+      <Overlay show={state.sources.overlay} onClose={close}>
+        {Home(state, dispatch)}
+      </Overlay>
     </div>
   )
 }

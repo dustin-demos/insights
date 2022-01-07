@@ -1,10 +1,13 @@
 
+import cc from 'classcat'
 import { link } from 'pocket/index'
 
 export default (props, content) => {
-  const classList = location.pathname === props.to
-    ? props.class + ' -active'
-    : props.class
+  const classList = cc([
+    props.icon ?? '-no-icon',
+    props.to === location.pathname && '-active',
+    props.class
+  ])
 
   const to = event => {
     event.preventDefault()

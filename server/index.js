@@ -10,10 +10,8 @@ const serve = require('./lib/serve-handler')
 const watch = require('./lib/watch')
 
 const flags = ['--port', '--watch']
-
 const dir = args['--watch']
 const port = args['--port'] || 3000
-
 const host = 'http://localhost:' + port
 
 const server = http.createServer(function (req, res) {

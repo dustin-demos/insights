@@ -1,0 +1,52 @@
+
+$icons: (
+  'ic-bookmark': ic-bookmark-24px($yellow),
+  'ic-campaign': ic-campaign-24px($orange),
+  'ic-chat': ic-forum-24px($blue),
+  'ic-checklist': ic-checklist-24px($yellow),
+  'ic-emoji-events': ic-emoji-events-24px($light-500),
+  'ic-favorite': ic-favorite-24px($red),
+  'ic-insights': ic-insights-24px($blue),
+  'ic-people': ic-people-24px($green),
+  'ic-photo-camera': ic-collections-24px($yellow),
+  'ic-sync': ic-sync-24px($green),
+  'ic-whatshot': ic-whatshot-24px($orange),
+);
+
+.ui-card {
+  padding: 36px;
+  border-radius: 18px;
+  background: var(--card-background);
+  transition: background-color 200ms;
+}
+
+.ui-card-head {
+  display: flex;
+}
+
+.ui-card-head > h1 {
+  margin: -3px 0 0;
+  padding: 3px 0 0 (24px + 21px);
+  font: 600 24px/1 var(--font-inter);
+
+  &.-no-icon {
+    padding: 3px 0 0 0;
+  }
+
+  @each $key, $value in $icons {
+    &.#{$key} {
+      background: url('#{$value}') 0 0 / 30px no-repeat;
+    }
+  }
+}
+
+.ui-card-corner {
+  flex: 1;
+  display: grid;
+  height: 36px + 24px + 36px;
+  margin: -36px 0 0;
+}
+
+.ui-card-corner > div {
+  margin: auto 0 auto auto;
+}

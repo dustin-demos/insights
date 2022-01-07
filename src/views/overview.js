@@ -1,6 +1,8 @@
 
 import Main from './_main'
 
+import Card from 'ui/Card'
+
 import * as Chart from './chart'
 import * as drop from './components/drop'
 
@@ -40,21 +42,12 @@ const toggleMetric = ({ chart }, metric) => {
 const percentChanged = (a, b) => Math.round(((a - b) / a) * 10000) / 100
 const percentStringify = number => number < 0 ? `${number}%` : `+${number}%`
 
-const Card = data => {
-  return (
-    <div class='overview-card'>
-      <h1>{data.head}</h1>
-      <p>{data.content}</p>
-    </div>
-  )
-}
-
 const TopHashtag = data => {
   const content = data.combinations.length === 0
     ? 'Nothing yet...'
     : data.combinations[0].tag
 
-  return <Card head='Top Hashtag' content={content} />
+  return <Card icon='ic-emoji-events' title='Top Hashtag'>{content}</Card>
 }
 
 const Overview = (state, dispatch) => {
@@ -110,21 +103,27 @@ const Overview = (state, dispatch) => {
   //   }
   // })
 
+  const slot = {
+    corner: dropMenu
+  }
+
   return (
     <div class='overview'>
+      <Card icon='ic-insights' title='Profile Overview' slot={slot}>
+        {chartNumberTwo}
+      </Card>
       <div class='overview-grid'>
         <div class='overview-chart'>
           <h1>Profile Overview</h1>
-          {chartNumberTwo}
           {actualChart}
           <div class='overview-menu-container'>{dropMenu}</div>
         </div>
         <TopHashtag combinations={state.sources.combinations} />
-        <Card head='Engagement' content={percentStringify(engagement)}></Card>
-        <Card head='Impressions' content={percentStringify(impressions)}></Card>
-        <Card head='Likes' content={percentStringify(likes)}></Card>
-        <Card head='Reach' content={percentStringify(reach)}></Card>
-        <Card head='Saved' content={percentStringify(saved)}></Card>
+        <Card icon='ic-chat' title='Engagement'>{percentStringify(engagement)}</Card>
+        <Card icon='ic-people' title='Impressions'>{percentStringify(impressions)}</Card>
+        <Card icon='ic-favorite' title='Likes'>{percentStringify(likes)}</Card>
+        <Card icon='ic-campaign' title='Reach'>{percentStringify(reach)}</Card>
+        <Card icon='ic-bookmark' title='Saved'>{percentStringify(saved)}</Card>
       </div>
     </div>
   )

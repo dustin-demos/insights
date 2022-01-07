@@ -5,6 +5,8 @@ import shuffle from 'shuffle-array'
 import Main from './_main'
 import * as sources from '../stores/sources'
 
+import Card from 'ui/Card'
+
 import Placeholder from './components/placeholder'
 import * as drop from './components/drop'
 
@@ -214,14 +216,29 @@ const Hashtags = (state, dispatch) => {
     }
   })
 
+  const combinationsSlot = {
+    corner: DropMenu
+  }
+
   return (
     <div class='hashtags'>
-      {TagChips}
+      <Card icon='ic-checklist' title='Select Hashtags'>
+        {/* {TagChips} */}
+        test
+      </Card>
+      <Card title='Combinations' slot={combinationsSlot}>
+        test
+      </Card>
+      <Card icon='ic-whatshot' title='Combination Rank'>
+        {/* {combo} */}
+        test
+      </Card>
+      {/* {TagChips}
       <div class='hashtags-combo'>
         <h1>Combinations</h1>
         <div class='hashtags-menu-container'>{DropMenu}</div>
       </div>
-      {combo}
+      {combo} */}
     </div>
   )
 }

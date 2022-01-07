@@ -1,17 +1,21 @@
 
-// 1. NOTE: (iOS Safari) Enable momentum scrolling on overflow elements
-// 2. NOTE: (WebKit/Blink) (Non-standard) Scrollbars overlay content
-// 3. NOTE: (Touch devices) Prevent tap delay
+/**
+ *
+ * 1. NOTE: (iOS Safari) Enable momentum scrolling on overflow elements
+ * 2. NOTE: (WebKit/Blink) (Non-standard) Scrollbars overlay content
+ * 3. NOTE: (Touch devices) Prevent tap delay
+ *
+ */
 
 ::-webkit-scrollbar {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 8px solid transparent;
-  border-radius: 12px;
-  box-shadow: inset 0 0 0 4px $primary;
+  border: 6px solid transparent;
+  border-radius: 9px;
+  box-shadow: inset 0 0 0 3px var(--primary, red);
 }
 
 *:not(svg *) {
@@ -49,9 +53,13 @@ button {
   cursor: pointer;
 }
 
-// NOTE: This sets the maximum page width when using this viewport meta tag.
-// Mobile devices will downscale from this size.
-// <meta name="viewport" content="width=device-width,maximum-scale=1">
+/**
+ *
+ * NOTE: This sets the maximum page width when using this viewport meta tag.
+ * Mobile devices will downscale from this size.
+ * <meta name="viewport" content="width=device-width,maximum-scale=5">
+ *
+ */
 
 @media (max-width: 375px) {
   body {
