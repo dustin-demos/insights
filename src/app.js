@@ -56,15 +56,16 @@ const dispatch = app({
     }
   },
   pages: {
-    '/': Landing,
+    // Served under /onclick-insights/ in the demos container, so routes carry that prefix.
+    '/onclick-insights/': Landing,
     '/missing': Missing,
 
-    '/overview': Overview,
-    '/hashtags': Hashtags,
-    '/sources': Sources
+    '/onclick-insights/overview': Overview,
+    '/onclick-insights/hashtags': Hashtags,
+    '/onclick-insights/sources': Sources
 
-    // '/discover': Discover,
-    // '/suggested': Suggested,
+    // '/onclick-insights/discover': Discover,
+    // '/onclick-insights/suggested': Suggested,
   }
 })
 

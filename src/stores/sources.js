@@ -211,6 +211,21 @@ const process = (sources, key) => {
  *
  */
 
+import { sampleImport } from './sampleData'
+
+export const loadSampleData = ({ sources, hashtags }) => {
+  const alreadyLoaded = sources.imports.some(i => i.name === sampleImport.name)
+
+  if (!alreadyLoaded) {
+    sources.imports.push(sampleImport)
+    localStorage.setItem('imports', JSON.stringify(sources.imports))
+  }
+
+  return {
+    sources: process(sources, hashtags.comboMethod)
+  }
+}
+
 export const restoreImports = ({ sources, hashtags }) => {
   const json = localStorage.getItem('imports')
 

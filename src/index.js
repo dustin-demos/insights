@@ -18,7 +18,7 @@ const render = data => {
       <meta name='author' content={data.author}/>
       <meta name='description' content={data.description}/>
       <meta name='viewport' content={data.viewport}/>
-      <link rel='icon' href='/cache/logo.svg'/>
+      <link rel='icon' href='/onclick-insights/cache/logo.svg'/>
       {[styles]}
       <body>
         <noscript>Please enable JavaScript and try again.</noscript>

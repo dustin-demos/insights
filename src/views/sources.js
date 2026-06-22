@@ -113,6 +113,10 @@ const Sources = (state, dispatch) => {
     dispatch(sources.removeImport, index)
   }
 
+  const loadSample = () => {
+    dispatch(sources.loadSampleData)
+  }
+
   const date = Date.now()
   const json = JSON.stringify({ date, posts: state.sources.posts })
 
@@ -126,6 +130,7 @@ const Sources = (state, dispatch) => {
           <button onclick={open}>Import from Instagram</button>
           <ImportJSON onImport={importJSON} />
           <a download={`${date}-compiled.json`} href={file}>Download All</a>
+          <button onclick={loadSample}>Load Sample Data</button>
         </div>
         <Placeholder show={state.sources.imports.length} message='Start by importing from instagram or a JSON file.'>
           <SourcesTable imports={state.sources.imports} onDelete={removeImport} />
