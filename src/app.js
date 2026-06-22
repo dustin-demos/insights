@@ -56,16 +56,16 @@ const dispatch = app({
     }
   },
   pages: {
-    // Served under /onclick-insights/ in the demos container, so routes carry that prefix.
-    '/onclick-insights/': Landing,
+    // Served under /instatistics/ in the demos container, so routes carry that prefix.
+    '/instatistics/': Landing,
     '/missing': Missing,
 
-    '/onclick-insights/overview': Overview,
-    '/onclick-insights/hashtags': Hashtags,
-    '/onclick-insights/sources': Sources
+    '/instatistics/overview': Overview,
+    '/instatistics/hashtags': Hashtags,
+    '/instatistics/sources': Sources
 
-    // '/onclick-insights/discover': Discover,
-    // '/onclick-insights/suggested': Suggested,
+    // '/instatistics/discover': Discover,
+    // '/instatistics/suggested': Suggested,
   }
 })
 

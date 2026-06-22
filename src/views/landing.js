@@ -5,7 +5,7 @@ const Landing = (state, dispatch) => {
   return (
     <div class='landing'>
       <div class='landing-graphic'>
-        <Link to='/onclick-insights/overview'>Continue to Insights</Link>
+        <Link to='/instatistics/overview'>Continue to Instatistics</Link>
       </div>
       <div class='landing-footer'>
         © Dustin Dowell, {process.env.YEAR + '\n'}

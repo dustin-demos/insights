@@ -9,7 +9,7 @@ const Continue = props => {
   return [
     div({ class: 'card-graphic' }),
     div({ class: 'card-main' }, [
-      h(h1, 'Onclick Insights'),
+      h(h1, 'Instatistics'),
       h(h2, 'Instagram Analytics for Business'),
       h(p, 'First things first, we need access to a Facebook account that\'s connected to a Business Instagram account.')
     ]),

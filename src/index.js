@@ -18,7 +18,7 @@ const render = data => {
       <meta name='author' content={data.author}/>
       <meta name='description' content={data.description}/>
       <meta name='viewport' content={data.viewport}/>
-      <link rel='icon' href='/onclick-insights/cache/logo.svg'/>
+      <link rel='icon' href='/instatistics/cache/logo.svg'/>
       {[styles]}
       <body>
         <noscript>Please enable JavaScript and try again.</noscript>
@@ -30,7 +30,7 @@ const render = data => {
 }
 
 const options = {
-  title: 'Onclick Insights | Instagram Analytics for Business',
+  title: 'Instatistics | Instagram Analytics for Business',
   author: 'Dustin Dowell',
   description: 'Instagram Analytics for Business',
   viewport: 'width=device-width,maximum-scale=5'

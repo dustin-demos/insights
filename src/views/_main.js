@@ -7,15 +7,15 @@ const Main = (data, slot) => (state, dispatch) => {
   return (
     <div class='main'>
       <div class='main-side'>
-        <Link to='/onclick-insights/'>Instatistics</Link>
+        <Link to='/instatistics/'>Instatistics</Link>
         <nav class='main-nav'>
-          <Link to='/onclick-insights/overview' class='-icon-overview' >Overview</Link>
-          <Link to='/onclick-insights/hashtags' class='-icon-hashtags'>Hashtags</Link>
-          <Link to='/onclick-insights/sources' class='-icon-sources' >Sources</Link>
-          <Link to='/onclick-insights/insights' class='-icon-insights -disabled' >Insights</Link>
-          <Link to='/onclick-insights/suggested' class='-icon-suggested -disabled' >Suggested</Link>
-          <Link to='/onclick-insights/discover' class='-icon-discover -disabled' >Discover</Link>
-          <Link to='/onclick-insights/discover' class='-icon-settings -disabled' >Settings</Link>
+          <Link to='/instatistics/overview' class='-icon-overview' >Overview</Link>
+          <Link to='/instatistics/hashtags' class='-icon-hashtags'>Hashtags</Link>
+          <Link to='/instatistics/sources' class='-icon-sources' >Sources</Link>
+          <Link to='/instatistics/insights' class='-icon-insights -disabled' >Insights</Link>
+          <Link to='/instatistics/suggested' class='-icon-suggested -disabled' >Suggested</Link>
+          <Link to='/instatistics/discover' class='-icon-discover -disabled' >Discover</Link>
+          <Link to='/instatistics/discover' class='-icon-settings -disabled' >Settings</Link>
         </nav>
         <footer class='main-footer'>
           <h1>© Dustin Dowell, {state.footer.year}</h1>
